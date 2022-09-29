@@ -1,0 +1,28 @@
+ion-toolbar {
+  --background: #2dd36f !important;
+}
+
+.agendar {
+  color: white;
+  font-weight: bold;
+  float: right !important;
+  font-size: 1.5rem;
+}
+
+.img {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.noUser {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+ion-spinner {
+  margin: auto;
+  color: #2dd36f !important;
+}

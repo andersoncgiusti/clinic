@@ -1,0 +1,133 @@
+<ion-content>
+  <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)">
+    <ion-toolbar color="primary">
+      <!-- <ion-buttons slot="start">
+        <ion-button (click)="close()">
+          <ion-icon name="close" slot="icon-only" class="icon"></ion-icon>
+        </ion-button>
+      </ion-buttons> -->
+      <ion-buttons slot="start">
+        <ion-button color="light" (click)="close()">Cancelar</ion-button>
+      </ion-buttons>
+      <!-- <ion-title>Editar/ Excluir</ion-title> -->
+      <ion-buttons slot="end">
+        <ion-button type="submit">
+          <ion-icon name="pencil-outline" class="icon"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="onDelete(this.agendamento.id)">
+          <!-- <ion-icon name="checkmark" slot="icon-only" class="icon"></ion-icon>
+          <ion-icon name="checkmark" slot="icon-only" class="icon"></ion-icon> -->
+          <ion-icon name="trash-bin-outline" class="icon"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+    <ion-item style="display: none;">
+      <ion-input type="text" value="{{ id }}" name="idEdt" [(ngModel)]="id"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Paciente</ion-label>
+      <ion-input type="text" value="{{ title }}" name="titleEdt" [(ngModel)]="title"></ion-input>
+    </ion-item>
+    <ion-item button="true" detail="false">
+      <ion-label position="stacked">Dia</ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select interface="popover" placeholder="Dia" value="{{ startTime }}" name="startTimeEdt" [(ngModel)]="startTime">
+            <ion-select-option value="01">01</ion-select-option>
+            <ion-select-option value="02">02</ion-select-option>
+            <ion-select-option value="03">03</ion-select-option>
+            <ion-select-option value="04">04</ion-select-option>
+            <ion-select-option value="05">05</ion-select-option>
+            <ion-select-option value="06">06</ion-select-option>
+            <ion-select-option value="07">07</ion-select-option>
+            <ion-select-option value="08">08</ion-select-option>
+            <ion-select-option value="09">09</ion-select-option>
+            <ion-select-option value="10">10</ion-select-option>
+            <ion-select-option value="11">11</ion-select-option>
+            <ion-select-option value="12">12</ion-select-option>
+            <ion-select-option value="13">13</ion-select-option>
+            <ion-select-option value="14">14</ion-select-option>
+            <ion-select-option value="15">15</ion-select-option>
+            <ion-select-option value="16">16</ion-select-option>
+            <ion-select-option value="17">17</ion-select-option>
+            <ion-select-option value="18">18</ion-select-option>
+            <ion-select-option value="19">19</ion-select-option>
+            <ion-select-option value="20">20</ion-select-option>
+            <ion-select-option value="21">21</ion-select-option>
+            <ion-select-option value="22">22</ion-select-option>
+            <ion-select-option value="23">23</ion-select-option>
+            <ion-select-option value="24">24</ion-select-option>
+            <ion-select-option value="25">25</ion-select-option>
+            <ion-select-option value="26">26</ion-select-option>
+            <ion-select-option value="27">27</ion-select-option>
+            <ion-select-option value="28">28</ion-select-option>
+            <ion-select-option value="29">29</ion-select-option>
+            <ion-select-option value="30">30</ion-select-option>
+            <ion-select-option value="31">31</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+    <ion-item button="true" detail="false">
+      <ion-label position="stacked">Mês</ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select interface="popover" placeholder="Mês" value="{{ month }}" name="monthEdt" [(ngModel)]="month">
+            <ion-select-option value="01">Janeiro</ion-select-option>
+            <ion-select-option value="02">Fevereiro</ion-select-option>
+            <ion-select-option value="03">Março</ion-select-option>
+            <ion-select-option value="04">Abril</ion-select-option>
+            <ion-select-option value="05">Maio</ion-select-option>
+            <ion-select-option value="06">Junho</ion-select-option>
+            <ion-select-option value="07">Julho</ion-select-option>
+            <ion-select-option value="08">Agosto</ion-select-option>
+            <ion-select-option value="09">Setembro</ion-select-option>
+            <ion-select-option value="10">Outubro</ion-select-option>
+            <ion-select-option value="11">Novembro</ion-select-option>
+            <ion-select-option value="12">Dezembro</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+    <ion-item button="true" detail="false">
+      <ion-label position="stacked">Horário</ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select interface="popover"  placeholder="Horário" value="{{ hours }}" name="hoursEdt" [(ngModel)]="hours">
+            <ion-select-option value="07">07:00</ion-select-option>
+            <ion-select-option value="08">08:00</ion-select-option>
+            <ion-select-option value="09">09:00</ion-select-option>
+            <ion-select-option value="10">10:00</ion-select-option>
+            <ion-select-option value="11">11:00</ion-select-option>
+            <ion-select-option value="12">12:00</ion-select-option>
+            <ion-select-option value="13">13:00</ion-select-option>
+            <ion-select-option value="14">14:00</ion-select-option>
+            <ion-select-option value="15">15:00</ion-select-option>
+            <ion-select-option value="16">16:00</ion-select-option>
+            <ion-select-option value="17">17:00</ion-select-option>
+            <ion-select-option value="18">18:00</ion-select-option>
+            <ion-select-option value="19">19:00</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+    <ion-item button="true" detail="false">
+      <ion-label position="stacked">Sessões</ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select interface="popover" placeholder="Sessões" value="{{ endTime }}" name="endTimeEdt" [(ngModel)]="endTime">
+            <ion-select-option value="1">1</ion-select-option>
+            <ion-select-option value="2">2</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label position="stacked">Fisioterapeuta</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item> -->
+  </form>
+</ion-content>

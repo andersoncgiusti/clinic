@@ -1,0 +1,44 @@
+ion-toolbar {
+  --background: #2dd36f !important;
+}
+
+.agendar {
+  color: white;
+  font-weight: bold;
+  float: right !important;
+  font-size: 1.5rem;
+}
+
+.criar {
+  text-align: center !important;
+  align-items: center !important;
+  margin: 5%;
+}
+
+.img {
+  display: flex;
+  align-items: center;
+  margin-top: 10rem;
+  margin-bottom: -6rem;
+  z-index: 100;
+}
+
+ion-segment {
+  margin: 0.5rem;
+  width: 95%;
+}
+
+.avatarId {
+  margin: auto;
+  height: 40%;
+  width: 40%;
+}
+
+ion-spinner {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70%;
+  color: #2dd36f !important;
+  // width: 10%;
+}

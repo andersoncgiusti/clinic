@@ -1,0 +1,158 @@
+const User = require('../models/user.model')
+const Prontuario = require('../models/prontuarios.model')
+const ObjectID = require('mongodb').ObjectID
+
+module.exports = { 
+    userGetPacient: async (req, res) => {
+        try {
+            const usersPacient = await User.find({ userPermission: {$eq: 'paciente'} }).populate('prontuarios');          
+            
+            res.status(200).json({
+                message: 'Consulting users pacient with successfully!',
+                user: usersPacient
+            });
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }  
+    },
+    userGet: async (req, res) => {  
+        try {
+            const users = await User.find().populate(['prontuarios']);
+            const pacient = await User.find({ userPermission: {$eq: 'paciente'} }).count();
+            const administrator = await User.find({ userPermission: {$eq: 'administrador'} }).count();
+            const physiotherapist = await User.find({ userPermission: {$eq: 'fisioterapeuta'} }).count();
+         
+            res.status(200).json({
+                message: 'Consulting users with successfully!',
+                user: users,
+                pacient: pacient,
+                administrator: administrator,
+                physiotherapist: physiotherapist
+            });
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }          
+    },
+    userGetId: async (req, res, next) => {
+        // try {
+        //     const paciente = await Paciente.findById(req.params.id)
+        //     res.json(paciente)
+        //     if (paciente == null) {
+        //         return res.status(404).json({ message: 'Paciente not found!' })
+        //     }
+        // } catch (error) {
+        //     res.status(500).json({ message: error.message })
+        // }  
+        // next()    
+    },
+    userPost: async (req, res, next) => {  
+        // const user = new User({
+        //     userName: req.body.userName,
+        //     userLastName: req.body.userLastName,
+        //     userBirth: req.body.userBirth,
+        //     userPhone: req.body.userPhone,
+        //     userEmail: req.body.userEmail,
+        //     userCpf: req.body.userCpf,
+        //     userAddress: req.body.userAddress,
+        //     userNumber: req.body.userNumber,
+        //     userComplement: req.body.userComplement,
+        //     userCity: req.body.userCity,
+        //     userState: req.body.userState,
+        //     userPermission: req.body.userPermission,
+        // });        
+
+        // try {
+        //     await user.save().then(createdUser => {
+        //         // console.log(createdUser);
+        //         res.status(201).json({
+        //             message: 'Add user with successfully!',
+        //             userId: createdUser._id
+        //         })
+        //     })           
+        // } catch (error) {
+        //     res.status(400).json({ message: error.message })
+        // }  
+        
+        try {
+            const userScheduling = await User.create(req.body);
+            return res.send({ userScheduling })
+        } catch (error) {
+            return res.status(400).json({ message: error.message })
+        }
+
+        // await Promise.all(perguntas.map(Prontuario => {
+        //     const avaliacaoPergunta = new Prontuario({ ...treatment, user: user._id })        
+        //     await avaliacaoPergunta.save()        
+        //     avaliacao.perguntas.push(avaliacaoPergunta)
+        // }))
+        
+        // await avaliacao.save()
+        
+        // return res.send({ avaliacao })        
+        
+    },
+    userUpdateId: async (req, res, next) => {                
+
+        const user = ({
+            _id: req.body.id,
+            userName: req.body.userName,
+            userLastName: req.body.userLastName,
+            userBirth: req.body.userBirth,
+            userPhone: req.body.userPhone,
+            userEmail: req.body.userEmail,
+            userCpf: req.body.userCpf,
+            userAddress: req.body.userAddress,
+            userNumber: req.body.userNumber,
+            userComplement: req.body.userComplement,
+            userCity: req.body.userCity,
+            userState: req.body.userState,
+            userPermission: req.body.userPermission
+        }) 
+
+        try {            
+            await User.updateOne({ _id: req.params.id }, user)
+            .then(updateUser => {
+                console.log("updateUser", updateUser);
+                res.status(200).json({ 
+                    message: 'Update user with successfully!',
+                    userId: updateUser._id 
+                })
+            }) 
+        } catch (error) {
+            res.status(400).json({ message: error.message })
+        }  
+        next() 
+    },
+    chartUpdateId: async (req, res, next) => {              
+        try {            
+            const user = await User.findById({ _id: req.params.id});
+            const userPacientChat = new Prontuario({
+                treatment: req.body.treatment,
+                user: user._id
+            })
+
+            await userPacientChat.save()
+            .then(createdChart => {
+                res.status(201).json({
+                    message: 'Add chart with successfully!',
+                    userId: createdChart._id
+                })
+            })            
+        } catch (error) {
+            return res.status(400).send({ message: error.message });
+        }
+    },
+    userDeleteId: async (req, res, next) => {
+        try {
+            const user = await User.deleteOne({ _id: req.params.id })
+            if (user !== null) {
+                return res.status(200).json({ message: 'User was deleted' })
+            } else {
+                return res.status(404).json({ message: 'User ID does not exist to be deleted' })
+            }
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }  
+        next()
+    }
+}

@@ -1,0 +1,37 @@
+### register
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+    "name": "Anderson Giusti",
+    "email": "anderson.giusti@ibm.com",
+    "password": "123456"
+}
+###
+### authenticate
+POST http://localhost:3000/api/authenticate
+Content-Type: application/json
+
+{
+    "email": "anderson.giusti@ibm.com",
+    "password": "123456"
+}
+###
+### new passwpord
+POST http://localhost:3000/api/forgot_password
+Content-Type: application/json
+
+{
+    "userEmail": "anderson_cg12@hotmail.com"
+}
+###
+### reset password
+POST http://localhost:3000/api/reset_password
+Content-Type: application/json
+
+{
+    "userEmail": "anderson_cg12@hotmail.com",
+    "token": "aaaa69b6e6cad9a72cc1a135ba61e6965c8ba7f29d1a",
+    "userPassword": "123456"
+}
+###

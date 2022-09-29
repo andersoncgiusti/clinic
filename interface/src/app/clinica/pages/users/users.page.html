@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="agendar">Usuários</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" routerLink="/clinica/tab3">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
+
+<ion-content  *ngIf="!isLoading">
+  <ion-searchbar placeholder="Pesquise"></ion-searchbar><br>
+
+  <div *ngIf="this.users.length <= 0">
+    <ion-label class="noUser">Nenhum usuário criado</ion-label>
+    <ion-img class="img" width="80" height="80" src="../../../assets/icon/users.png"></ion-img>
+  </div>
+
+  <div *ngIf="this.users.length > 0">
+    <ion-list *ngFor="let user of users" >
+        <ion-item [routerLink]="['/user-id/', user.id]">
+
+          <ion-avatar slot="start">
+            <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+          </ion-avatar>
+
+          <ion-label>
+            <h2>{{ user.userName }}</h2>
+            <p>{{ user.userPermission | titlecase }}</p>
+          </ion-label>
+
+        </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

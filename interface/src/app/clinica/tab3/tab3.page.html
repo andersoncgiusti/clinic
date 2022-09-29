@@ -1,0 +1,349 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="agendar">
+      Cadastrar
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-spinner name="circles"></ion-spinner> -->
+
+<ion-content>
+  <ion-segment>
+    <ion-segment-button (click)="cliente();">
+      <ion-label>Paciente</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="administrador();">
+      <ion-label>Admin</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="fisioterapeuta();">
+      <ion-label>Fisioterapeuta</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- <ion-searchbar id="open-modal" disabled="false" placeholder="Pesquise"></ion-searchbar> -->
+
+  <ion-button color="grey" routerLink="/users">
+    <ion-icon name="search-outline"></ion-icon>
+  </ion-button>
+
+  <ion-img *ngIf="!this.paciente && !this.admin && !this.fisio" class="img" width="80" height="80" src="../../../assets/icon/createUser.png"></ion-img>
+
+  <ion-modal slot="top" #modal trigger="open-modal" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title class="agendar">Usuários</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modal.dismiss(); details(id);">Cancelar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-searchbar placeholder="Pesquise" *ngIf="!upTitle"></ion-searchbar><br>
+
+        <ion-list *ngFor="let user of users">
+
+          <ion-item *ngIf="!upTitle" (click)="detail = detail == user.id ? '':user.id; up();">
+
+            <ion-avatar slot="start">
+              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+            </ion-avatar>
+
+            <ion-label>
+              <h2 *ngIf="!upTitle">{{ user.userName }}</h2>
+              <p *ngIf="!upTitle">{{ user.userPermission | titlecase }}</p>
+            </ion-label>
+
+          </ion-item>
+
+          <div class="detail" *ngIf="detail == user.id">
+            <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)">
+
+              <ion-avatar slot="start" *ngIf="upTitle" class="avatarId">
+                <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+              </ion-avatar>
+
+              <ion-item style="display: none;">
+                <ion-input type="txt" value="{{ user.id }}" name="id" [(ngModel)]="user.id"></ion-input>
+              </ion-item>
+
+              <ion-item style="display: none;">
+                <ion-input type="txt" value="{{ user.userPermission }}" name="userPermission" [(ngModel)]="user.userPermission"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Nome</ion-label>
+                <ion-input type="txt" value="{{ user.userName }}" name="userName" [(ngModel)]="this.user.userName"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Sobrenome</ion-label>
+                <ion-input type="txt" value="{{ user.userLastName }}" name="userLastName" [(ngModel)]="user.userLastName"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Data Nascimento</ion-label>
+                <ion-input type="txt" value="{{ user.userBirth }}" name="userBirth" [(ngModel)]="user.userBirth"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Telefone/Celular</ion-label>
+                <ion-input type="txt" prefix="+55" value="{{ user.userPhone }}" name="userPhone" [(ngModel)]="user.userPhone"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">E-mail</ion-label>
+                <ion-input type="txt" value="{{ user.userEmail }}" name="userEmail" [(ngModel)]="user.userEmail"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">CPF</ion-label>
+                <ion-input type="txt" maxlength="15" value="{{ user.userCpf }}" name="userCpf" [(ngModel)]="user.userCpf"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Rua/Av</ion-label>
+                <ion-input type="txt" value="{{ user.userAddress }}" name="userAddress" [(ngModel)]="user.userAddress"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Número</ion-label>
+                <ion-input type="txt" value="{{ user.userNumber }}" name="userNumber" [(ngModel)]="user.userNumber"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Complemento</ion-label>
+                <ion-input type="txt" value="{{ user.userComplement }}" name="userComplement" [(ngModel)]="user.userComplement"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Cidade</ion-label>
+                <ion-input type="txt" value="{{ user.userCity }}" name="userCity" [(ngModel)]="user.userCity"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Estado</ion-label>
+                <ion-input type="txt" value="{{ user.userState }}" name="userState" [(ngModel)]="user.userState"></ion-input>
+              </ion-item>
+
+              <div class="criar">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <ion-button expand="block" color="success" type="submit" (click)="detailsBack();">
+                        <ion-icon name="pencil-outline" class="icon"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button expand="block" color="success" type="submit" (click)="onDelete(user.id); detailsBack();">
+                        <ion-icon name="trash-bin-outline" class="icon"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </form>
+          </div>
+        </ion-list>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <div class="paciente" *ngIf="paciente" #paciente>
+    <ion-item style="display: none;">
+      <ion-input type="txt" name="userPermission" [(ngModel)]="pacienteEvent.userPermission"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input type="txt" name="userName" [(ngModel)]="pacienteEvent.userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-input type="txt"name="userLastName" [(ngModel)]="pacienteEvent.userLastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-input type="text" name="userBirth" [(ngModel)]="pacienteEvent.userBirth"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-input type="txt" name="userPhone" [(ngModel)]="pacienteEvent.userPhone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input type="txt" name="userEmail" [(ngModel)]="pacienteEvent.userEmail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">CPF</ion-label>
+      <ion-input type="txt" name="userCpf" [(ngModel)]="pacienteEvent.userCpf"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Rua/Av</ion-label>
+      <ion-input type="txt" name="userAddress" [(ngModel)]="pacienteEvent.userAddress"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Número</ion-label>
+      <ion-input type="txt" name="userNumber" [(ngModel)]="pacienteEvent.userNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Complemento</ion-label>
+      <ion-input type="txt" name="userComplement" [(ngModel)]="pacienteEvent.userComplement"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cidade</ion-label>
+      <ion-input type="txt" name="userCity" [(ngModel)]="pacienteEvent.userCity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Estado</ion-label>
+      <ion-input type="txt" name="userState" [(ngModel)]="pacienteEvent.userState"></ion-input>
+    </ion-item>
+
+    <div class="criar">
+      <ion-button expand="block" color="success" (click)="createPaciente(); clearPaciente()">Criar</ion-button>
+    </div>
+  </div>
+
+  <div class="admin" *ngIf="admin" #admin>
+    <ion-item style="display: none;">
+      <ion-input type="txt" name="userPermission" [(ngModel)]="adminEvent.userPermission"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input type="txt" name="userName" [(ngModel)]="adminEvent.userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-input type="txt" name="userLastName" [(ngModel)]="adminEvent.userLastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-input type="txt" name="userBirth" [(ngModel)]="adminEvent.userBirth"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-input type="txt" name="userPhone" [(ngModel)]="adminEvent.userPhone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input type="txt" name="userEmail" [(ngModel)]="adminEvent.userEmail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">CPF</ion-label>
+      <ion-input type="txt" name="userCpf" [(ngModel)]="adminEvent.userCpf"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Rua/Av</ion-label>
+      <ion-input type="txt" name="userAddress" [(ngModel)]="adminEvent.userAddress"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Número</ion-label>
+      <ion-input type="txt" name="userNumber" [(ngModel)]="adminEvent.userNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Complemento</ion-label>
+      <ion-input type="txt" name="userComplement" [(ngModel)]="adminEvent.userComplement"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cidade</ion-label>
+      <ion-input type="txt" name="userCity" [(ngModel)]="adminEvent.userCity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Estado</ion-label>
+      <ion-input type="txt" name="userState" [(ngModel)]="adminEvent.userState"></ion-input>
+    </ion-item>
+
+    <div class="criar">
+      <ion-button expand="block" color="success" (click)="createAdmin(); clearAdmin()">Criar</ion-button>
+    </div>
+  </div>
+
+  <div class="fisio" *ngIf="fisio " #fisio>
+    <ion-item style="display: none;">
+      <ion-input type="txt" name="" [(ngModel)]="fisioEvent.userPermission"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input type="txt" name="userName" [(ngModel)]="fisioEvent.userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-input type="txt" name="userLastName" [(ngModel)]="fisioEvent.userLastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-input type="txt" name="userBirth" [(ngModel)]="fisioEvent.userBirth"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-input type="txt" name="userPhone" [(ngModel)]="fisioEvent.userPhone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input type="txt" name="userEmail" [(ngModel)]="fisioEvent.userEmail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">CPF</ion-label>
+      <ion-input type="txt" name="userCpf" [(ngModel)]="fisioEvent.userCpf"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Rua/Av</ion-label>
+      <ion-input type="txt" name="userAddress" [(ngModel)]="fisioEvent.userAddress"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Número</ion-label>
+      <ion-input type="txt" name="userNumber" [(ngModel)]="fisioEvent.userNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Complemento</ion-label>
+      <ion-input type="txt" name="userComplement" [(ngModel)]="fisioEvent.userComplement"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cidade</ion-label>
+      <ion-input type="txt" name="userCity" [(ngModel)]="fisioEvent.userCity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Estado</ion-label>
+      <ion-input type="txt" name="userState" [(ngModel)]="fisioEvent.userState"></ion-input>
+    </ion-item>
+
+    <div class="criar">
+      <ion-button expand="block" color="success" (click)="createFisio(); clearFisio()">Criar</ion-button>
+    </div>
+  </div>
+
+</ion-content>

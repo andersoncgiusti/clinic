@@ -1,0 +1,26 @@
+ion-toolbar {
+  --background: #2dd36f !important;
+}
+
+.agendar {
+  color: white;
+  font-weight: bold;
+}
+
+.icon-only {
+  color: white;
+}
+
+:host ::ng-deep {
+    .monthview-container {
+        height: auto !important;
+    }
+
+    .event-detail-container {
+        display: none;
+    }
+}
+
+// .hide {
+//   display: none;
+// }
