@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { ChartService } from 'src/app/services/chart.service';
 import { Chart } from 'src/app/models/chart.model';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { userChart } from 'src/app/models/user-chart.model';
 
 @Component({
@@ -52,6 +52,7 @@ export class ChartIdPage implements OnInit {
     public router: ActivatedRoute,
     public chartService: ChartService,
     private navCtrl: NavController,
+    public modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -110,48 +111,25 @@ export class ChartIdPage implements OnInit {
     })
   }
 
-  chartEvent = {
-    chartId: '',
-    chartDescription: ''
+  events = {
+    treatment: '',
   };
 
-  createChart() {
-  //   const prontuarios = [];
-
-  //   prontuarios.push({
-  //     chartId: this.chartEvent.chartId,
-  //     chartDescription: this.chartEvent.chartDescription,
-  //   });
-
-  //   // this.userService.addCommnets(
-  //   //   this.chartEvent.chartId,
-  //   //   this.chartEvent.chartDescription
-  //   // )
-
-  //   this.eventSource = prontuarios;
-  //   console.log(this.eventSource);
-
-  // }
-
-  // clearChart() {
-  //   setTimeout(()=> {
-  //     this.chartEvent.chartDescription = ''
-  //   }, 1000);
-  }
-
   ngSubmit(frm: any) {
+    if (frm.invalid) {
+      return;
+    }
 
-    // console.log(frm.value);
-    // this.teste = frm.value.treatment;
+    this.userService.updateChart(
+      frm.value.idChart,
+      this.events.treatment
+    )
 
-    // if (frm.invalid) {
-    //   return;
-    // }
-
-    // this.userService.updateChart(
-    //   frm.value.idChart,
-    //   frm.value.treatment
-    // )
+    setTimeout(()=> {
+      this.getChartParams();
+      this.modalController.dismiss();
+      this.events.treatment = ''
+    }, 1000);
   }
 
   getUsersCharts() {

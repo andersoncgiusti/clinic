@@ -50,14 +50,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    // user: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     require: true
-    // },
     prontuarios: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Prontuario',
+        require: true
+    }],
+    cashs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cash',
         require: true
     }],
     created: {

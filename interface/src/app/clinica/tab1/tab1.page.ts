@@ -8,6 +8,8 @@ import { SchedulingService } from 'src/app/services/scheduling.service';
 import { AnimationController } from '@ionic/angular';
 import { Chart } from 'src/app/models/chart.model';
 import { ChartService } from 'src/app/services/chart.service';
+import { CashService } from 'src/app/services/cash.service';
+import { Cash } from 'src/app/models/cash.model';
 
 @Component({
   selector: 'app-tab1',
@@ -25,6 +27,9 @@ export class Tab1Page implements OnInit {
   prontuarios: Chart[] = [];
   private prontuariosSub: Subscription;
 
+  cashs: Cash[] = [];
+  private cashsSub: Subscription;
+
   modal = false;
   showAddEvent: boolean;
   isModalOpen = false;
@@ -35,6 +40,9 @@ export class Tab1Page implements OnInit {
   physiotherapist;
   schedulingDay;
   schedulingMonth;
+  credit;
+  debt;
+  money;
 
   detail = '';
   eventSource = [];
@@ -44,6 +52,7 @@ export class Tab1Page implements OnInit {
     public userService: UserService,
     public schedulingService: SchedulingService,
     public chartService: ChartService,
+    public cashService: CashService,
     private animationCtrl: AnimationController
     ) {}
 
@@ -89,6 +98,13 @@ export class Tab1Page implements OnInit {
       this.schedulingMonth = data.agendamentoMonth;
     });
 
+    this.cashService.getModule()
+    .subscribe((data) => {
+      this.credit = data.credit;
+      this.debt = data.debt;
+      this.money = data.money;
+    });
+
   }
 
   openModal() {
@@ -116,25 +132,25 @@ export class Tab1Page implements OnInit {
     chartDescription: ''
   };
 
-  createChart() {
-    const prontuarios = [];
+  // createChart() {
+  //   const prontuarios = [];
 
-    prontuarios.push({
-      chartDescription: this.chartEvent.chartDescription
-    });
+  //   prontuarios.push({
+  //     chartDescription: this.chartEvent.chartDescription
+  //   });
 
-    this.chartService.addChart(
-      this.chartEvent.chartDescription
-    )
+  //   this.chartService.addChart(
+  //     this.chartEvent.chartDescription
+  //   )
 
-    this.eventSource = prontuarios;
-    console.log(this.eventSource);
+  //   this.eventSource = prontuarios;
+  //   console.log(this.eventSource);
 
-  }
+  // }
 
-  clearChart() {
-    setTimeout(()=> {
-      this.chartEvent.chartDescription = ''
-    }, 1000);
-  }
+  // clearChart() {
+  //   setTimeout(()=> {
+  //     this.chartEvent.chartDescription = ''
+  //   }, 1000);
+  // }
 }

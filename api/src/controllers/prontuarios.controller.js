@@ -9,7 +9,7 @@ module.exports = {
             // const prontuarios = await Prontuario.find({ user: {$eq: idUser} });
             const prontuarios = await Prontuario.find();
             res.status(200).json({
-                message: 'Consulting prontaios with successfully!',
+                message: 'Consulting prontuarios with successfully!',
                 prontuario: prontuarios
             })
         } catch (error) {

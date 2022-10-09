@@ -16,3 +16,23 @@ ion-toolbar {
   margin-bottom: -6rem;
   z-index: 100;
 }
+
+.total {
+  font-weight: bold;
+}
+
+ion-button {
+  margin-left: 3%;
+  margin-right: 3%;
+  --background: #2dd36f !important;
+  color: white;
+  font-weight: bold;
+}
+
+.venda {
+  margin-top: 15px;
+}
+
+.paciente {
+  display: none;
+}

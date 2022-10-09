@@ -29,6 +29,13 @@ export class TabsPage implements OnInit {
       this.schedulingDay = data.agendamentoDay;
     });
 
+    setInterval(() => {
+      this.schedulingService.getAgendamentosDay()
+      .subscribe((data) => {
+        this.schedulingDay = data.agendamentoDay;
+      })
+    }, 360000);
+
   }
 
 }

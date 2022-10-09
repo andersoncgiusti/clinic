@@ -43,6 +43,10 @@ const routes: Routes = [
     loadChildren: () => import('./clinica/pages/chart-id/chart-id.module').then( m => m.ChartIdPageModule)
   },
   {
+    path: 'clinica/tab1',
+    loadChildren: () => import('./clinica/tab1/tab1.module').then( m => m.Tab1PageModule)
+  },
+  {
     path: 'clinica/tab2',
     loadChildren: () => import('./clinica/tab3/tab3.module').then( m => m.Tab3PageModule)
   },
@@ -61,6 +65,22 @@ const routes: Routes = [
   {
     path: 'chart-id',
     loadChildren: () => import('./clinica/pages/chart-id/chart-id.module').then( m => m.ChartIdPageModule)
+  },
+  {
+    path: 'cash',
+    loadChildren: () => import('./clinica/pages/cash/cash.module').then( m => m.CashPageModule)
+  },
+  {
+    path: 'personal',
+    loadChildren: () => import('./clinica/pages/personal/personal.module').then( m => m.PersonalPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./clinica/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   }
 ];
 @NgModule({

@@ -174,20 +174,11 @@ export class UserService {
       treatment: treatment
     };
 
-    console.log(">>>>>>>>>>>>", user);
-
     this.http.put(environment.apiUrl + '/api/userChart/' + userId, user)
     .subscribe(() => {
-      // const usersUpdated = [...this.users];
-      // const oldUserIndex = usersUpdated.findIndex(user => user.id !== userId)
-      // usersUpdated[oldUserIndex] = user;
-      // this.users = usersUpdated;
-      // this.usersUpdated.next([...this.users]);
-      // this.router.navigate(["/users"]);
       const updatedUser = this.users.filter(user => user.id !== userId);
       this.users = updatedUser;
       this.usersUpdated.next([...this.users]);
-      this.router.navigate(["/users"]);
     });
   }
 

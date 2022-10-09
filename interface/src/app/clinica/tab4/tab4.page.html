@@ -6,7 +6,74 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-img class="img" width="80" height="80" src="../../../assets/icon/transactions.png"></ion-img>
+<!-- <ion-img class="img" width="80" height="80" src="../../../assets/icon/transactions.png"></ion-img> -->
 
 
-<ion-content></ion-content>
+<ion-content>
+
+  <ion-item>
+    <ion-label>CPF</ion-label>
+    <ion-input type="number" max="14" [(ngModel)]="package.cpf"></ion-input>
+
+    <ion-chip>
+      <ion-avatar>
+        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label>Anderson</ion-label>
+      <ion-icon name="close-circle"></ion-icon>
+      <div class="paciente">
+        <ion-input type="text" [(ngModel)]="package.id"></ion-input>
+        <ion-input type="text" [(ngModel)]="package.name"></ion-input>
+        <ion-input type="text" [(ngModel)]="package.email"></ion-input>
+      </div>
+
+
+    </ion-chip>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="fixed">Sessões</ion-label>
+    <ion-input type="number" min="0" [(ngModel)]="package.sessions"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="fixed">Valor</ion-label>
+    <ion-input type="number" min="0" placeholder="R$" [(ngModel)]="package.value"></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-radio-group [(ngModel)]="package.pay">
+      <ion-list-header>
+        <ion-label>
+          Forma de Pagamento
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Cartão de Crédito</ion-label>
+        <ion-radio value="credito"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Cartão de Débito</ion-label>
+        <ion-radio value="debito"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pagamento em Dinheiro</ion-label>
+        <ion-radio value="dinheiro"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-item class="venda">
+    <ion-label class="total">Total da venda</ion-label>
+    <!-- <ion-note slot="end">Note (End)</ion-note> -->
+    <ion-input slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>R$ {{ this.valueTotal }}</ion-input>
+  </ion-item>
+
+  <ion-button expand="block" type="submit" (click)="sales();">Concluir</ion-button>
+
+
+
+</ion-content>

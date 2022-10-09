@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="agendar">Vendas</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="light" routerLink="/clinica/tab1">Voltar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
+
+<ion-content>
+
+  <!-- <div>
+    <ion-label>Outubro</ion-label><br><br>
+  </div> -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Crédito</ion-card-title>
+    </ion-card-header>
+
+    <div class="box">
+      <ion-label>Total de Hoje {{ this.credit }}, valor </ion-label><br>
+      <ion-label>Total do mês {{ this.creditTotal }}, valor </ion-label>
+    </div>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Débito</ion-card-title>
+    </ion-card-header>
+
+    <div class="box">
+      <ion-label>Total de Hoje {{ this.debt }}, valor </ion-label><br>
+      <ion-label>Total do mês {{ this.debtTotal }}, valor </ion-label>
+    </div>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Dinheiro</ion-card-title>
+    </ion-card-header>
+
+    <div class="box">
+      <ion-label>Total de Hoje {{ this.money }}, valor </ion-label><br>
+      <ion-label>Total do mês {{ this.moneyTotal }}, valor </ion-label>
+    </div>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Total de vendas</ion-card-title>
+    </ion-card-header>
+
+    <div class="box">
+      <ion-label>Total de Hoje {{ this.totalDay }}, valor </ion-label><br>
+      <ion-label>Total do mês {{ this.totalMonth }}, valor </ion-label>
+    </div>
+  </ion-card>
+</ion-content>

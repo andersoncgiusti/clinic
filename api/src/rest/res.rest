@@ -4,6 +4,18 @@ GET http://localhost:3000/api/project
 ###
 GET http://localhost:3000/api/project/632e077cbb7947ff446a2709
 ###
+###
+POST http://localhost:3000/api/cash 
+Content-Type: application/json
+
+{
+    "_id": "6334ab53981b14a6d5babab3",
+    "sessions": "10",
+    "value": "10",
+    "pay": "dinheiro",    
+    "total": "100"
+}
+###
 ### 
 POST http://localhost:3000/api/project
 Content-Type: application/json
@@ -132,7 +144,27 @@ GET http://localhost:3000/api/prontuario
 Content-Type: application/json
 
 {    
-    "_id": "6334b365838e279ddc26dd4c"
+    "user": "6334ab53981b14a6d5babab3",
+    "treatment": "delete Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis, leo ut scelerisque mattis, risus mauris vestibulum tellus, eget convallis felis purus ac lectus. Aliquam aliquam posuere elit non tincidunt. Nam accumsan nulla sed dui auctor, ut porttitor ex convallis. Suspendisse vehicula hendrerit orci. Morbi sodales eu libero interdum aliquet. Aenean mi est, vulputate nec efficitur ac, lacinia venenatis tellus. Cras sed libero eu felis rutrum hendrerit. Nulla scelerisque quis enim sollicitudin facilisis. Proin sed urna nec dolor ornare congue porttitor bibendum felis. Morbi eget libero a elit ullamcorper congue. Aliquam placerat vestibulum nibh, id luctus felis porttitor quis."
+
 }
 ### prontuario 
 GET http://localhost:3000/api/prontuario/6334ab53981b14a6d5babab3
+###
+POST http://localhost:3000/api/cash 
+Content-Type: application/json
+
+{
+    "sessions": "100",
+    "value": "100",
+    "pay": "debito",    
+    "total": "1000",
+    "user": "6334ab53981b14a6d5babab3"
+}
+###
+###
+GET http://localhost:3000/api/cash
+###
+###
+DELETE http://localhost:3000/api/cash/6342e380c3c514e93c49f1e7
+###
