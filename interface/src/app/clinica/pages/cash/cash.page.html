@@ -21,8 +21,8 @@
     </ion-card-header>
 
     <div class="box">
-      <ion-label>Total de Hoje {{ this.credit }}, valor </ion-label><br>
-      <ion-label>Total do mês {{ this.creditTotal }}, valor </ion-label>
+      <ion-label>Total de Hoje {{ this.credit }}, valor R$ {{ this.creditTotalDay }}</ion-label><br>
+      <ion-label>Total do mês {{ this.creditTotal }}, valor R$ {{ this.creditTotalMonth }}</ion-label>
     </div>
   </ion-card>
 
@@ -32,8 +32,8 @@
     </ion-card-header>
 
     <div class="box">
-      <ion-label>Total de Hoje {{ this.debt }}, valor </ion-label><br>
-      <ion-label>Total do mês {{ this.debtTotal }}, valor </ion-label>
+      <ion-label>Total de Hoje {{ this.debt }}, valor R$ {{ this.debtTotalDay }}</ion-label><br>
+      <ion-label>Total do mês {{ this.debtTotal }}, valor R$ {{ this.debtTotalMonth }}</ion-label>
     </div>
   </ion-card>
 
@@ -43,19 +43,22 @@
     </ion-card-header>
 
     <div class="box">
-      <ion-label>Total de Hoje {{ this.money }}, valor </ion-label><br>
-      <ion-label>Total do mês {{ this.moneyTotal }}, valor </ion-label>
+      <ion-label>Total de Hoje {{ this.money }}, valor R$ {{ this.moneyTotalDay }}</ion-label><br>
+      <ion-label>Total do mês {{ this.moneyTotal }}, valor R$ {{ this.moneyTotalMonth }}</ion-label>
     </div>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Total de vendas</ion-card-title>
+      <ion-item>
+        <ion-icon name="eye-outline" slot="end" routerLink="/cash-details"></ion-icon>
+        <ion-card-title>Total de vendas</ion-card-title>
+      </ion-item>
     </ion-card-header>
 
     <div class="box">
-      <ion-label>Total de Hoje {{ this.totalDay }}, valor </ion-label><br>
-      <ion-label>Total do mês {{ this.totalMonth }}, valor </ion-label>
+      <ion-label>Total de Hoje {{ this.totalDay }}, valor R$ {{ this.totalDayValue }}</ion-label><br>
+      <ion-label>Total do mês {{ this.totalMonth }}, valor R$ {{ this.totalMonthValue }}</ion-label>
     </div>
   </ion-card>
 </ion-content>

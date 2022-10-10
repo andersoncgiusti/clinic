@@ -21,7 +21,7 @@ module.exports = {
             const pacient = await User.find({ userPermission: {$eq: 'paciente'} }).count();
             const administrator = await User.find({ userPermission: {$eq: 'administrador'} }).count();
             const physiotherapist = await User.find({ userPermission: {$eq: 'fisioterapeuta'} }).count();
-         
+              
             res.status(200).json({
                 message: 'Consulting users with successfully!',
                 user: users,

@@ -35,7 +35,7 @@
       </ion-card-content>
       <ion-item>
         <ion-icon name="trash-outline" slot="end" color="success" class="delete" (click)="onDelete(this.item.id);"></ion-icon>
-        <ion-label class="date">Criado em {{ this.dateFormated }}</ion-label>
+        <ion-label class="date">Criado em {{ item.created | date : 'MM-dd-yyyy' }}</ion-label>
       </ion-item>
     </ion-card>
   </div>

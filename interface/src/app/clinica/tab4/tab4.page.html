@@ -15,19 +15,17 @@
     <ion-label>CPF</ion-label>
     <ion-input type="number" max="14" [(ngModel)]="package.cpf"></ion-input>
 
-    <ion-chip>
+    <ion-chip style="display: none;">
       <ion-avatar>
         <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
       <ion-label>Anderson</ion-label>
       <ion-icon name="close-circle"></ion-icon>
       <div class="paciente">
-        <ion-input type="text" [(ngModel)]="package.id"></ion-input>
+        <ion-input type="text" [(ngModel)]="package.user"></ion-input>
         <ion-input type="text" [(ngModel)]="package.name"></ion-input>
         <ion-input type="text" [(ngModel)]="package.email"></ion-input>
       </div>
-
-
     </ion-chip>
   </ion-item>
 
@@ -42,7 +40,7 @@
   </ion-item>
 
   <ion-list>
-    <ion-radio-group [(ngModel)]="package.pay">
+    <ion-radio-group [(ngModel)]="package.pay" (keyup)="calcSale();">
       <ion-list-header>
         <ion-label>
           Forma de Pagamento
@@ -68,11 +66,11 @@
 
   <ion-item class="venda">
     <ion-label class="total">Total da venda</ion-label>
-    <!-- <ion-note slot="end">Note (End)</ion-note> -->
-    <ion-input slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>R$ {{ this.valueTotal }}</ion-input>
+    <ion-input style="display: none;" slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>R$ {{ this.valueTotal }}</ion-input>
+    <ion-input slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }}</ion-input>
   </ion-item>
 
-  <ion-button expand="block" type="submit" (click)="sales();">Concluir</ion-button>
+  <ion-button expand="block" type="submit" (click)="sales(); clearCash();">Concluir</ion-button>
 
 
 

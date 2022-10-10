@@ -4,10 +4,7 @@ const ObjectID = require('mongodb').ObjectID
 module.exports = { 
     cashGet: async (req, res) => {  
         try {
-            // const credit = await Cash.find({ pay: {$eq: 'credito'} }).count();            
-            // const debt = await Cash.find({ pay: {$eq: 'debito'} }).count();
-            // const money = await Cash.find({ pay: {$eq: 'dinheiro'} }).count();
-
+            
             const dataNow = new Date().toISOString().slice(0, 10);
             const dataYear = new Date();
             const year = dataYear.getFullYear(); 
@@ -81,6 +78,98 @@ module.exports = {
                 }
             }).count();  
 
+            const saleDay = await Cash.find({
+                created: { 
+                    $gte:new Date(`${dayInit}`), 
+                    $lt:new Date(`${dayFinaly}`)
+                }
+            }).populate(['user']); 
+            
+            const saleMonth = await Cash.find({
+                created: { 
+                    $gte:new Date(`${firstDayDate}`), 
+                    $lt:new Date(`${secondDayDate}`)
+                }
+            }).populate(['user']);
+
+            const creditValue = await Cash.find({ 
+                pay: {$eq: 'credito'},
+                created: { 
+                    $gte:new Date(`${dayInit}`), 
+                    $lt:new Date(`${dayFinaly}`)
+                }
+            });
+
+            let cashsDayCredit = 0
+            for (const cashs of creditValue) {
+                cashsDayCredit += eval(cashs.total)
+            }
+
+            const debtValue = await Cash.find({ 
+                pay: {$eq: 'debito'},
+                created: { 
+                    $gte:new Date(`${dayInit}`), 
+                    $lt:new Date(`${dayFinaly}`)
+                }
+            });
+
+            let cashsDayDebt = 0
+            for (const cashs of debtValue) {
+                cashsDayDebt += eval(cashs.total)
+            }
+
+            const moneyValue = await Cash.find({ 
+                pay: {$eq: 'dinheiro'},
+                created: { 
+                    $gte:new Date(`${dayInit}`), 
+                    $lt:new Date(`${dayFinaly}`)
+                }
+            });
+
+            let cashsDayMoney = 0
+            for (const cashs of moneyValue) {
+                cashsDayMoney += eval(cashs.total)
+            }
+
+            const creditValueMonth = await Cash.find({ 
+                pay: {$eq: 'credito'},
+                created: { 
+                    $gte:new Date(`${firstDayDate}`), 
+                    $lt:new Date(`${secondDayDate}`)
+                }
+            });
+
+            let cashsMonthCredit = 0
+            for (const cashs of creditValueMonth) {
+                cashsMonthCredit += eval(cashs.total)
+            }
+
+            const debtValueMonth = await Cash.find({ 
+                pay: {$eq: 'debito'},
+                created: { 
+                    $gte:new Date(`${firstDayDate}`), 
+                    $lt:new Date(`${secondDayDate}`)
+                }
+            });
+
+            let cashsMonthDebt = 0
+            for (const cashs of debtValueMonth) {
+                cashsMonthDebt += eval(cashs.total)
+            }
+
+            const moneyValueMonth = await Cash.find({ 
+                pay: {$eq: 'dinheiro'},
+                created: { 
+                    $gte:new Date(`${firstDayDate}`), 
+                    $lt:new Date(`${secondDayDate}`)
+                }
+            });
+
+            let cashsMonthMoney = 0
+            for (const cashs of moneyValueMonth) {
+                cashsMonthMoney += eval(cashs.total)
+            }
+
             const cashs = await Cash.find().populate(['user']);
             res.status(200).json({
                 message: 'Consulting Cashs with successfully!',
@@ -91,7 +180,15 @@ module.exports = {
                 countMonth: countMonth,
                 creditTotal: creditTotal,
                 debtTotal: debtTotal, 
-                moneyTotal: moneyTotal
+                moneyTotal: moneyTotal,
+                saleDay: saleDay,
+                saleMonth: saleMonth,
+                cashsDayCredit: cashsDayCredit,
+                cashsDayDebt: cashsDayDebt,
+                cashsDayMoney: cashsDayMoney,
+                cashsMonthCredit: cashsMonthCredit,
+                cashsMonthDebt: cashsMonthDebt,
+                cashsMonthMoney: cashsMonthMoney
             })
         } catch (error) {
             res.status(500).json({ message: error.message })

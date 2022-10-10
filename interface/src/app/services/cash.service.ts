@@ -15,7 +15,7 @@ export class CashService {
   constructor(private http: HttpClient) { }
 
   getCashs() {
-    this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any }>(environment.apiUrl + '/api/cash')
+    this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any }>(environment.apiUrl + '/api/cash')
     .pipe(map((cashDate) => {
       return cashDate.cashs.map(cashs => {
         return {
@@ -33,11 +33,44 @@ export class CashService {
     });
   }
 
+  addCash(
+    // id: String,
+    sessions: String,
+    value: String,
+    pay: String,
+    total: String,
+    user: String,
+  ) {
+    const cash = {
+      id: null,
+      sessions: sessions,
+      value: value,
+      pay: pay,
+      total: total,
+      user: user
+    }
+
+    this.http.post<{ message: string }>(environment.apiUrl + '/api/cash', cash)
+    .subscribe(() => {
+      this.cash.push(cash);
+      this.cashsUpdated.next([...this.cash]);
+    });
+  }
+
   getCashUpdated() {
     return this.cashsUpdated.asObservable();
   }
 
   getModule() {
-    return this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any }>(environment.apiUrl + '/api/cash');
+    return this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any }>(environment.apiUrl + '/api/cash');
+  }
+
+  deleteCash(cashId: String) {
+    this.http.delete(environment.apiUrl + '/api/cash/' + cashId)
+    .subscribe(() => {
+      const updatedCash = this.cash.filter(p => p.id !== cashId);
+      this.cash = updatedCash;
+      this.cashsUpdated.next([...this.cash]);
+    });
   }
 }

@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="agendar">Detalhes</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="light" routerLink="/cash">Voltar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Vendidos hoje</ion-card-title>
+    </ion-card-header>
+    <div>
+
+      <div *ngIf="this.saleDayLength <= 0">
+        <ion-label class="cash">Sem histórico de vendas hoje</ion-label>
+      </div>
+
+      <ion-list *ngFor="let item of saleDay">
+          <ion-item>
+            <ion-avatar slot="start">
+              <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>Paciente {{ item.user.userName }}</h2>
+              <p>Sessões {{ item.sessions }}</p>
+              <p>Valor {{ item.value }}</p>
+              <p>Pagamento no {{ item.pay }}</p>
+              <p>Total da compra {{ item.total }}</p>
+              <p>Comprado em {{ item.created | date : 'MM-dd-yyyy' }}</p>
+            </ion-label>
+            <div>
+              <ion-icon name="trash-outline" slot="end" (click)="onDelete(item._id);"></ion-icon>
+            </div>
+          </ion-item>
+      </ion-list>
+    </div>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Vendidos no mês</ion-card-title>
+    </ion-card-header>
+    <div>
+
+      <div *ngIf="this.saleMonthLength <= 0">
+        <ion-label class="cash">Sem histórico de vendas no mês</ion-label>
+      </div>
+
+      <ion-list *ngFor="let item of saleMonth">
+          <ion-item>
+            <ion-avatar slot="start">
+              <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h2>Paciente {{ item.user.userName }}</h2>
+              <p>Sessões {{ item.sessions }}</p>
+              <p>Valor {{ item.value }}</p>
+              <p>Pagamento no {{ item.pay }}</p>
+              <p>Total da compra {{ item.total }}</p>
+              <p>Comprado em {{ item.created | date : 'MM-dd-yyyy' }}</p>
+            </ion-label>
+            <div>
+              <ion-icon name="trash-outline" slot="end" (click)="onDelete(item._id);"></ion-icon>
+            </div>
+          </ion-item>
+      </ion-list>
+    </div>
+  </ion-card>
+</ion-content>

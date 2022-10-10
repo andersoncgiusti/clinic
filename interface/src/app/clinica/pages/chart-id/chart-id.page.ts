@@ -95,10 +95,10 @@ export class ChartIdPage implements OnInit {
       this.usersSubChart = this.userService.getChartUsersPacientUpdated()
       .subscribe((usersChart: userChart[]) => {
         this.userChart = usersChart;
-        this.userChart.forEach(element => {
-          this.date = element.created;
-          this.dateFormated = this.date.slice(0, 10);
-        });
+        // this.userChart.forEach(element => {
+        //   this.date = element.created;
+        //   this.dateFormated = this.date.slice(0, 10);
+        // });
       });
     })
   }

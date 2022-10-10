@@ -155,7 +155,7 @@ POST http://localhost:3000/api/cash
 Content-Type: application/json
 
 {
-    "sessions": "100",
+    "sessions": "10",
     "value": "100",
     "pay": "debito",    
     "total": "1000",

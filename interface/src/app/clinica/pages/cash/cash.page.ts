@@ -17,9 +17,17 @@ export class CashPage implements OnInit {
   money;
   totalDay;
   totalMonth;
+  totalDayValue;
+  totalMonthValue;
   creditTotal;
   debtTotal;
   moneyTotal;
+  creditTotalDay;
+  debtTotalDay;
+  moneyTotalDay;
+  creditTotalMonth;
+  debtTotalMonth;
+  moneyTotalMonth;
 
   constructor(public cashService: CashService) { }
 
@@ -34,6 +42,14 @@ export class CashPage implements OnInit {
       this.creditTotal = data.creditTotal;
       this.debtTotal = data.debtTotal;
       this.moneyTotal = data.moneyTotal;
+      this.creditTotalDay = data.cashsDayCredit;
+      this.debtTotalDay = data.cashsDayDebt;
+      this.moneyTotalDay = data.cashsDayMoney;
+      this.creditTotalMonth = data.cashsMonthCredit;
+      this.debtTotalMonth = data.cashsMonthDebt;
+      this.moneyTotalMonth = data.cashsMonthMoney;
+      this.totalDayValue = this.creditTotalDay + this.debtTotalDay + this.moneyTotalDay;
+      this.totalMonthValue = this.creditTotalMonth + this.debtTotalMonth + this.moneyTotalMonth;
     });
   }
 

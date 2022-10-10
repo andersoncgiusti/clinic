@@ -38,7 +38,6 @@ export class ChartService {
     this.http.post<{ message: string }>(environment.apiUrl + '/api/prontuario', prontuario)
     .subscribe((prontuarioData) => {
       // console.log(prontuarioData);
-
       // console.log(prontuarioData.message);
       this.prontuarios.push(prontuario);
       this.prontuariosUpdated.next([...this.prontuarios]);

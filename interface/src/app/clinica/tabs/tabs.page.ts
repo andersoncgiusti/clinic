@@ -34,7 +34,7 @@ export class TabsPage implements OnInit {
       .subscribe((data) => {
         this.schedulingDay = data.agendamentoDay;
       })
-    }, 360000);
+    }, 60000);
 
   }
 

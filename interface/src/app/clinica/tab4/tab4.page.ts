@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CashService } from 'src/app/services/cash.service';
 
 @Component({
   selector: 'app-tab4',
@@ -8,14 +9,18 @@ import { Component, OnInit } from '@angular/core';
 export class Tab4Page implements OnInit {
   eventSource = [];
   valueTotal: String;
+  valueTotalFormated: String;
 
-  constructor() { }
+  sessions;
+  value;
+
+  constructor(public cashService: CashService) { }
 
   ngOnInit() {
   }
 
   package = {
-    id: '6334ab53981b14a6d5babab3',
+    user: '6334ab53981b14a6d5babab3',
     name: 'Anderson',
     email: 'anderson.giusti12@gmail.com',
     cpf: '',
@@ -34,18 +39,45 @@ export class Tab4Page implements OnInit {
     this.valueTotal = eval(session + '*' + val);
 
     events.push({
-      id:       this.package.id,
-      name:     this.package.name,
-      email:    this.package.email,
-      cpf:      this.package.cpf,
+      user:       this.package.user,
+      // name:     this.package.name,
+      // email:    this.package.email,
+      // cpf:      this.package.cpf,
       sessions: this.package.sessions,
       value:    this.package.value,
       pay:      this.package.pay,
       total:    this.valueTotal,
     })
 
+    this.cashService.addCash(
+      this.package.sessions.toString(),
+      this.package.value.toString(),
+      this.package.pay,
+      this.valueTotal,
+      this.package.user,
+    )
+
     this.eventSource = events;
-    console.log(this.eventSource );
+  }
+
+  calcSale() {
+    const session = (this.package.sessions).toString();
+    const val = (this.package.value).toString();
+    this.valueTotalFormated = eval(session + '*' + val);
+  }
+
+  clearCash() {
+    this.sessions = this.package.sessions.toString();
+    this.value = this.package.value.toString();
+
+    setTimeout(()=> {
+      this.package.cpf = ''
+      this.package.pay = ''
+      this.valueTotal = ''
+      this.package.user = ''
+      this.sessions = ''
+      this.value = ''
+    }, 1000);
   }
 
 }
