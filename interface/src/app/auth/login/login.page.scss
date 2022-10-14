@@ -1,0 +1,40 @@
+ion-content {
+  position: relative
+}
+
+.enter {
+  margin: 5%;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.login > ion-label {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #2dd36f !important;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+.forgot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #2dd36f !important;
+  margin: 3%;
+}

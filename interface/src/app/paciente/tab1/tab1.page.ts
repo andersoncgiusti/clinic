@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CheckboxCustomEvent, IonModal, ModalController } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core/components';
+import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
-import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
+import { LoadingController } from '@ionic/angular';
+import { Scheduling } from 'src/app/models/scheduling.model';
+import { SchedulingService } from 'src/app/services/scheduling.service';
+import { Subscription } from 'rxjs';
+import { CalModalPage } from 'src/app/paciente/pages/cal-modal/cal-modal.page';
 
 @Component({
   selector: 'app-tab1',
@@ -13,6 +16,11 @@ export class Tab1Page implements OnInit {
   eventSource = [];
   viewTitle: string;
   showAddEvent: boolean;
+  count: number;
+  schedulingDay;
+
+  agendamentos: Scheduling[] = [];
+  private agendamentosSub: Subscription;
 
   calendar = {
     mode: 'month',
@@ -27,29 +35,44 @@ export class Tab1Page implements OnInit {
     allDay: false
   }
 
-  myData = [
-    {
-      title: 'Anderson',
-      startTime: new Date("2022-09-28T16:00:00-03:00"),
-      endTime: new Date("2022-09-28T17:00:00-03:00"),
-      allDay: false,
-    },
-    {
-      title: 'Ana',
-      startTime: new Date("2022-09-29T18:00:00-03:00"),
-      endTime: new Date("2022-09-29T19:00:00-03:00"),
-      allDay: false,
-    }
-  ];
-
   selectedDate: Date;
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController,
+    public schedulingService: SchedulingService
+  ) {}
 
   ngOnInit() {
-    this.eventSource = this.myData;
+    this.getAgendamentosDay();
+    this.schedulingService.getAgendamentos();
+    this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
+    .subscribe((agendamentos: Scheduling[]) => {
+      this.agendamentos = agendamentos;
+
+      const allscheduling = [];
+
+      this.agendamentos.forEach((resp) => {
+        allscheduling.push({
+          id: resp.id,
+          title: resp.title,
+          startTime: new Date(""+ `${resp.startTime}`+""),
+          endTime: new Date(""+ `${resp.endTime}`+""),
+          allDay: resp.allDay,
+        })
+      })
+
+      this.eventSource = allscheduling;
+    })
+  }
+
+  getAgendamentosDay() {
+    this.schedulingService.getAgendamentosDay()
+    .subscribe((data) => {
+      this.schedulingDay = data.agendamentoDay;
+    });
   }
 
   next() {
@@ -64,114 +87,61 @@ export class Tab1Page implements OnInit {
     this.viewTitle = title;
   }
 
-  onEventSelected(ev) {
+  async onEventSelected(ev) {
+    this.getAgendamentosDay();
     this.newEvent = ev;
+
+    const start = ev.startTime.toISOString().slice(0, 10);
+    const startFormated = start.slice(start.length - 2);
+
+    const calcHours = ev.startTime - ev.endTime;
+    const endFormated = (calcHours / (- 3600000));
+
+    const month = start.slice(start.length - 5);
+    const monthFormated = month.slice(0, -3);
+
+    const hours = ev.startTime.getHours();
+    const concat = '0' + hours;
+
+    const formated = concat.slice(concat.length - 2);
+
+    const edt = {
+      id: ev.id,
+      title: ev.title,
+      startTime: startFormated,
+      month: monthFormated,
+      hours: formated,
+      endTime: endFormated.toString(),
+      allDay: false
+      // description: '',
+    }
+
+    const modal = await this.modalCtrl.create({
+      component: CalModalPage,
+      componentProps: edt,
+      cssClass: 'cal-modal',
+      backdropDismiss: false
+    });
+
+    return await modal.present();
   }
 
   showHideForm() {
     this.showAddEvent = !this.showAddEvent;
   }
 
-  // createRandomEvents() {
-  //   var events = [];
-  //   for (var i = 0; i < 50; i += 1) {
-  //     var date = new Date();
-  //     var eventType = Math.floor(Math.random() * 2);
-  //     var startDay = Math.floor(Math.random() * 90) - 45;
-  //     var endDay = Math.floor(Math.random() * 2) + startDay;
-  //     var startTime;
-  //     var endTime;
-  //     if (eventType === 0) {
-  //       startTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + startDay
-  //         )
-  //       );
-  //       if (endDay === startDay) {
-  //         endDay += 1;
-  //       }
-  //       endTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + endDay
-  //         )
-  //       );
-  //       events.push({
-  //         title: 'All Day - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: true,
-  //       });
-  //     } else {
-  //       var startMinute = Math.floor(Math.random() * 24 * 60);
-  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
-  //       startTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + startDay,
-  //         0,
-  //         date.getMinutes() + startMinute
-  //       );
-  //       endTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + endDay,
-  //         0,
-  //         date.getMinutes() + endMinute
-  //       );
-  //       events.push({
-  //         title: 'Event - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: false,
-  //       });
-  //     }
-  //   }
-  //   this.eventSource = events;
-  // }
-
-  // createRandomEvents() {
-  //   const events = [];
-  //   const date = new Date();
-  //   console.log(date);
-
-  //   const startTime = new Date("2022-09-02T16:30:00-03:00");
-  //   console.log('startTime', startTime);
-
-  //   const endTime = new Date("2022-09-02T18:30:00-03:00");
-  //   console.log('endTime', endTime);
-
-  //   events.push({
-  //     title: 'Anderson Carvalho Giusti',
-  //     startTime: startTime,
-  //     endTime: endTime,
-  //     allDay: false,
-  //   })
-  //   this.eventSource = events;
-
-    // events.push({
-    //   title: 'Ana Paula Lins e Silva',
-    //   startTime: startTime,
-    //   endTime: endTime,
-    //   allDay: false,
-    // })
-    // this.eventSource = events;
-  // }
-
   event = {
     title: '',
-    desc: '',
-    startTime: null,
-    day: null,
-    month: null,
-    endTime: null,
+    // desc: '',
+    startTime: '',
+    day: '',
+    month: '',
+    endTime: '',
     allDay: false
   };
 
   createEvents() {
+    this.getAgendamentosDay();
     const events = [];
     const date = new Date();
 
@@ -192,77 +162,45 @@ export class Tab1Page implements OnInit {
 
     events.push({
       title: this.event.title,
-      desc: this.event.desc,
-      startTime: startTime,
-      endTime: endTime,
+      // desc: this.event.desc,
+      startTime: startTime.toString(),
+      day: this.event.day,
+      month: this.event.month,
+      endTime: endTime.toString(),
       allDay: false,
     })
+
+    this.schedulingService.addAgendamento(
+      this.event.title,
+      // this.event.desc,
+      this.event.startTime,
+      this.event.day,
+      this.event.month,
+      this.event.endTime,
+      this.event.allDay,
+    )
+
     this.eventSource = events;
-
-    // events.push({
-    //   title: 'Ana Paula Lins e Silva',
-    //   startTime: startTime,
-    //   endTime: endTime,
-    //   allDay: false,
-    // })
-    // this.eventSource = events;
   }
 
-  removeEvents() {
-    this.eventSource = [];
+  clear() {
+    setTimeout(()=> {
+      this.event.title = "";
+      this.event.day = "";
+      this.event.month = "";
+      this.event.startTime = "";
+      this.event.endTime = "";
+      // this.event.desc;
+    }, 1000)
   }
 
-  async openCalModal() {
-    const modal = await this.modalCtrl.create({
-      component: CalModalPage,
-      cssClass: 'cal-modal',
-      backdropDismiss: false
-    });
+  // async showLoading() {
+  //   const loading = await this.loadingCtrl.create({
+  //     duration: 3000,
+  //     cssClass: 'custom-loading',
+  //   });
+  //   loading.present();
+  // }
 
-    await modal.present();
 
-    // modal.onDidDismiss().then((result) => {
-    //   if (result.data && result.data.event) {
-    //     let event = result.data.event;
-    //     if (event.allDay) {
-    //       let start = event.startTime;
-    //       event.startTime = new Date(
-    //         Date.UTC(
-    //           start.getUTCFullYear(),
-    //           start.getUTCMonth(),
-    //           start.getUTCDate()
-    //         )
-    //       );
-    //       event.endTime = new Date(
-    //         Date.UTC(
-    //           start.getUTCFullYear(),
-    //           start.getUTCMonth(),
-    //           start.getUTCDate() + 1
-    //         )
-    //       );
-    //     }
-    //     this.eventSource.push(result.data.event);
-    //     this.myCal.loadEvents();
-    //   }
-    // });
-
-    modal.onDidDismiss().then((result) => {
-
-      const data      = new Date();
-      const hora      = data.getHours();
-      const min       = data.getMinutes();
-      const str_hora  = hora + ':' + min;
-      const event     = result.data.event;
-      const day       = result.data.event.startTime.toISOString().slice(0, 10);
-
-      // event.startTime = new Date(""+`${day}`+"T"+`${str_hora}`+""+":00-03:00");
-      // event.endTime   = new Date(""+`${day}`+"T"+`${hora + 1}`+""+":00-03:00");
-
-      event.startTime = new Date(""+`${day}`+"");
-      event.endTime   = new Date(""+`${day}`+"");
-
-      this.eventSource.push(result.data.event);
-      this.myCal.loadEvents();
-    });
-  }
 }

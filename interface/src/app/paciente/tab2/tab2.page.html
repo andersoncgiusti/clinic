@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title class="agendar">
       Prontuário
@@ -9,10 +9,22 @@
 <ion-content>
 
   <ion-card>
-    <ion-card-header>
-      <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-      <ion-card-title>Card Title</ion-card-title>
-    </ion-card-header>
+    <div>
+      <ion-list>
+          <ion-item>
+
+            <ion-avatar slot="start">
+              <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+            </ion-avatar>
+
+            <ion-label>
+              <h2>Luiz</h2>
+              <p>Fisioterapeuta</p>
+            </ion-label>
+
+          </ion-item>
+      </ion-list>
+    </div>
 
     <ion-card-content>
       Keep close to Nature's heart... and break clear away, once in awhile,

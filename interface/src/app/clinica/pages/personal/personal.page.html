@@ -2,13 +2,93 @@
   <ion-toolbar>
     <ion-title class="agendar">Dados Pessoais</ion-title>
     <ion-buttons slot="start">
-      <ion-button color="light" routerLink="/clinica/tab1">Voltar</ion-button>
+      <ion-button color="light" routerLink="/clinica/tab6">Voltar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
-
 <ion-content>
+  <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
 
+  <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)" *ngIf="!isLoading">
+
+    <ion-avatar slot="start" class="avatarId">
+      <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+    </ion-avatar>
+
+    <ion-item style="display: none;">
+      <ion-input type="txt" name="id"></ion-input>
+    </ion-item>
+
+    <ion-item style="display: none;">
+      <ion-input type="txt" name="userPermission"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input type="txt" name="userName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-input type="txt" name="userLastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-input type="txt" name="userBirth"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-input type="txt" name="userPhone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input type="txt" name="userEmail"readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">CPF</ion-label>
+      <ion-input type="txt" name="userCpf"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Rua/Av</ion-label>
+      <ion-input type="txt" name="userAddress"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Número</ion-label>
+      <ion-input type="txt" name="userNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Complemento</ion-label>
+      <ion-input type="txt" name="userComplement"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cidade</ion-label>
+      <ion-input type="txt" name="userCity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Estado</ion-label>
+      <ion-input type="txt" name="userState"></ion-input>
+    </ion-item>
+
+    <div class="criar">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="success" type="submit">
+              <ion-icon name="pencil-outline" class="icon"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </form>
 </ion-content>
