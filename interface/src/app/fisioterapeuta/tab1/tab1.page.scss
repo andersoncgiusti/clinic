@@ -5,6 +5,97 @@ ion-toolbar {
 .agendar {
   color: white;
   font-weight: bold;
+  float: right !important;
+  font-size: 1.5rem;
+}
+
+.icon-only {
+  color: white !important;
+  font-weight: bold;
+}
+
+.icon {
+  color: white !important;
+  font-weight: bold;
+}
+
+.checkmark {
+  color: white;
+  size: 5% !important;
+}
+
+.indicator-container {
+  padding-left: 0.5rem;
+  padding-bottom: 0.4rem;
+}
+
+.event-indicator {
+  background: green !important;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  display: table-cell;
+}
+
+:host ::ng-deep {
+  .monthview-primary-with-event {
+    background-color: white !important;
+  }
+
+  .monthview-selected {
+    background-color: #2dd36f !important;
+  }
+}
+
+.with-event {
+  background-color: #2dd36f !important;
+  border-radius: 15px;
+}
+
+ion-segment {
+  margin: 0.5rem;
+  width: 95%;
+}
+
+.next {
+  margin-left: -4%;
+}
+
+.add {
+  --background: #2dd36f !important;
+  color: white;
+}
+
+ion-modal#example-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#example-modal h1 {
+  margin: 20px 20px 10px 20px;
+}
+
+ion-modal#example-modal ion-icon {
+  margin-right: 6px;
+  width: 48px;
+  height: 48px;
+  padding: 4px 0;
+  color: #aaaaaa;
+}
+
+ion-modal#example-modal .wrapper {
+  margin-bottom: 10px;
+}
+
+.start {
+  margin-left: -18%;
+}
+
+.item-inner {
+  --background: #2dd36f !important;
 }
 
 

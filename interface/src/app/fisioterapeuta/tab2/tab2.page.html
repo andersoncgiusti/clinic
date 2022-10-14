@@ -1,12 +1,28 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title class="agendar">
-      Agendamentos
+      Prontuários
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-content>
+  <ion-searchbar disabled="false" placeholder="Pesquise"></ion-searchbar><br>
+
+  <ion-list *ngFor="let user of usersPacient" >
+    <ion-item [routerLink]="['/fisioterapeuta/chart-id/', user.id]">
+      <ion-avatar slot="start">
+        <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ user.userName }}</h2>
+        <p>{{ user.userPermission | titlecase }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
 
 
 

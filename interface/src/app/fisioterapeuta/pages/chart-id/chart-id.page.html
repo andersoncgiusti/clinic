@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="navigateChart();">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title class="agendar">Prontuário</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="open-custom-dialog">
+        <ion-icon name="add" slot="icon-only" class="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-avatar>
+      <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+    </ion-avatar><br><br>
+  </div>
+
+  <ion-item>
+    <ion-label>{{this.user.userName}} {{this.user.userLastName}}, 32 anos</ion-label>
+  </ion-item>
+
+  <div *ngIf="this.userChart.length <= 0">
+    <ion-label class="noUser">Nenhum comentário adicionado</ion-label>
+    <ion-img src="../../../assets/icon/progress.png"></ion-img>
+  </div>
+
+  <div *ngIf="this.userChart.length > 0">
+    <ion-card *ngFor="let item of userChart">
+      <ion-card-content>
+        {{ this.item.treatment }}
+      </ion-card-content>
+      <ion-item>
+        <ion-icon name="trash-outline" slot="end" color="success" class="delete" (click)="onDelete(this.item.id);"></ion-icon>
+        <ion-label class="date">Criado em {{ item.created | date : 'MM-dd-yyyy' }}</ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+    <ng-template>
+      <form #frm="ngForm" (ngSubmit)="ngSubmit(frm);">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="light" (click)="modal.dismiss();">Cancelar</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button color="light" type="submit">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+        <ion-item style="display: none;">
+          <ion-input type="txt" name="idChart" value="{{this.user.id}}" [(ngModel)]="user.id"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>
+        </ion-item>
+      </form>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+

@@ -1,0 +1,20 @@
+<ion-content>
+    <form #frm="ngForm" (ngSubmit)="ngSubmit(frm);">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="close();">Cancelar</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button color="light" type="submit">Confirmar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+      <ion-item style="display: none;">
+        <ion-input type="txt" name="idChart" [(ngModel)]="events.id"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>
+      </ion-item>
+    </form>
+</ion-content>

@@ -1,0 +1,87 @@
+ion-toolbar {
+  --background: #2dd36f !important;
+}
+
+.agendar {
+  color: white;
+  font-weight: bold;
+  float: right !important;
+  font-size: 1.5rem;
+}
+
+ion-avatar {
+  margin-top: 15px !important;
+  margin: auto;
+  height: 40%;
+  width: 40%;
+}
+
+ion-card-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete, .date {
+  font-size: 1rem;
+}
+
+ion-img {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+}
+
+.noUser {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.send {
+  font-size: 1.5rem;
+}
+
+.footer {
+  width: 100% !important;
+}
+
+.icon-only {
+  color: white !important;
+  font-weight: bold;
+}
+
+
+ion-modal#example-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#example-modal h1 {
+  margin: 20px 20px 10px 20px;
+}
+
+ion-modal#example-modal ion-icon {
+  margin-right: 6px;
+  width: 48px;
+  height: 48px;
+  padding: 4px 0;
+  color: #aaaaaa;
+}
+
+ion-modal#example-modal .wrapper {
+  margin-bottom: 10px;
+}
+
+.start {
+  margin-left: -18%;
+}
+
+// .item-inner {
+//   --background: #2dd36f !important;
+// }
