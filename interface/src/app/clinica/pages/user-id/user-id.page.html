@@ -47,7 +47,7 @@
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="txt" name="userEmail" value="{{this.user.userEmail}}" readonly></ion-input>
+      <ion-input type="txt" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail" readonly></ion-input>
       <!-- <ion-input type="txt" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input> -->
     </ion-item>
 

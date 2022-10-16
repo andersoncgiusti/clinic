@@ -31,10 +31,6 @@ const routes: Routes = [
         path: 'tab6',
         loadChildren: () => import('../tab6/tab6.module').then(m => m.Tab6PageModule)
       },
-      // {
-      //   path: 'users',
-      //   loadChildren: () => import('../../clinica/pages/users/users.module').then( m => m.UsersPageModule)
-      // },
       {
         path: '',
         redirectTo: '/clinica/tab1',

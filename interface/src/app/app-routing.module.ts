@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  //>>>>>>>>>>>>>>>>>>>> START
   {
     path: 'login',
     loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
@@ -10,13 +11,15 @@ const routes: Routes = [
     path: 'forgot',
     loadChildren: () => import('./auth/forgot/forgot.module').then( m => m.ForgotPageModule)
   },
-
-
-
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./paciente/tabs/tabs.module').then(m => m.TabsPageModule)
-  // },
+  {
+    path: 'reset',
+    loadChildren: () => import('./auth/reset/reset.module').then( m => m.ResetPageModule)
+  },
+  //>>>>>>>>>>>>>>>>>>>> PACIENTE
+  {
+    path: '',
+    loadChildren: () => import('./paciente/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
   {
     path: 'tab4',
     loadChildren: () => import('./paciente/tab4/tab4.module').then( m => m.Tab4PageModule)
@@ -33,37 +36,47 @@ const routes: Routes = [
     path: 'paciente/personal',
     loadChildren: () => import('./paciente/pages/personal/personal.module').then( m => m.PersonalPageModule)
   },
-
-
-
+  {
+    path: 'paciente/privacy',
+    loadChildren: () => import('./paciente/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  //>>>>>>>>>>>>>>>>>>>> CLINICA
+  {
+    path: '',
+    loadChildren: () => import('./clinica/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
   {
     path: 'clinica/tab1',
     loadChildren: () => import('./clinica/tab1/tab1.module').then( m => m.Tab1PageModule)
   },
   {
     path: 'clinica/tab2',
-    loadChildren: () => import('./clinica/tab3/tab3.module').then( m => m.Tab3PageModule)
-  },
-  {
-    path: 'tab2',
     loadChildren: () => import('./clinica/tab2/tab2.module').then( m => m.Tab2PageModule)
   },
   {
-    path: 'tab5',
-    loadChildren: () => import('./clinica/tab5/tab5.module').then( m => m.Tab5PageModule)
+    path: 'clinica/tab3',
+    loadChildren: () => import('./clinica/tab3/tab3.module').then( m => m.Tab3PageModule)
   },
   {
-    path: 'tab6',
-    loadChildren: () => import('./clinica/tab6/tab6.module').then( m => m.Tab6PageModule)
+    path: 'clinica/tab4',
+    loadChildren: () => import('./clinica/tab4/tab4.module').then( m => m.Tab4PageModule)
+  },
+  {
+    path: 'clinica/tab5',
+    loadChildren: () => import('./clinica/tab5/tab5.module').then( m => m.Tab5PageModule)
   },
   {
     path: 'clinica/tab6',
     loadChildren: () => import('./clinica/tab6/tab6.module').then( m => m.Tab6PageModule)
   },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./clinica/tabs/tabs.module').then(m => m.TabsPageModule)
-  // },
+  {
+    path: 'clinica/personal',
+    loadChildren: () => import('./clinica/pages/personal/personal.module').then( m => m.PersonalPageModule)
+  },
+  {
+    path: 'clinica/privacy',
+    loadChildren: () => import('./clinica/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
   {
     path: 'cal-modal',
     loadChildren: () => import('./clinica/pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
@@ -97,20 +110,10 @@ const routes: Routes = [
     loadChildren: () => import('./clinica/pages/cash/cash.module').then( m => m.CashPageModule)
   },
   {
-    path: 'personal',
-    loadChildren: () => import('./clinica/pages/personal/personal.module').then( m => m.PersonalPageModule)
-  },
-  {
-    path: 'privacy',
-    loadChildren: () => import('./clinica/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
-  },
-  {
     path: 'cash-details',
     loadChildren: () => import('./clinica/pages/cash-details/cash-details.module').then( m => m.CashDetailsPageModule)
   },
-
-
-
+  //>>>>>>>>>>>>>>>>>>>> FISIOTERAPEUTA
   {
     path: '',
     loadChildren: () => import('./fisioterapeuta/tabs/tabs.module').then(m => m.TabsPageModule)
@@ -131,10 +134,10 @@ const routes: Routes = [
     path: 'fisioterapeuta/personal',
     loadChildren: () => import('./fisioterapeuta/pages/personal/personal.module').then( m => m.PersonalPageModule)
   },
-  // {
-  //   path: 'chart-id',
-  //   loadChildren: () => import('./fisioterapeuta/pages/chart-id/chart-id.module').then( m => m.ChartIdPageModule)
-  // },
+  {
+    path: 'chart-id',
+    loadChildren: () => import('./fisioterapeuta/pages/chart-id/chart-id.module').then( m => m.ChartIdPageModule)
+  },
   {
     path: 'fisioterapeuta/chart-id/:userPacientId',
     loadChildren: () => import('./fisioterapeuta/pages/chart-id/chart-id.module').then( m => m.ChartIdPageModule)
@@ -144,8 +147,8 @@ const routes: Routes = [
     loadChildren: () => import('./fisioterapeuta/pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
   },
   {
-    path: 'reset',
-    loadChildren: () => import('./auth/reset/reset.module').then( m => m.ResetPageModule)
+    path: 'fisioterapeuta/privacy',
+    loadChildren: () => import('./fisioterapeuta/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
   },
 ];
 @NgModule({

@@ -68,8 +68,7 @@ export class UserIdPage implements OnInit {
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userId');
       this.user = this.userService.getUsersId(this.id);
-      console.log(this.id);
-
+      // console.log(this.id);
     })
   }
 

@@ -108,7 +108,7 @@ export class UserService {
 
     this.http.post<{ message: string, userId: string }>(environment.apiUrl + '/api/user', user)
     .subscribe((responseData) => {
-      console.log(responseData.message);
+      // console.log(responseData.message);
       const id = responseData.userId
       user.id = id;
       this.users.push(user);

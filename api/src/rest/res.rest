@@ -25,7 +25,7 @@ Content-Type: application/json
     "userLastName"  : " Carvalho Giusti",
     "userBirth"     : "26/12/1989",
     "userPhone"     : "11 99249-9734",
-    "userEmail"     : "tetsadooo@hotmail.com",
+    "userEmail"     : "anderson_cg12@hotmail.com",
     "userCpf"       : "37593539830",
     "userAddress"   : "Avenida Odair Santanelli",
     "userNumber"    : "990",
@@ -113,11 +113,11 @@ POST http://localhost:3000/api/user
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson 2",
+    "userName"      : "Anderson E-mail",
     "userLastName"  : " Carvalho Giusti",
     "userBirth"     : "26/12/1989",
     "userPhone"     : "11 99249-9734",
-    "userEmail"     : "2@hotmail.com",
+    "userEmail"     : "anderson_cg12@hotmail.com",
     "userCpf"       : "37593539830",
     "userAddress"   : "Avenida Odair Santanelli",
     "userNumber"    : "990",
@@ -167,4 +167,24 @@ GET http://localhost:3000/api/cash
 ###
 ###
 DELETE http://localhost:3000/api/cash/6342e380c3c514e93c49f1e7
+###
+### 
+PUT http://localhost:3000/api/user/634c446300e09fd8ff41e88a
+Content-Type: application/json
+
+{
+    "userName"      : "Anderson E-mail atualizado",
+    "userLastName"  : " Carvalho Giusti",
+    "userBirth"     : "26/12/1989",
+    "userPhone"     : "11 99249-9734",
+    "userEmail"     : "anderson_cg12@hotmail.com",
+    "userCpf"       : "37593539830",
+    "userAddress"   : "Avenida Odair Santanelli",
+    "userNumber"    : "990",
+    "userComplement": "Bloco 15 Apto B14",
+    "userCity"      : "Guarulhos",
+    "userState"     : "SP",
+    "userPermission": "paciente"
+}
+   
 ###

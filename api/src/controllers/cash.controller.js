@@ -1,5 +1,11 @@
-const Cash = require('../models/cash.model')
-const ObjectID = require('mongodb').ObjectID
+require('dotenv').config();
+const Cash = require('../models/cash.model');
+const sgMail = require('@sendgrid/mail');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = { 
     cashGet: async (req, res) => {  
@@ -199,11 +205,44 @@ module.exports = {
     },
     cashPost: async (req, res) => {  
         try {
-            const cash = await Cash.create(req.body);
+            const cash = await (await Cash.create(req.body)).populate(['user']);
             res.status(201).json({
                 message: 'Create cash with successfully!',
                 cash: cash
             }); 
+
+            const dados = {
+                name: cash.user.userName
+            }
+
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/scheduling.handlebars"), "utf-8");
+            const template = handlebars.compile(emailTemplate);
+
+            const messageBody = (template({
+                name: `${ dados.name }`,   
+                // email: `${ dados.email }`, 
+                // cpf: `${ dados.cpf }`,            
+            }))
+
+            const msg = {
+                to: [
+                  '' + `${cash.user.userEmail}` + ''
+                ], 
+                from: '<'+`${process.env.FROM}`+'>',
+                subject: 'Life Calendar - Agendamento',
+                html: messageBody 
+              };
+              
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email successfully sent');
+                }, error => {
+                  console.error(error);  
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                });  
         } catch (error) {
             res.status(400).json({ message: error.message })
         } 
