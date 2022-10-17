@@ -113,7 +113,7 @@ POST http://localhost:3000/api/user
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson E-mail",
+    "userName"      : "Anderson IBM",
     "userLastName"  : " Carvalho Giusti",
     "userBirth"     : "26/12/1989",
     "userPhone"     : "11 99249-9734",
@@ -173,11 +173,11 @@ PUT http://localhost:3000/api/user/634c446300e09fd8ff41e88a
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson E-mail atualizado",
+    "userName"      : "Anderson IBM",
     "userLastName"  : " Carvalho Giusti",
     "userBirth"     : "26/12/1989",
     "userPhone"     : "11 99249-9734",
-    "userEmail"     : "anderson_cg12@hotmail.com",
+    "userEmail"     : "anderson.giusti@ibm.com",
     "userCpf"       : "37593539830",
     "userAddress"   : "Avenida Odair Santanelli",
     "userNumber"    : "990",

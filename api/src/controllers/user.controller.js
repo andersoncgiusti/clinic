@@ -114,7 +114,6 @@ module.exports = {
         try {            
             await User.updateOne({ _id: req.params.id }, user)
             .then(updateUser => {
-                console.log('updateUser', updateUser);
                 res.status(200).json({ 
                     message: 'Update user with successfully!',
                     userId: updateUser._id 
