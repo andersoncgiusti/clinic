@@ -160,7 +160,7 @@ export class UserService {
       const updatedUser = this.users.filter(user => user.id !== userId);
       this.users = updatedUser;
       this.usersUpdated.next([...this.users]);
-      // this.router.navigate(["/users"]);
+      this.router.navigate(["/users"]);
     });
   }
 

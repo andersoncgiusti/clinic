@@ -98,9 +98,10 @@ export class UserIdPage implements OnInit {
       frm.value.userPermission
     )
 
+    this.getUsers();
+
     setTimeout(() => {
       this.getUsers();
-      this.navCtrl.navigateRoot('users');
     }, 1000);
   }
 }

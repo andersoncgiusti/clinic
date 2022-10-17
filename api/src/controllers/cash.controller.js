@@ -215,7 +215,7 @@ module.exports = {
                 name: cash.user.userName
             }
 
-            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/cash.handlebars"), "utf-8");
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/scheduling.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
 
             const messageBody = (template({
