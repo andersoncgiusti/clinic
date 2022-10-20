@@ -33,7 +33,8 @@ export class Tab2Page implements OnInit {
     // description: '',
     startTime: '',
     endTime: '',
-    allDay: false
+    allDay: false,
+    user: ''
   }
 
   selectedDate: Date;
@@ -50,7 +51,7 @@ export class Tab2Page implements OnInit {
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
-    .subscribe((agendamentos: Scheduling[]) => {
+    .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
 
       const allscheduling = [];
@@ -62,6 +63,7 @@ export class Tab2Page implements OnInit {
           startTime: new Date(""+ `${resp.startTime}`+""),
           endTime: new Date(""+ `${resp.endTime}`+""),
           allDay: resp.allDay,
+          user: resp
         })
       })
 
@@ -113,9 +115,10 @@ export class Tab2Page implements OnInit {
       month: monthFormated,
       hours: formated,
       endTime: endFormated.toString(),
-      allDay: false
+      allDay: false,
       // description: '',
-    }
+      user: ev.user.user._id
+    };
 
     const modal = await this.modalCtrl.create({
       component: CalModalPage,
@@ -138,7 +141,8 @@ export class Tab2Page implements OnInit {
     day: '',
     month: '',
     endTime: '',
-    allDay: false
+    allDay: false,
+    user: '634ded7b4368bde290802a35'
   };
 
   createEvents() {
@@ -169,6 +173,7 @@ export class Tab2Page implements OnInit {
       month: this.event.month,
       endTime: endTime.toString(),
       allDay: false,
+      user: this.event.user
     })
 
     this.schedulingService.addAgendamento(
@@ -179,6 +184,7 @@ export class Tab2Page implements OnInit {
       this.event.month,
       this.event.endTime,
       this.event.allDay,
+      this.event.user
     )
 
     this.eventSource = events;

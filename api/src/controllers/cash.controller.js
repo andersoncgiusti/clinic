@@ -211,17 +211,27 @@ module.exports = {
                 cash: cash
             }); 
 
+            const date = cash.created.toISOString().slice(0, 10);
+         
             const dados = {
-                name: cash.user.userName
-            }
+                name: cash.user.userName,
+                sessions: cash.sessions,
+                value: cash.value,
+                pay: cash.pay,
+                total: cash.total,
+                created: date
+            };
 
-            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/scheduling.handlebars"), "utf-8");
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/cash.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
 
             const messageBody = (template({
                 name: `${ dados.name }`,   
-                // email: `${ dados.email }`, 
-                // cpf: `${ dados.cpf }`,            
+                sessions: `${ dados.sessions }`, 
+                value: `${ dados.value }`,    
+                pay: `${ dados.pay }`,  
+                total: `${ dados.total }`,
+                created: `${ dados.created }`    
             }))
 
             const msg = {
@@ -229,7 +239,7 @@ module.exports = {
                   '' + `${cash.user.userEmail}` + ''
                 ], 
                 from: '<'+`${process.env.FROM}`+'>',
-                subject: 'Life Calendar - Agendamento',
+                subject: 'Compra - Life Calendar',
                 html: messageBody 
               };
               

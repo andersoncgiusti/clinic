@@ -60,6 +60,11 @@ const userSchema = new mongoose.Schema({
         ref: 'Cash',
         require: true
     }],
+    agendamentos: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Agendamento',
+        require: true
+    }],
     created: {
         type: Date,
         required: true,

@@ -23,8 +23,8 @@
       <ion-icon name="close-circle"></ion-icon>
       <div class="paciente">
         <ion-input type="text" [(ngModel)]="package.user"></ion-input>
-        <ion-input type="text" [(ngModel)]="package.name"></ion-input>
-        <ion-input type="text" [(ngModel)]="package.email"></ion-input>
+        <!-- <ion-input type="text" [(ngModel)]="package.name"></ion-input>
+        <ion-input type="text" [(ngModel)]="package.email"></ion-input> -->
       </div>
     </ion-chip>
   </ion-item>
@@ -49,17 +49,17 @@
 
       <ion-item>
         <ion-label>Cartão de Crédito</ion-label>
-        <ion-radio value="credito"></ion-radio>
+        <ion-radio value="credito" (click)="calcSale();"></ion-radio>
       </ion-item>
 
       <ion-item>
         <ion-label>Cartão de Débito</ion-label>
-        <ion-radio value="debito"></ion-radio>
+        <ion-radio value="debito" (click)="calcSale();"></ion-radio>
       </ion-item>
 
       <ion-item>
         <ion-label>Pagamento em Dinheiro</ion-label>
-        <ion-radio value="dinheiro"></ion-radio>
+        <ion-radio value="dinheiro" (click)="calcSale();"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>

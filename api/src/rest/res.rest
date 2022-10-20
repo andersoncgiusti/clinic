@@ -113,7 +113,7 @@ POST http://localhost:3000/api/user
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson IBM",
+    "userName"      : "Anderson Outlook",
     "userLastName"  : " Carvalho Giusti",
     "userBirth"     : "26/12/1989",
     "userPhone"     : "11 99249-9734",
@@ -140,12 +140,12 @@ Content-Type: application/json
 GET http://localhost:3000/api/userPacient
 ###
 ### prontuario getAll
-GET http://localhost:3000/api/prontuario
+POST http://localhost:3000/api/prontuario
 Content-Type: application/json
 
 {    
-    "user": "6334ab53981b14a6d5babab3",
-    "treatment": "delete Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis, leo ut scelerisque mattis, risus mauris vestibulum tellus, eget convallis felis purus ac lectus. Aliquam aliquam posuere elit non tincidunt. Nam accumsan nulla sed dui auctor, ut porttitor ex convallis. Suspendisse vehicula hendrerit orci. Morbi sodales eu libero interdum aliquet. Aenean mi est, vulputate nec efficitur ac, lacinia venenatis tellus. Cras sed libero eu felis rutrum hendrerit. Nulla scelerisque quis enim sollicitudin facilisis. Proin sed urna nec dolor ornare congue porttitor bibendum felis. Morbi eget libero a elit ullamcorper congue. Aliquam placerat vestibulum nibh, id luctus felis porttitor quis."
+    "user": "634ded7b4368bde290802a35",
+    "treatment": "teste Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis, leo ut scelerisque mattis, risus mauris vestibulum tellus, eget convallis felis purus ac lectus. Aliquam aliquam posuere elit non tincidunt. Nam accumsan nulla sed dui auctor, ut porttitor ex convallis. Suspendisse vehicula hendrerit orci. Morbi sodales eu libero interdum aliquet. Aenean mi est, vulputate nec efficitur ac, lacinia venenatis tellus. Cras sed libero eu felis rutrum hendrerit. Nulla scelerisque quis enim sollicitudin facilisis. Proin sed urna nec dolor ornare congue porttitor bibendum felis. Morbi eget libero a elit ullamcorper congue. Aliquam placerat vestibulum nibh, id luctus felis porttitor quis."
 
 }
 ### prontuario 
@@ -159,7 +159,7 @@ Content-Type: application/json
     "value": "100",
     "pay": "debito",    
     "total": "1000",
-    "user": "6334ab53981b14a6d5babab3"
+    "user": "634ded7b4368bde290802a35"
 }
 ###
 ###
@@ -188,3 +188,33 @@ Content-Type: application/json
 }
    
 ###
+### agendamento post
+POST http://localhost:3000/api/agendamento
+Content-Type: application/json
+
+{
+    "scheduleTitle": "Ana",
+    "scheduleStartTime": "Sat Jan 01 2022 07:00:00 GMT-0300 (Hora padrão de Brasília)",
+    "scheduleEndTime": "Sat Jan 01 2022 08:00:00 GMT-0300 (Hora padrão de Brasília)",
+    "user": "634ded7b4368bde290802a35"
+}
+###
+### agendamento put
+PUT http://localhost:3000/api/agendamento/634f4d696e8a13a776a9feaa
+Content-Type: application/json
+
+{
+    "scheduleTitle": "Ana teste email",
+    "scheduleStartTime": "2022-10-20T10:00:00.000Z",
+    "scheduleEndTime": "2022-10-20T11:00:00.000Z",
+    "user": "634ded7b4368bde290802a35"
+}
+###
+GET  http://localhost:3000/api/agendamento/
+###
+DELETE   http://localhost:3000/api/agendamento/634f4c1602adcdf17d3f264e
+Content-Type: application/json
+
+{
+    "_id": "634f4c1602adcdf17d3f264e"
+}

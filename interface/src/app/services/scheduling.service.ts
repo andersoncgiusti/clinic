@@ -35,7 +35,8 @@ export class SchedulingService {
           startTime: agendamento.scheduleStartTime,
           endTime: agendamento.scheduleEndTime,
           // allDay: agendamento.allDay,
-          id: agendamento._id
+          id: agendamento._id,
+          user: agendamento.user
         }
       })
     }))
@@ -63,30 +64,32 @@ export class SchedulingService {
     day: string,
     month: string,
     endTime: String,
-    allDay: boolean
+    allDay: boolean,
+    user: String
   ) {
 
-      const date = new Date();
-      const year = date.getFullYear();
-      const months = month;
-      const days = day;
-      const result = year + "-" + months + "-" + days;
-      const start = parseInt(startTime.toString());
-      const end = eval(start + '+' + endTime);
-      const concat = '0' + end;
-      const formated = concat.slice(concat.length - 2);
-      const startTimes = new Date(""+`${result}`+"T"+`${startTime}`+""+":00:00-03:00");
-      const initial = startTimes.toString();
-      const endTimes = new Date(""+`${result}`+"T"+`${formated}`+""+":00:00-03:00");
-      const finaly = endTimes.toString();
+    const date = new Date();
+    const year = date.getFullYear();
+    const months = month;
+    const days = day;
+    const result = year + "-" + months + "-" + days;
+    const start = parseInt(startTime.toString());
+    const end = eval(start + '+' + endTime);
+    const concat = '0' + end;
+    const formated = concat.slice(concat.length - 2);
+    const startTimes = new Date(""+`${result}`+"T"+`${startTime}`+""+":00:00-03:00");
+    const initial = startTimes.toString();
+    const endTimes = new Date(""+`${result}`+"T"+`${formated}`+""+":00:00-03:00");
+    const finaly = endTimes.toString();
 
-      const scheduling = {
-        id: null,
-        title: title,
-        startTime: initial,
-        endTime: finaly,
-        allDay: allDay
-      }
+    const scheduling = {
+      id: null,
+      title: title,
+      startTime: initial,
+      endTime: finaly,
+      allDay: allDay,
+      user: user
+    }
 
     this.http.post<{ message: string, agendamentoId: string }>(environment.apiUrl + '/api/agendamento', scheduling)
     .subscribe((responseData) => {
@@ -101,11 +104,12 @@ export class SchedulingService {
   updateAgendamento(
     allDay: boolean,
     endTime: String,
-    hours: string,
-    agendamentoId: string,
-    month: string,
-    startTime: string,
-    title: string,
+    hours: String,
+    agendamentoId: String,
+    month: String,
+    startTime: String,
+    title: String,
+    user: String
   ) {
 
     const date = new Date();
@@ -127,7 +131,8 @@ export class SchedulingService {
       title: title,
       startTime: initial,
       endTime: finaly,
-      allDay: allDay
+      allDay: allDay,
+      user: user
     }
 
     this.http.put(environment.apiUrl + '/api/agendamento/' + agendamentoId, scheduling)

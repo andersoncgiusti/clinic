@@ -19,6 +19,7 @@ export class CalModalPage implements OnInit {
   hours: string;
   endTime: string;
   // desc: string;
+  userId: string;
   agendamento;
   public idEdt = '';
   public titleEdt = '';
@@ -26,6 +27,7 @@ export class CalModalPage implements OnInit {
   public startTimeEdt = '';
   public hoursEdt = '';
   public endTimeEdt = '';
+  public userEdt = '';
   eventSource = [];
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
@@ -45,6 +47,7 @@ export class CalModalPage implements OnInit {
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
     this.endTime = navParams.get('endTime');
+    this.userId = navParams.get('user');
     // this.desc = navParams.get('desc');
   }
 
@@ -60,7 +63,8 @@ export class CalModalPage implements OnInit {
       frm.value.idEdt,
       frm.value.monthEdt,
       frm.value.startTimeEdt,
-      frm.value.titleEdt
+      frm.value.titleEdt,
+      frm.value.userEdt
     );
 
     this.initAgendamentos();
@@ -71,6 +75,7 @@ export class CalModalPage implements OnInit {
       this.modalController.dismiss();
     }, 1000);
   }
+
 
   onDelete(agendamentoId: String) {
     this.schedulingService.deleteAgendamento(agendamentoId);

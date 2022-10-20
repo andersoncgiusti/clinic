@@ -74,7 +74,7 @@ module.exports = {
                   '' + `${req.body.userEmail}` + ''
                 ], 
                 from: '<'+`${process.env.FROM}`+'>',
-                subject: 'Life Calendar - Novo usuário',
+                subject: 'Novo usuário - Life Calendar',
                 html: messageBody 
               };
               
@@ -137,7 +137,7 @@ module.exports = {
                   '' + `${req.body.userEmail}` + ''
                 ], 
                 from: '<'+`${process.env.FROM}`+'>',
-                subject: 'Life Calendar - Atualização dos dados',
+                subject: 'Atualização dos dados - Life Calendar',
                 html: messageBody 
               };
             

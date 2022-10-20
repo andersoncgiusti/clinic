@@ -5,7 +5,6 @@ const authConfig = require('../config/auth.json')
 const crypto = require('crypto')
 const mailer = require('../modules/mailer')
 const ObjectID = require('mongodb').ObjectID
-
  
 generateToken = (params = {}) => {
     return jwt.sign(params, authConfig.secret, {

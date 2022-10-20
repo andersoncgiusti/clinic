@@ -13,11 +13,11 @@ const agendamentoSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    // user: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     require: true
-    // },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
+    },
     created: {
         type: Date,
         required: true,

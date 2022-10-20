@@ -137,7 +137,8 @@ export class Tab1Page implements OnInit {
     day: '',
     month: '',
     endTime: '',
-    allDay: false
+    allDay: false,
+    user: ''
   };
 
   createEvents() {
@@ -168,6 +169,7 @@ export class Tab1Page implements OnInit {
       month: this.event.month,
       endTime: endTime.toString(),
       allDay: false,
+      user: this.event.user
     })
 
     this.schedulingService.addAgendamento(
@@ -178,6 +180,7 @@ export class Tab1Page implements OnInit {
       this.event.month,
       this.event.endTime,
       this.event.allDay,
+      this.event.user
     )
 
     this.eventSource = events;

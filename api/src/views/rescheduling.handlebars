@@ -10,7 +10,7 @@
         margin-top: 5%;
         margin-bottom: 5%;
     ">
-        Olá,  {{ name }} anote esta data!
+        Olá,  {{ name }}, anote esta data!
     </h2>
 </div>
 
@@ -21,7 +21,17 @@
     font-weight: bold;
     color: #2dd36f !important
 ">
-    Sua sessão de fisioterapia foi alterada para o dia XXXX às xxxxx
+    Anote esta data!
+</strong>
+
+<strong style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #2dd36f !important
+">
+    Sua sessão de fisioterapia foi alterada para o dia {{ date }} às {{ hoursInit }}h até {{ hoursEnd }}h
 </strong>
 
 

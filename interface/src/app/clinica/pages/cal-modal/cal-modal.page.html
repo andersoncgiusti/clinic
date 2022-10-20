@@ -16,7 +16,7 @@
         </ion-button>
       </ion-buttons>
       <ion-buttons slot="end">
-        <ion-button (click)="onDelete(this.agendamento.id)">
+        <ion-button (click)="onDelete(this.agendamento.id, this.userId)">
           <!-- <ion-icon name="checkmark" slot="icon-only" class="icon"></ion-icon>
           <ion-icon name="checkmark" slot="icon-only" class="icon"></ion-icon> -->
           <ion-icon name="trash-bin-outline" class="icon"></ion-icon>
@@ -26,6 +26,9 @@
 
     <ion-item style="display: none;">
       <ion-input type="text" value="{{ id }}" name="idEdt" [(ngModel)]="id"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input type="text" value="{{ userId }}" name="userEdt" [(ngModel)]="userId"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Paciente</ion-label>

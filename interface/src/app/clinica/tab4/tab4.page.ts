@@ -20,9 +20,9 @@ export class Tab4Page implements OnInit {
   }
 
   package = {
-    user: '6334ab53981b14a6d5babab3',
-    name: 'Anderson',
-    email: 'anderson.giusti12@gmail.com',
+    user: '634ded7b4368bde290802a35',
+    // name: 'Anderson',
+    // email: 'anderson.giusti12@gmail.com',
     cpf: '',
     sessions: Number,
     value: Number,
