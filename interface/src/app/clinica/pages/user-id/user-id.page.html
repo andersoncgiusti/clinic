@@ -42,7 +42,7 @@
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <ion-input type="txt" name="userPhone" value="{{this.user.userPhone}}" [(ngModel)]="user.userPhone"></ion-input>
+      <ion-input type="txt" name="userPhone" value="{{this.user.userPhone | mask: '(00) 00000-0000'}}" [(ngModel)]="user.userPhone"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -53,7 +53,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input type="txt" name="userCpf" value="{{this.user.userCpf}}" [(ngModel)]="user.userCpf"></ion-input>
+      <ion-input type="txt" name="userCpf" value="{{this.user.userCpf | mask: '000.000.000-99'}}" [(ngModel)]="user.userCpf"></ion-input>
     </ion-item>
 
     <ion-item>

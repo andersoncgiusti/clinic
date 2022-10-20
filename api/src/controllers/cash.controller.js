@@ -261,8 +261,53 @@ module.exports = {
        
     },
     cashDeleteId: async (req, res, next) => {
+
+        const cashBody = await Cash.findById({ _id: req.params.id }).populate(['user']);
+        const date = cashBody.created.toISOString().slice(0, 10);
+         
+        const dados = {
+            name: cashBody.user.userName,
+            sessions: cashBody.sessions,
+            value: cashBody.value,
+            pay: cashBody.pay,
+            total: cashBody.total,
+            created: date
+        };
+
+        const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/cancel-cash.handlebars"), "utf-8");
+        const template = handlebars.compile(emailTemplate);
+
+        const messageBody = (template({
+            name: `${ dados.name }`,   
+            sessions: `${ dados.sessions }`, 
+            value: `${ dados.value }`,    
+            pay: `${ dados.pay }`,  
+            total: `${ dados.total }`,
+            created: `${ dados.created }`    
+        }))
+
+        const msg = {
+            to: [
+                '' + `${cashBody.user.userEmail}` + ''
+            ], 
+            from: '<'+`${process.env.FROM}`+'>',
+            subject: 'Compra cancelada - Life Calendar',
+            html: messageBody 
+            };
+            
+            sgMail
+            .send(msg)
+            .then(() => {
+                console.log('Email successfully sent');
+            }, error => {
+                console.error(error);  
+                if (error.response) {
+                console.error(error.response.body);
+                }
+            });  
+
         try {
-            const cash = await Cash.deleteOne({ _id: req.params.id })
+            const cash = await Cash.deleteOne({ _id: req.params.id });
             if (cash !== null) {
                 return res.status(200).json({ message: 'Cash was deleted' })
             } else {
