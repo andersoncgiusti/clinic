@@ -89,7 +89,7 @@
 
               <ion-item>
                 <ion-label position="stacked">Telefone/Celular</ion-label>
-                <ion-input type="txt" prefix="+55" value="{{ user.userPhone }}" name="userPhone" [(ngModel)]="user.userPhone"></ion-input>
+                <input type="txt" value="{{ user.userPhone }}" name="userPhone" [(ngModel)]="user.userPhone"  prefix="+55 " mask="(00) 00000-0000">
               </ion-item>
 
               <ion-item>
@@ -99,7 +99,7 @@
 
               <ion-item>
                 <ion-label position="stacked">CPF</ion-label>
-                <ion-input type="txt" maxlength="15" value="{{ user.userCpf }}" name="userCpf" [(ngModel)]="user.userCpf"></ion-input>
+                <input type="txt" maxlength="15" value="{{ user.userCpf }}" name="userCpf" [(ngModel)]="user.userCpf" mask="000.000.000-00">
               </ion-item>
 
               <ion-item>
@@ -173,7 +173,7 @@
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <ion-input type="txt" name="userPhone" [(ngModel)]="pacienteEvent.userPhone"></ion-input>
+      <input type="txt" name="userPhone" [(ngModel)]="pacienteEvent.userPhone" prefix="+55 " mask="(00) 00000-0000">
     </ion-item>
 
     <ion-item>
@@ -183,7 +183,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input type="txt" name="userCpf" [(ngModel)]="pacienteEvent.userCpf"></ion-input>
+      <input type="txt" name="userCpf" [(ngModel)]="pacienteEvent.userCpf" mask="000.000.000-00">
     </ion-item>
 
     <ion-item>
@@ -238,7 +238,7 @@
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <ion-input type="txt" name="userPhone" [(ngModel)]="adminEvent.userPhone"></ion-input>
+      <input type="txt" name="userPhone" [(ngModel)]="adminEvent.userPhone" prefix="+55 " mask="(00) 00000-0000">
     </ion-item>
 
     <ion-item>
@@ -248,7 +248,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input type="txt" name="userCpf" [(ngModel)]="adminEvent.userCpf"></ion-input>
+      <input type="txt" name="userCpf" [(ngModel)]="adminEvent.userCpf" mask="000.000.000-00">
     </ion-item>
 
     <ion-item>
@@ -303,7 +303,7 @@
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <ion-input type="txt" name="userPhone" [(ngModel)]="fisioEvent.userPhone"></ion-input>
+      <input type="txt" name="userPhone" [(ngModel)]="fisioEvent.userPhone" prefix="+55 " mask="(00) 00000-0000">
     </ion-item>
 
     <ion-item>
@@ -313,7 +313,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input type="txt" name="userCpf" [(ngModel)]="fisioEvent.userCpf"></ion-input>
+      <input type="txt" name="userCpf" [(ngModel)]="fisioEvent.userCpf" mask="000.000.000-00">
     </ion-item>
 
     <ion-item>

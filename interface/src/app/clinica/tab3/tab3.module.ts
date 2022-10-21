@@ -6,6 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
+import {
+  NgxMaskModule,
+  // IConfig
+} from 'ngx-mask';
+
+// export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   imports: [
@@ -14,6 +20,7 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     Tab3PageRoutingModule,
+    NgxMaskModule.forChild(),
   ],
   declarations: [Tab3Page]
 })

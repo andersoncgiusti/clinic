@@ -6,6 +6,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {
+  NgxMaskModule,
+  // IConfig
+} from 'ngx-mask';
+
+// export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 
 @NgModule({
@@ -14,7 +20,10 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: false
+    }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

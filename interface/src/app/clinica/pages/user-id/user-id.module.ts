@@ -7,9 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { UserIdPageRoutingModule } from './user-id-routing.module';
 
 import { UserIdPage } from './user-id.page';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import {
+  NgxMaskModule,
+  // IConfig
+} from 'ngx-mask';
 
-export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+import { CpfPipe } from '../../../pipe/cpf.pipe';
+
+// export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   imports: [
@@ -17,8 +22,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     FormsModule,
     IonicModule,
     UserIdPageRoutingModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forChild(),
   ],
-  declarations: [UserIdPage]
+  declarations: [UserIdPage, CpfPipe]
 })
 export class UserIdPageModule {}

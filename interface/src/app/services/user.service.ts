@@ -149,6 +149,9 @@ export class UserService {
       userPermission: userPermission
     };
 
+    console.log('user', user);
+
+
     this.http.put(environment.apiUrl + '/api/user/' + userId, user)
     .subscribe(() => {
       // const usersUpdated = [...this.users];

@@ -82,6 +82,8 @@ export class UserIdPage implements OnInit {
       return;
     }
 
+    console.log('user', frm.value);
+
     this.userService.updateUser(
       frm.value.id,
       frm.value.userName,
