@@ -12,10 +12,10 @@ import {
 } from 'ngx-mask';
 
 // export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
-
+import { CpfPipe } from './pipe/cpf.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CpfPipe],
   imports: [
     BrowserModule,
     HttpClientModule,

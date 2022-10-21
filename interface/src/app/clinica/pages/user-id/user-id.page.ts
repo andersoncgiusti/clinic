@@ -29,6 +29,9 @@ export class UserIdPage implements OnInit {
   public userCity = '';
   public userState = '';
   public userPermission = '';
+  public cpf = '';
+  public phone = '';
+  public birth = '';
   private mode = '';
   private userId: String;
 
@@ -55,6 +58,20 @@ export class UserIdPage implements OnInit {
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
+
+      const birth = this.user.userBirth;
+      this.birth = birth.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{2})?([\d]{4})?/, "$1/$2/$3");
+
+      const cpf = this.user.userCpf;
+      this.cpf = cpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
+
+      const phone = this.user.userPhone;
+
+      if (phone.length === 11) {
+        return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{5})?([\d]{4})?/, "($1) $2-$3");
+      } else {
+        return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{4})?([\d]{4})?/, "($1) $2-$3");
+      }
     });
 
     this.getUsers();

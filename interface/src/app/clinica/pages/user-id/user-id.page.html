@@ -37,12 +37,12 @@
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento</ion-label>
-      <ion-input type="txt" name="userBirth" value="{{this.user.userBirth}}" [(ngModel)]="user.userBirth"></ion-input>
+      <input type="txt" name="userBirth" maxlength="8" value="{{this.birth}}" [(ngModel)]="user.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="txt" name="userPhone" value="{{this.user.userPhone}}" [(ngModel)]="user.userPhone">
+      <input type="txt" name="userPhone" maxlength="11" value="{{this.phone}}" [(ngModel)]="user.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
@@ -53,7 +53,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="txt" name="userCpf" value="{{ this.user.userCpf}}" [(ngModel)]="user.userCpf">
+      <input type="txt" name="userCpf" maxlength="11" value="{{this.cpf}}" [(ngModel)]="user.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
     <ion-item>
