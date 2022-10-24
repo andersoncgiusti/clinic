@@ -35,6 +35,7 @@ export class CashDetailsPage implements OnInit {
   getCashs() {
     this.cashService.getModule()
     .subscribe((data) => {
+      console.log(data)
       this.saleDay = data.saleDay;
       this.saleMonth = data.saleMonth;
       this.saleDayLength = data.saleDay.length

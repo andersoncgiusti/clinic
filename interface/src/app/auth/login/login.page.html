@@ -3,24 +3,25 @@
     <div class="login">
       <ion-label>Realize o login</ion-label>
     </div>
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">E-mail</ion-label>
-        <ion-input type="email" placeholder="E-mail"></ion-input>
-      </ion-item>
+    <form (submit)="onLogin(loginForm);" #loginForm="ngForm" #authForm="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input name="userEmail" ngModel type="userEmail" #emailInput="ngModel" placeholder="E-mail" required></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" placeholder="Senha"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input name="password" ngModel type="password" #passwordInput="ngModel" placeholder="Senha" ngModel></ion-input>
+        </ion-item>
 
-      <div class="forgot">
-        <ion-label routerLink="/forgot">Esqueceu sua senha?</ion-label>
-      </div>
+        <div class="forgot">
+          <ion-label routerLink="/forgot">Esqueceu sua senha?</ion-label>
+        </div>
 
-      <ion-button expand="block" color="success" class="enter">Acessar</ion-button>
-    </ion-list>
-
+        <ion-button expand="block" color="success" class="enter" type="submit">Acessar</ion-button>
+      </ion-list>
+    </form>
     <div class="img">
       <ion-img width="50" height="50" src="../../../assets/icon/login.png"></ion-img>
     </div>

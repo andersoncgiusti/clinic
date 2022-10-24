@@ -74,14 +74,14 @@ export class UserIdPage implements OnInit {
       }
     });
 
-    this.getUsers();
+    this.getAllUsers();
   }
 
   redirectUser() {
     this.navCtrl.navigateRoot('users');
   }
 
-  getUsers() {
+  getAllUsers() {
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userId');
       this.user = this.userService.getUsersId(this.id);
@@ -91,7 +91,7 @@ export class UserIdPage implements OnInit {
 
   onDelete(userId: String) {
     this.userService.deleteUser(userId);
-    this.getUsers();
+    this.getAllUsers();
   }
 
   ngSubmit(frm: any) {
@@ -117,10 +117,11 @@ export class UserIdPage implements OnInit {
       frm.value.userPermission
     )
 
-    this.getUsers();
+    this.getAllUsers();
 
     setTimeout(() => {
-      this.getUsers();
+      this.navCtrl.navigateRoot('users');
+      this.getAllUsers();
     }, 1000);
   }
 }

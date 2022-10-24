@@ -10,5 +10,10 @@ router.post('/api/user', userController.userPost)
 router.put('/api/user/:id', userController.userUpdateId)
 router.put('/api/userChart/:id', userController.chartUpdateId)
 router.delete('/api/user/:id', userController.userDeleteId)
+router.post('/api/user_password', userController.userPassword)
+router.put('/api/user_password', userController.userPasswordId)
+router.post('/api/user_authenticate', userController.authenticate)
+router.post('/api/user_forgot_password', userController.forgot)
+router.post('/api/user_reset_password', userController.reset)
 
 module.exports = router

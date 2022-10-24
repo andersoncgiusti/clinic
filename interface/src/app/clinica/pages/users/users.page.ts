@@ -49,12 +49,13 @@ export class UsersPage implements OnInit {
     });
 
     setTimeout(() => {
-      this.getUsers();
-    }, 1000);
+      console.log('users');
+      this.getAllUsers();
+    }, 2000);
 
   }
 
-  getUsers() {
+  getAllUsers() {
     this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()

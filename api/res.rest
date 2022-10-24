@@ -63,7 +63,7 @@ GET http://localhost:3000/api/user
 GET http://localhost:3000/api/userPacient
 ###
 ### 
-GET http://localhost:3000/api/user/633369cbcf115379f8eba9ef
+GET http://localhost:3000/api/user
 ###
 ### 
 POST http://localhost:3000/api/user
@@ -115,8 +115,8 @@ Content-Type: application/json
 {
     "userName"      : "Anderson Outlook",
     "userLastName"  : " Carvalho Giusti",
-    "userBirth"     : "26/12/1989",
-    "userPhone"     : "11 99249-9734",
+    "userBirth"     : "26121989",
+    "userPhone"     : "11992499734",
     "userEmail"     : "anderson_cg12@hotmail.com",
     "userCpf"       : "37593539830",
     "userAddress"   : "Avenida Odair Santanelli",
@@ -169,15 +169,15 @@ GET http://localhost:3000/api/cash
 DELETE http://localhost:3000/api/cash/6342e380c3c514e93c49f1e7
 ###
 ### 
-PUT http://localhost:3000/api/user/634c446300e09fd8ff41e88a
+POST http://localhost:3000/api/user
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson IBM",
+    "userName"      : "Anderson Outlook",
     "userLastName"  : " Carvalho Giusti",
-    "userBirth"     : "26/12/1989",
-    "userPhone"     : "11 99249-9734",
-    "userEmail"     : "anderson.giusti@ibm.com",
+    "userBirth"     : "26121989",
+    "userPhone"     : "11992499734",
+    "userEmail"     : "anderson_cg12@hotmail.com",
     "userCpf"       : "37593539830",
     "userAddress"   : "Avenida Odair Santanelli",
     "userNumber"    : "990",
@@ -190,6 +190,8 @@ Content-Type: application/json
 ###
 ### agendamento post
 POST http://localhost:3000/api/agendamento
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYWQxYThlNzJlN2M5MTY3MWM5ZGZjNyIsImlhdCI6MTY1NTUxMTg5OCwiZXhwIjoxNjU1NTk4Mjk4fQ.wC95-bEcm78uOkIVXmOxD6gakSRl8U-F0xrnwiOdWpo
+
 Content-Type: application/json
 
 {
@@ -211,6 +213,8 @@ Content-Type: application/json
 }
 ###
 GET  http://localhost:3000/api/agendamento/
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYWQxYThlNzJlN2M5MTY3MWM5ZGZjNyIsImlhdCI6MTY1NTUxMTg5OCwiZXhwIjoxNjU1NTk4Mjk4fQ.wC95-bEcm78uOkIVXmOxD6gakSRl8U-F0xrnwiOdWpo
+
 ###
 DELETE   http://localhost:3000/api/agendamento/634f4c1602adcdf17d3f264e
 Content-Type: application/json
@@ -218,3 +222,69 @@ Content-Type: application/json
 {
     "_id": "634f4c1602adcdf17d3f264e"
 }
+###
+GET  http://localhost:3000/api/user/634ded7b4368bde290802a35
+###
+### register password
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+    "password": "And261289!"
+}
+###
+### authenticate
+POST http://localhost:3000/api/authenticate
+Content-Type: application/json
+
+{
+    "email": "anderson_cg12@hotmail.com",
+    "password": "And261289!"
+}
+###
+### new passwpord
+POST http://localhost:3000/api/forgot_password
+Content-Type: application/json
+
+{
+    "userEmail": "anderson_cg12@hotmail.com"
+}
+###
+### reset password
+POST http://localhost:3000/api/reset_password
+Content-Type: application/json
+
+{
+    "userEmail": "anderson_cg12@hotmail.com",
+    "token": "aaaa69b6e6cad9a72cc1a135ba61e6965c8ba7f29d1a",
+    "userPassword": "123456"
+}
+###
+POST http://localhost:3000/api/user_password
+Content-Type: application/json
+
+{    
+    "_id"      : "6356ea69ab8e3e2745ca8ef3",
+    "password" : "123456"
+}
+   
+###
+PUT http://localhost:3000/api/user_password
+Content-Type: application/json
+
+{    
+    "_id"      : "6356ea69ab8e3e2745ca8ef3",
+    "password" : "12345"
+}
+   
+###
+###
+POST http://localhost:3000/api/user_authenticate
+Content-Type: application/json
+
+{    
+    "userEmail": "anderson_cg12@hotmail.com",
+    "password" : "12345"
+}
+   
+###

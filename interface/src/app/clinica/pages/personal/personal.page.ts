@@ -29,6 +29,9 @@ export class PersonalPage implements OnInit {
   public userCity = '';
   public userState = '';
   public userPermission = '';
+  public cpf = '';
+  public phone = '';
+  public birth = '';
   private mode = '';
   private userId: String;
 
@@ -39,22 +42,36 @@ export class PersonalPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getUsers();
+    this.userService.getId("634ded7b4368bde290802a35")
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
+      console.log(users);
+
       this.users = users;
+
+      // const birth = this.user.userBirth;
+      // this.birth = birth.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{2})?([\d]{4})?/, "$1/$2/$3");
+
+      // const cpf = this.user.userCpf;
+      // this.cpf = cpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
+
+      // const phone = this.user.userPhone;
+
+      // if (phone.length === 11) {
+      //   return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{5})?([\d]{4})?/, "($1) $2-$3");
+      // } else {
+      //   return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{4})?([\d]{4})?/, "($1) $2-$3");
+      // }
     });
   }
 
-  getUsers() {
-    this.router.paramMap.subscribe((paramMap: ParamMap) => {
-      this.id = paramMap.get('userId');
-      this.user = this.userService.getUsersId(this.id);
-      console.log(this.id);
-    })
-
-    this.getUsers();
-  }
+  // getAllUsers() {
+  //   this.router.paramMap.subscribe((paramMap: ParamMap) => {
+  //     this.id = paramMap.get('userId');
+  //     this.user = this.userService.getUsersId(this.id);
+  //     console.log(this.id);
+  //   })
+  // }
 
   ngSubmit(frm: any) {
     if (frm.invalid) {
@@ -76,12 +93,6 @@ export class PersonalPage implements OnInit {
       frm.value.userState,
       frm.value.userPermission
     )
-
-    this.getUsers();
-
-    setTimeout(() => {
-      this.getUsers();
-    }, 1000);
   }
 
 }

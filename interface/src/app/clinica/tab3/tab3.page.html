@@ -84,22 +84,22 @@
 
               <ion-item>
                 <ion-label position="stacked">Data Nascimento</ion-label>
-                <input type="txt" value="{{ user.userBirth }}" name="userBirth" maxlength="8" [(ngModel)]="user.userBirth" placeholder="Ex. 00000000">
+                <input type="number" value="{{ user.userBirth }}" name="userBirth" maxlength="8" [(ngModel)]="user.userBirth" placeholder="Ex. 00000000">
               </ion-item>
 
               <ion-item>
                 <ion-label position="stacked">Telefone/Celular</ion-label>
-                <input type="txt" value="{{ user.userPhone }}" maxlength="11" name="userPhone" [(ngModel)]="user.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+                <input type="number" value="{{ user.userPhone }}" maxlength="11" name="userPhone" [(ngModel)]="user.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
               </ion-item>
 
               <ion-item>
                 <ion-label position="stacked">E-mail</ion-label>
-                <ion-input type="txt" value="{{ user.userEmail }}" name="userEmail" [(ngModel)]="user.userEmail"></ion-input>
+                <ion-input type="email" value="{{ user.userEmail }}" name="userEmail" [(ngModel)]="user.userEmail"></ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label position="stacked">CPF</ion-label>
-                <input type="txt" value="{{ user.userCpf }}" maxlength="11" name="userCpf" [(ngModel)]="user.userCpf" placeholder="Ex. 12345678910">
+                <input type="number" value="{{ user.userCpf }}" maxlength="11" name="userCpf" [(ngModel)]="user.userCpf" placeholder="Ex. 12345678910">
               </ion-item>
 
               <ion-item>
@@ -168,22 +168,22 @@
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento</ion-label>
-      <input type="text" name="userBirth" maxlength="8" [(ngModel)]="pacienteEvent.userBirth" placeholder="Ex. 00000000">
+      <input type="number" name="userBirth" maxlength="8" [(ngModel)]="pacienteEvent.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="txt" name="userPhone" maxlength="11" [(ngModel)]="pacienteEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <input type="number" name="userPhone" maxlength="11" [(ngModel)]="pacienteEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="txt" name="userEmail" [(ngModel)]="pacienteEvent.userEmail"></ion-input>
+      <ion-input type="email" name="userEmail" [(ngModel)]="pacienteEvent.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="txt" name="userCpf" maxlength="11" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910">
+      <input type="number" name="userCpf" maxlength="11" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
     <ion-item>
@@ -233,22 +233,22 @@
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento</ion-label>
-      <input type="txt" name="userBirth" maxlength="8" [(ngModel)]="adminEvent.userBirth" placeholder="Ex. 00000000">
+      <input type="number" name="userBirth" maxlength="8" [(ngModel)]="adminEvent.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="txt" name="userPhone" maxlength="11" [(ngModel)]="adminEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <input type="number" name="userPhone" maxlength="11" [(ngModel)]="adminEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="txt" name="userEmail" [(ngModel)]="adminEvent.userEmail"></ion-input>
+      <ion-input type="email" name="userEmail" [(ngModel)]="adminEvent.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="txt" name="userCpf" maxlength="11" [(ngModel)]="adminEvent.userCpf" placeholder="Ex. 12345678910">
+      <input type="number" name="userCpf" maxlength="11" [(ngModel)]="adminEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
     <ion-item>
@@ -298,22 +298,22 @@
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento</ion-label>
-      <ion-input type="txt" name="userBirth" [(ngModel)]="fisioEvent.userBirth"></ion-input>
+      <ion-input type="number" name="userBirth" [(ngModel)]="fisioEvent.userBirth"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="txt" name="userPhone" [(ngModel)]="fisioEvent.userPhone" prefix="+55 " mask="(00) 00000-0000">
+      <input type="number" name="userPhone" [(ngModel)]="fisioEvent.userPhone" prefix="+55 " mask="(00) 00000-0000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="txt" name="userEmail" [(ngModel)]="fisioEvent.userEmail"></ion-input>
+      <ion-input type="email" name="userEmail" [(ngModel)]="fisioEvent.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="txt" name="userCpf" [(ngModel)]="fisioEvent.userCpf" mask="000.000.000-00">
+      <input type="number" name="userCpf" [(ngModel)]="fisioEvent.userCpf" mask="000.000.000-00">
     </ion-item>
 
     <ion-item>

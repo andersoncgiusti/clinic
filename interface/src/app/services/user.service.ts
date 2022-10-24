@@ -163,7 +163,7 @@ export class UserService {
       const updatedUser = this.users.filter(user => user.id !== userId);
       this.users = updatedUser;
       this.usersUpdated.next([...this.users]);
-      this.router.navigate(["/users"]);
+      // this.router.navigate(["/users"]);
     });
   }
 
@@ -233,6 +233,27 @@ export class UserService {
     .subscribe((transformedUser) => {
       this.chartPacient = transformedUser;
       this.chartUpdated.next([...this.chartPacient]);
+    });
+  }
+
+  // getId(userId: String) {
+  //   this.http.get<{ message: string, user: any }>(environment.apiUrl + '/api/user/' + userId)
+  //   .subscribe((transformedUser) => {
+  //     console.log(transformedUser.message);
+  //     this.usersUpdated.next();
+  //   });
+  // }
+
+  getId(userId: String) {
+    this.http.get<{ message: string, user: any }>(environment.apiUrl + '/api/user/' + userId)
+    .pipe(map((userData) => {
+      console.log('userData', userData);
+      return { userData }
+    }))
+    .subscribe((transformedUser) => {
+      console.log(transformedUser);
+      // this.users = transformedUser;
+      this.usersUpdated.next([...this.users]);
     });
   }
 }

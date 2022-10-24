@@ -227,7 +227,7 @@ module.exports = {
 
     },
     agendamentoDeleteId: async (req, res, next) => {         
-        
+             
         const agendamentoBody = new Agendamento({
             _id: req.params.id,
             user: req.body.user

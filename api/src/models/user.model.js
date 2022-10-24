@@ -1,13 +1,13 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     userName: {
         type: String,
-        required: false
+        required: true
     },
     userLastName: {
         type: String,
-        required: false
+        required: true
     },
     userBirth: {
         type: String,
@@ -15,16 +15,17 @@ const userSchema = new mongoose.Schema({
     },
     userPhone: {
         type: String,
-        required: false
+        required: true
     },
     userEmail: {
         type: String,
-        required: false,
-        unique: false
+        unique: true,
+        required: true,
+        lowercase: true
     },
     userCpf: {
         type: String,
-        required: false
+        required: true
     },
     userAddress: {
         type: String,
@@ -32,23 +33,37 @@ const userSchema = new mongoose.Schema({
     },
     userNumber: {
         type: String,
-        required: false
+        required: true
     },
     userComplement: {
         type: String,
-        required: false
+        required: true
     },
     userCity: {
         type: String,
-        required: false
+        required: true
     },
     userState: {
         type: String,
-        required: false
+        required: true
     },
     userPermission: {
         type: String,
-        required: false
+        required: true
+    },
+    password: { 
+        type: String, 
+        required: false 
+    },
+    passwordResetToken: {
+        type: String,
+        select: false,
+        required: false 
+    },
+    passwordResetExpires: {
+        type: Date,
+        select: false,
+        required: false 
     },
     prontuarios: [{
         type: mongoose.Schema.Types.ObjectId,
