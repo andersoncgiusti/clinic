@@ -12,9 +12,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar disabled="false" placeholder="Pesquise"></ion-searchbar><br>
+  <ion-searchbar disabled="false" placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
 
-  <ion-list *ngFor="let user of usersPacient" >
+  <ion-list *ngFor="let user of usersPacient | filter:filter; let i = index">
     <ion-item [routerLink]="['/chart-id/', user.id]">
       <ion-avatar slot="start">
         <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>

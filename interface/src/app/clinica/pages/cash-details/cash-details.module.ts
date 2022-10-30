@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CashDetailsPageRoutingModule } from './cash-details-routing.module';
 
 import { CashDetailsPage } from './cash-details.page';
+import { Ng2SearchPipeModule } from "ng2-search-filter";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CashDetailsPageRoutingModule
+    CashDetailsPageRoutingModule,
+    Ng2SearchPipeModule
   ],
   declarations: [CashDetailsPage]
 })

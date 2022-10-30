@@ -6,6 +6,8 @@ import { LoadingController } from '@ionic/angular';
 import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-tab2',
@@ -19,9 +21,12 @@ export class Tab2Page implements OnInit {
   showAddEvent: boolean;
   count: number;
   schedulingDay;
-
+  userCpf: number;
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
+  private user: User;
+  private usersSub: Subscription;
+  users: User[] = [];
 
   calendar = {
     mode: 'month',
@@ -44,7 +49,8 @@ export class Tab2Page implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    public schedulingService: SchedulingService
+    public schedulingService: SchedulingService,
+    public userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -69,6 +75,12 @@ export class Tab2Page implements OnInit {
 
       this.eventSource = allscheduling;
     })
+
+    this.userService.getUsers();
+    this.usersSub = this.userService.getUsersUpdated()
+    .subscribe((users: User[]) => {
+      this.users = users;
+    });
   }
 
   getAgendamentosDay() {
@@ -207,6 +219,26 @@ export class Tab2Page implements OnInit {
       cssClass: 'custom-loading',
     });
     loading.present();
+  }
+
+  searchEvent = {
+    userCpf: '',
+  };
+
+  search() {
+    const events = [];
+
+    events.push({
+      userCpf: this.searchEvent.userCpf
+    })
+
+    // this.userService.getUserCPF(
+    //   this.searchEvent.userCpf
+    // )
+
+    this.eventSource = events;
+    console.log(this.eventSource);
+
   }
 }
 

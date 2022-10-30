@@ -10,7 +10,7 @@
 <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
 
 <ion-content  *ngIf="!isLoading">
-  <ion-searchbar placeholder="Pesquise"></ion-searchbar><br>
+  <ion-searchbar placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
 
   <div *ngIf="this.users.length <= 0">
     <ion-label class="noUser">Nenhum usuário criado</ion-label>
@@ -18,7 +18,7 @@
   </div>
 
   <div *ngIf="this.users.length > 0">
-    <ion-list *ngFor="let user of users" >
+    <ion-list *ngFor="let user of users | filter:filter; let i = index">
         <ion-item [routerLink]="['/user-id/', user.id]">
 
           <ion-avatar slot="start">

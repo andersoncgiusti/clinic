@@ -57,7 +57,7 @@ Content-Type: application/json
 
 ###
 ### 
-GET http://localhost:3000/api/user
+DELETE http://localhost:3000/api/user/6334ab53981b14a6d5babab3
 ###
 ### 
 GET http://localhost:3000/api/userPacient
@@ -288,3 +288,9 @@ Content-Type: application/json
 }
    
 ###
+POST http://localhost:3000/api/userCpf
+Content-Type: application/json
+
+{    
+    "userCpf": "11111111111"
+}

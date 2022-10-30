@@ -3,6 +3,7 @@ const router = express.Router()
 
 const userController = require('../controllers/user.controller')
 
+router.get('/api/userCpf', userController.useGetCpf)
 router.get('/api/userPacient', userController.userGetPacient)
 router.get('/api/user', userController.userGet)
 router.get('/api/user/:id', userController.userGetId)

@@ -1,6 +1,8 @@
 require('dotenv').config();
 const User = require('../models/user.model');
 const Prontuario = require('../models/prontuarios.model');
+const Cash = require('../models/cash.model');
+const Agendamento = require('../models/agendamento.model');
 const ObjectID = require('mongodb').ObjectID;
 const sgMail = require('@sendgrid/mail');
 const handlebars = require('handlebars');
@@ -20,6 +22,19 @@ generateToken = (params = {}) => {
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = { 
+    useGetCpf: async (req, res) => {
+        const { userCpf } = req.body;
+
+        try {
+            const usersPacient = await User.find({ userCpf: {$eq: `${userCpf}`} });          
+            res.status(200).json({
+                message: 'Consulting users for CPF with successfully!',
+                user: usersPacient
+            });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
     userGetPacient: async (req, res) => {
         try {
             const usersPacient = await User.find({ userPermission: {$eq: 'paciente'} }).populate('prontuarios');          
@@ -227,12 +242,25 @@ module.exports = {
     },
     userDeleteId: async (req, res, next) => {
         try {
-            const user = await User.deleteOne({ _id: req.params.id });
-            if (user !== null) {
-                return res.status(200).json({ message: 'User was deleted' });
-            } else {
-                return res.status(404).json({ message: 'User ID does not exist to be deleted' });
-            }
+            const user = await User.findById({ _id: req.params.id });
+
+            const userBody = req.params.id;
+            console.log(userBody);
+            
+            // { userPermission: {$eq: 'paciente'} }
+            // const userProntuario = await Prontuario.findById({ user: { $eq: `${userBody}` }});
+            // const userCash = await Cash.findById({ user: { $eq: `${userBody}` }});
+            // const userAgendamento = await Agendamento.findById({ user: { $eq: `${userBody}` }});
+            // console.log('user', user);
+            // console.log('userProntuario', userProntuario);
+            // console.log('userCash', userCash);
+            // console.log('userAgendamento', userAgendamento);
+            // const user = await User.deleteOne({ _id: req.params.id });
+            // if (user !== null) {
+            //     return res.status(200).json({ message: 'User was deleted' });
+            // } else {
+            //     return res.status(404).json({ message: 'User ID does not exist to be deleted' });
+            // }
         } catch (error) {
             res.status(500).json({ message: error.message });
         }  
@@ -377,14 +405,12 @@ module.exports = {
         const { userEmail, password } = req.body;
 
         const user = await User.findOne({ userEmail }).select('+password');
-        console.log(user);
+        
         if (!user){
-        console.log(user);
             return res.status(400).json({ message: "User not found" });
         }
 
         if (!await bcrypt.compare(password, user.password)){
-            console.log(password, user.password);
             return res.status(400).json({ message: "Invalid password" });
         }
 

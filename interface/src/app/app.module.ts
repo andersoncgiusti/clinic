@@ -14,6 +14,8 @@ import {
 // export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 import { CpfPipe } from './pipe/cpf.pipe';
 
+import { Ng2SearchPipeModule } from "ng2-search-filter";
+
 @NgModule({
   declarations: [AppComponent, CpfPipe],
   imports: [
@@ -24,6 +26,7 @@ import { CpfPipe } from './pipe/cpf.pipe';
     NgxMaskModule.forRoot({
       dropSpecialCharacters: false
     }),
+    Ng2SearchPipeModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

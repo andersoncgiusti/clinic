@@ -12,6 +12,8 @@ import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 registerLocaleData(ptBr)
 
+import { Ng2SearchPipeModule } from "ng2-search-filter";
+
 @NgModule({
   imports: [
     IonicModule,
@@ -19,7 +21,8 @@ registerLocaleData(ptBr)
     FormsModule,
     Tab2PageRoutingModule,
     NgCalendarModule,
-    CalModalPageModule
+    CalModalPageModule,
+    Ng2SearchPipeModule
   ],
   declarations: [Tab2Page],
   providers: [
