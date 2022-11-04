@@ -27,3 +27,31 @@ input {
   margin-bottom: 0.5rem !important;
   width: 100% !important;
 }
+
+ion-avatar {
+  border: 3px solid #2dd36f!important;
+}
+
+.circulo {
+	width: 140px;
+	height: 140px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: auto;
+  border: 2px solid #2dd36f !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.lime {
+  background-color: #4aea8a !important;
+}
+
+h2 {
+  // margin-left: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  color: #2dd36f !important;
+}

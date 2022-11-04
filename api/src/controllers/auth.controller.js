@@ -49,7 +49,7 @@ module.exports = {
         fetchedUser = user
         return bcrypt.compare(req.body.password, user.password)
       })
-      .then(result => {
+      .then(result => {   
         if (!result) {
           return res.status(401).json({ message: "Auth failed" })
         }

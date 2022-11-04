@@ -27,6 +27,7 @@ export class Tab2Page implements OnInit {
   private user: User;
   private usersSub: Subscription;
   users: User[] = [];
+  public cpf = '';
 
   calendar = {
     mode: 'month',
@@ -80,7 +81,33 @@ export class Tab2Page implements OnInit {
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
+      this.users.forEach((res) => {
+        this.cpf = res.userCpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
+      })
     });
+  }
+
+  updatedScheduling() {
+    this.schedulingService.getAgendamentos();
+    this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
+    .subscribe((agendamentos) => {
+      this.agendamentos = agendamentos;
+
+      const allscheduling = [];
+
+      this.agendamentos.forEach((resp) => {
+        allscheduling.push({
+          id: resp.id,
+          title: resp.title,
+          startTime: new Date(""+ `${resp.startTime}`+""),
+          endTime: new Date(""+ `${resp.endTime}`+""),
+          allDay: resp.allDay,
+          user: resp
+        })
+      })
+
+      this.eventSource = allscheduling;
+    })
   }
 
   getAgendamentosDay() {
@@ -122,14 +149,14 @@ export class Tab2Page implements OnInit {
 
     const edt = {
       id: ev.id,
-      title: ev.title,
+      // title: ev.title,
       startTime: startFormated,
       month: monthFormated,
       hours: formated,
       endTime: endFormated.toString(),
       allDay: false,
-      // description: '',
-      user: ev.user.user._id
+      user: ev.user.user._id,
+      userById: ev.user.user.userName
     };
 
     const modal = await this.modalCtrl.create({
@@ -148,13 +175,12 @@ export class Tab2Page implements OnInit {
 
   event = {
     title: '',
-    // desc: '',
     startTime: '',
     day: '',
     month: '',
     endTime: '',
     allDay: false,
-    user: '634ded7b4368bde290802a35'
+    user: ''
   };
 
   createEvents() {
@@ -179,7 +205,6 @@ export class Tab2Page implements OnInit {
 
     events.push({
       title: this.event.title,
-      // desc: this.event.desc,
       startTime: startTime.toString(),
       day: this.event.day,
       month: this.event.month,
@@ -190,7 +215,6 @@ export class Tab2Page implements OnInit {
 
     this.schedulingService.addAgendamento(
       this.event.title,
-      // this.event.desc,
       this.event.startTime,
       this.event.day,
       this.event.month,
@@ -209,7 +233,7 @@ export class Tab2Page implements OnInit {
       this.event.month = "";
       this.event.startTime = "";
       this.event.endTime = "";
-      // this.event.desc;
+      this.updatedScheduling();
     }, 1000)
   }
 
@@ -219,26 +243,6 @@ export class Tab2Page implements OnInit {
       cssClass: 'custom-loading',
     });
     loading.present();
-  }
-
-  searchEvent = {
-    userCpf: '',
-  };
-
-  search() {
-    const events = [];
-
-    events.push({
-      userCpf: this.searchEvent.userCpf
-    })
-
-    // this.userService.getUserCPF(
-    //   this.searchEvent.userCpf
-    // )
-
-    this.eventSource = events;
-    console.log(this.eventSource);
-
   }
 }
 

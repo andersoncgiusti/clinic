@@ -22,19 +22,19 @@ generateToken = (params = {}) => {
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = { 
-    useGetCpf: async (req, res) => {
-        const { userCpf } = req.body;
+    // useGetCpf: async (req, res) => {
+    //     const { userCpf } = req.body;
 
-        try {
-            const usersPacient = await User.find({ userCpf: {$eq: `${userCpf}`} });          
-            res.status(200).json({
-                message: 'Consulting users for CPF with successfully!',
-                user: usersPacient
-            });
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
+    //     try {
+    //         const usersPacient = await User.find({ userCpf: {$eq: `${userCpf}`} });          
+    //         res.status(200).json({
+    //             message: 'Consulting users for CPF with successfully!',
+    //             user: usersPacient
+    //         });
+    //     } catch (error) {
+    //         res.status(500).json({ message: error.message });
+    //     }
+    // },
     userGetPacient: async (req, res) => {
         try {
             const usersPacient = await User.find({ userPermission: {$eq: 'paciente'} }).populate('prontuarios');          
@@ -159,7 +159,7 @@ module.exports = {
             userName: req.body.userName,
             userLastName: req.body.userLastName,
             userBirth: req.body.userBirth,
-            userPhone: req.body.userPhone,
+            userPhone: req.body.userPhone,  
             userEmail: req.body.userEmail,
             userCpf: req.body.userCpf,
             userAddress: req.body.userAddress,
@@ -168,8 +168,8 @@ module.exports = {
             userCity: req.body.userCity,
             userState: req.body.userState,
             userPermission: req.body.userPermission,
-            userPermission      : req.body.userPermission,
-            password            : hash,
+            userPermission      : req.body.userPermission,  
+            password            : hash
             // passwordResetToken  : req.body.passwordResetToken,
             // passwordResetExpires: req.body.passwordResetExpires
         }); 
@@ -186,13 +186,13 @@ module.exports = {
             }); 
 
             const dados = {
-                name: req.body.userName
+                name: req.body.userName   
             }
 
             const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/updated-user.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
-
-            const messageBody = (template({
+ 
+            const messageBody = (template({  
                 name: `${ dados.name }`        
             }))
 
@@ -242,10 +242,10 @@ module.exports = {
     },
     userDeleteId: async (req, res, next) => {
         try {
-            const user = await User.findById({ _id: req.params.id });
+            // const user = await User.findById({ _id: req.params.id });
 
-            const userBody = req.params.id;
-            console.log(userBody);
+            // const userBody = req.params.id;
+            // console.log(userBody);
             
             // { userPermission: {$eq: 'paciente'} }
             // const userProntuario = await Prontuario.findById({ user: { $eq: `${userBody}` }});
@@ -255,12 +255,13 @@ module.exports = {
             // console.log('userProntuario', userProntuario);
             // console.log('userCash', userCash);
             // console.log('userAgendamento', userAgendamento);
-            // const user = await User.deleteOne({ _id: req.params.id });
-            // if (user !== null) {
-            //     return res.status(200).json({ message: 'User was deleted' });
-            // } else {
-            //     return res.status(404).json({ message: 'User ID does not exist to be deleted' });
-            // }
+
+            const user = await User.deleteOne({ _id: req.params.id });
+            if (user !== null) {
+                return res.status(200).json({ message: 'User was deleted' });
+            } else {
+                return res.status(404).json({ message: 'User ID does not exist to be deleted' });
+            }
         } catch (error) {
             res.status(500).json({ message: error.message });
         }  

@@ -3,5 +3,6 @@ export interface Scheduling {
   title: String,
   startTime: String,
   endTime: String,
-  allDay: boolean
+  allDay: boolean,
+  user: String
 }

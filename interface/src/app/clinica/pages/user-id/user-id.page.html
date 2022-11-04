@@ -9,7 +9,8 @@
 
 <ion-content>
 
-  <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
+  <!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
+  <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
 
   <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)" *ngIf="!isLoading">
 
@@ -18,74 +19,78 @@
     </ion-avatar>
 
     <ion-item style="display: none;">
-      <ion-input type="txt" name="id" value="{{this.user.id}}" [(ngModel)]="user.id"></ion-input>
+      <ion-input type="text" name="id" value="{{this.user.id}}" [(ngModel)]="user.id"></ion-input>
     </ion-item>
 
     <ion-item style="display: none;">
-      <ion-input type="txt" name="userPermission" value="{{this.user.userPermission}}" [(ngModel)]="user.userPermission"></ion-input>
+      <ion-input type="text" name="userPermission" value="{{this.user.userPermission}}" [(ngModel)]="user.userPermission"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
-      <ion-input type="txt" name="userName" value="{{this.user.userName}}" [(ngModel)]="user.userName"></ion-input>
+      <ion-input type="text" name="userName" value="{{this.user.userName}}" [(ngModel)]="user.userName"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Sobrenome</ion-label>
-      <ion-input type="txt" name="userLastName" value="{{this.user.userLastName}}" [(ngModel)]="user.userLastName"></ion-input>
+      <ion-input type="text" name="userLastName" value="{{this.user.userLastName}}" [(ngModel)]="user.userLastName"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento</ion-label>
-      <input type="txt" name="userBirth" maxlength="8" value="{{this.birth}}" [(ngModel)]="user.userBirth" placeholder="Ex. 00000000">
+      <input type="text" name="userBirth" maxlength="10" value="{{this.birth}}" [(ngModel)]="this.birth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="txt" name="userPhone" maxlength="11" value="{{this.phone}}" [(ngModel)]="user.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <input type="text" name="userPhone" maxlength="14" value="{{this.phone}}" [(ngModel)]="this.phone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="txt" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail" readonly></ion-input>
-      <!-- <ion-input type="txt" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input> -->
+      <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail" readonly></ion-input>
+      <!-- <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input> -->
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="txt" name="userCpf" maxlength="11" value="{{this.cpf}}" [(ngModel)]="user.userCpf" placeholder="Ex. 12345678910">
+      <input type="text" name="userCpf" maxlength="14" value="{{this.cpf}}" [(ngModel)]="this.cpf" placeholder="Ex. 12345678910">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Rua/Av</ion-label>
-      <ion-input type="txt" name="userAddress" value="{{this.user.userAddress}}" [(ngModel)]="user.userAddress"></ion-input>
+      <ion-input type="text" name="userAddress" value="{{this.user.userAddress}}" [(ngModel)]="user.userAddress"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Número</ion-label>
-      <ion-input type="txt" name="userNumber" value="{{this.user.userNumber}}" [(ngModel)]="user.userNumber"></ion-input>
+      <ion-input type="text" name="userNumber" value="{{this.user.userNumber}}" [(ngModel)]="user.userNumber"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Complemento</ion-label>
-      <ion-input type="txt" name="userComplement" value="{{this.user.userComplement}}" [(ngModel)]="user.userComplement"></ion-input>
+      <ion-input type="text" name="userComplement" value="{{this.user.userComplement}}" [(ngModel)]="user.userComplement"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="txt" name="userCity" value="{{this.user.userCity}}" [(ngModel)]="user.userCity"></ion-input>
+      <ion-input type="text" name="userCity" value="{{this.user.userCity}}" [(ngModel)]="user.userCity"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="txt" name="userState" value="{{this.user.userState}}" [(ngModel)]="user.userState"></ion-input>
+      <ion-input type="text" name="userState" value="{{this.user.userState}}" [(ngModel)]="user.userState"></ion-input>
+    </ion-item>
+
+    <ion-item style="display: none;">
+      <ion-input type="text" name="userPassword" value="{{ this.user.password}}" [(ngModel)]="user.password"></ion-input>
     </ion-item>
 
     <div class="criar">
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" color="success" type="submit">
+            <ion-button expand="block" color="success" type="submit" routerLink="/users">
               <ion-icon name="pencil-outline" class="icon"></ion-icon>
             </ion-button>
           </ion-col>

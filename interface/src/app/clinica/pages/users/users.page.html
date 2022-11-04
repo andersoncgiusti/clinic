@@ -8,8 +8,9 @@
 </ion-header>
 
 <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
+<!-- <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar> -->
 
-<ion-content  *ngIf="!isLoading">
+<ion-content *ngIf="!isLoading" (mouseenter)="refresh();">
   <ion-searchbar placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
 
   <div *ngIf="this.users.length <= 0">

@@ -15,7 +15,8 @@ module.exports = {
         try {
             // const idUser = req.body._id;
             // const prontuarios = await Prontuario.find({ user: {$eq: idUser} });
-            const prontuarios = await Prontuario.find();
+            const prontuarios = await Prontuario.find().populate(['user']);
+            console.log(prontuarios);
             res.status(200).json({
                 message: 'Consulting prontuarios with successfully!',
                 prontuario: prontuarios

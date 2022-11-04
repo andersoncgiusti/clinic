@@ -14,6 +14,9 @@ export class UserService {
   private users: User[] = [];
   private usersUpdated = new Subject<User[]>();
 
+  // private usersSecond = [];
+  // private usersUpdatedSecond = new Subject();
+
   private userPacient: User[] = [];
   private userUpdated = new Subject<User[]>();
 
@@ -44,6 +47,7 @@ export class UserService {
           userCity: user.userCity,
           userState: user.userState,
           userPermission: user.userPermission,
+          password: user.password,
           id: user._id
         }
       });
@@ -86,10 +90,11 @@ export class UserService {
     userComplement: string,
     userCity: string,
     userState: string,
-    userPermission: string
+    userPermission: string,
+    password: string
   ) {
 
-    const user: User = {
+    const user = {
       id: null,
       userName: userName,
       userLastName: userLastName,
@@ -102,7 +107,8 @@ export class UserService {
       userComplement: userComplement,
       userCity: userCity,
       userState: userState,
-      userPermission: userPermission
+      userPermission: userPermission,
+      password: password
     };
 
 
@@ -130,7 +136,8 @@ export class UserService {
     userComplement: string,
     userCity: string,
     userState: string,
-    userPermission: string
+    userPermission: string,
+    password: string
   ) {
 
     const user: User = {
@@ -146,11 +153,10 @@ export class UserService {
       userComplement: userComplement,
       userCity: userCity,
       userState: userState,
-      userPermission: userPermission
+      userPermission: userPermission,
+      password: password
     };
-
-    console.log('user', user);
-
+  	console.log(user);
 
     this.http.put(environment.apiUrl + '/api/user/' + userId, user)
     .subscribe(() => {
@@ -233,27 +239,6 @@ export class UserService {
     .subscribe((transformedUser) => {
       this.chartPacient = transformedUser;
       this.chartUpdated.next([...this.chartPacient]);
-    });
-  }
-
-  // getId(userId: String) {
-  //   this.http.get<{ message: string, user: any }>(environment.apiUrl + '/api/user/' + userId)
-  //   .subscribe((transformedUser) => {
-  //     console.log(transformedUser.message);
-  //     this.usersUpdated.next();
-  //   });
-  // }
-
-  getId(userId: String) {
-    this.http.get<{ message: string, user: any }>(environment.apiUrl + '/api/user/' + userId)
-    .pipe(map((userData) => {
-      console.log('userData', userData);
-      return { userData }
-    }))
-    .subscribe((transformedUser) => {
-      console.log(transformedUser);
-      // this.users = transformedUser;
-      this.usersUpdated.next([...this.users]);
     });
   }
 }

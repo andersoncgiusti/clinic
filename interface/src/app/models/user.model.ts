@@ -11,5 +11,6 @@ export interface User {
   userComplement: String,
   userCity: String,
   userState: String,
-  userPermission: String
+  userPermission: String,
+  password: String
 }

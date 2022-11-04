@@ -27,7 +27,7 @@ export class SchedulingService {
     //   this.agendamentosUpdated.next([...this.agendamentos]);
     // });
 
-    this.http.get<{ message: string, agendamento: any}>(environment.apiUrl + '/api/agendamento')
+    this.http.get<{ message: string, agendamento: any }>(environment.apiUrl + '/api/agendamento')
     .pipe(map((agendamentosData) => {
       return agendamentosData.agendamento.map(agendamento => {
         return {
@@ -36,7 +36,8 @@ export class SchedulingService {
           endTime: agendamento.scheduleEndTime,
           // allDay: agendamento.allDay,
           id: agendamento._id,
-          user: agendamento.user
+          user: agendamento.user,
+          userById: agendamento.user._id
         }
       })
     }))

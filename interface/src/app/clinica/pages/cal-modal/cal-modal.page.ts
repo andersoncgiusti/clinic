@@ -20,6 +20,7 @@ export class CalModalPage implements OnInit {
   endTime: string;
   // desc: string;
   userId: string;
+  userIdscheduling: string;
   agendamento;
   public idEdt = '';
   public titleEdt = '';
@@ -42,13 +43,14 @@ export class CalModalPage implements OnInit {
   ) {
 
     this.id = navParams.get('id');
-    this.title = navParams.get('title');
+    this.title = navParams.get('userById');
     this.startTime = navParams.get('startTime');
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
     this.endTime = navParams.get('endTime');
     this.userId = navParams.get('user');
     // this.desc = navParams.get('desc');
+    this.userIdscheduling = navParams.get('userById');
   }
 
   ngSubmit(frm: any) {

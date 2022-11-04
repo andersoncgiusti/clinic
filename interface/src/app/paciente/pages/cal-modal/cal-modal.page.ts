@@ -97,7 +97,7 @@ export class CalModalPage implements OnInit {
       this.agendamentos.forEach((resp) => {
         allscheduling.push({
           id: resp.id,
-          title: resp.title,
+          // title: resp.title,
           startTime: new Date(""+ `${resp.startTime}`+""),
           endTime: new Date(""+ `${resp.endTime}`+""),
           allDay: resp.allDay,

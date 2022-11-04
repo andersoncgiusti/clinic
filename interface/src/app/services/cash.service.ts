@@ -17,15 +17,17 @@ export class CashService {
   getCashs() {
     this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any }>(environment.apiUrl + '/api/cash')
     .pipe(map((cashDate) => {
-      return cashDate.cashs.map(cashs => {
-        return {
-          sessions: cashs.sessions,
-          value: cashs.value,
-          pay: cashs.pay,
-          total: cashs.total,
-          id: cashs._id
-        }
-      })
+        return cashDate.cashs.map(cashs => {
+          return {
+            sessions: cashs.sessions,
+            value: cashs.value,
+            pay: cashs.pay,
+            total: cashs.total,
+            user: cashs.user._id,
+            created: cashs.created,
+            id: cashs._id
+          }
+        })
     }))
     .subscribe((transformedCash) => {
       this.cash = transformedCash;
@@ -49,6 +51,7 @@ export class CashService {
       total: total,
       user: user
     }
+    console.log('service', cash);
 
     this.http.post<{ message: string }>(environment.apiUrl + '/api/cash', cash)
     .subscribe(() => {

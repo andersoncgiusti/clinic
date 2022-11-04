@@ -11,7 +11,7 @@
 
 <ion-content>
 
-  <ion-item>
+  <!--  <ion-item>
     <ion-label>CPF</ion-label>
     <ion-input type="number" max="14" [(ngModel)]="package.cpf"></ion-input>
 
@@ -23,11 +23,22 @@
       <ion-icon name="close-circle"></ion-icon>
       <div class="paciente">
         <ion-input type="text" [(ngModel)]="package.user"></ion-input>
-        <!-- <ion-input type="text" [(ngModel)]="package.name"></ion-input>
-        <ion-input type="text" [(ngModel)]="package.email"></ion-input> -->
+        <ion-input type="text" [(ngModel)]="package.name"></ion-input>
+        <ion-input type="text" [(ngModel)]="package.email"></ion-input>
       </div>
     </ion-chip>
-  </ion-item>
+  </ion-item> -->
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Paciente</ion-label>
+      <ion-select interface="action-sheet" placeholder="Paciente" [(ngModel)]="package.user">
+        <div *ngFor="let user of users">
+          <ion-select-option value="{{ user.id }}">{{ user.userName }}</ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 
   <ion-item>
     <ion-label position="fixed">Sessões</ion-label>

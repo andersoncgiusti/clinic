@@ -19,7 +19,10 @@ export class Tab1Page implements OnInit {
   count: number;
   schedulingDay;
 
-  agendamentos: Scheduling[] = [];
+  // agendamentos: Scheduling[] = [];
+  // private agendamentosSub: Subscription;
+
+  agendamentos = [];
   private agendamentosSub: Subscription;
 
   calendar = {
@@ -49,19 +52,23 @@ export class Tab1Page implements OnInit {
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
-    .subscribe((agendamentos: Scheduling[]) => {
+    .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
+
+      const id = '6334ab53981b14a6d5babab3';
 
       const allscheduling = [];
 
       this.agendamentos.forEach((resp) => {
-        allscheduling.push({
-          id: resp.id,
-          title: resp.title,
-          startTime: new Date(""+ `${resp.startTime}`+""),
-          endTime: new Date(""+ `${resp.endTime}`+""),
-          allDay: resp.allDay,
-        })
+        if (resp.userById === id) {
+          allscheduling.push({
+            id: resp.id,
+            title: resp.title,
+            startTime: new Date(""+ `${resp.startTime}`+""),
+            endTime: new Date(""+ `${resp.endTime}`+""),
+            allDay: resp.allDay,
+          })
+        }
       })
 
       this.eventSource = allscheduling;

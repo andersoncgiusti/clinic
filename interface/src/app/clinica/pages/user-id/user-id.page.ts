@@ -29,11 +29,11 @@ export class UserIdPage implements OnInit {
   public userCity = '';
   public userState = '';
   public userPermission = '';
+  public userPassword = '';
   public cpf = '';
   public phone = '';
   public birth = '';
   private mode = '';
-  private userId: String;
 
   constructor(
     public userService: UserService,
@@ -53,17 +53,17 @@ export class UserIdPage implements OnInit {
     //   this.user = this.userService.getUsersId(this.id);
     //   this.isLoading = false;
     // })
-
+    this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
+
+      this.isLoading = false;
       this.users = users;
 
-      const birth = this.user.userBirth;
-      this.birth = birth.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{2})?([\d]{4})?/, "$1/$2/$3");
+      this.birth = this.user.userBirth.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{2})?([\d]{4})?/, "$1/$2/$3");
 
-      const cpf = this.user.userCpf;
-      this.cpf = cpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
+      this.cpf = this.user.userCpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
 
       const phone = this.user.userPhone;
 
@@ -99,29 +99,34 @@ export class UserIdPage implements OnInit {
       return;
     }
 
-    console.log('user', frm.value);
-
     this.userService.updateUser(
       frm.value.id,
       frm.value.userName,
       frm.value.userLastName,
-      frm.value.userBirth,
-      frm.value.userPhone,
+      frm.value.userBirth.replace(/[^\d]+/g,''),
+      frm.value.userPhone.replace(/[^\d]+/g,''),
       frm.value.userEmail,
-      frm.value.userCpf,
+      frm.value.userCpf.replace(/[^\d]+/g,''),
       frm.value.userAddress ,
       frm.value.userNumber,
       frm.value.userComplement,
       frm.value.userCity,
       frm.value.userState,
-      frm.value.userPermission
+      frm.value.userPermission,
+      frm.value.userPassword
     )
-
-    this.getAllUsers();
-
-    setTimeout(() => {
-      this.navCtrl.navigateRoot('users');
-      this.getAllUsers();
-    }, 1000);
+    // this.getAllUsers();
+    // setTimeout(() => {
+    //   this.navCtrl.navigateRoot('users');
+    // }, 1000);
   }
+
+  // navigate() {
+  //   setTimeout(() => {
+  //     console.log('ok');
+
+  //     this.navCtrl.navigateRoot('users');
+  //     this.getAllUsers();
+  //   }, 1000);
+  // }
 }

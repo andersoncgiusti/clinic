@@ -4,6 +4,7 @@ const sgMail = require('@sendgrid/mail');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
+const { subDays } = require("date-fns");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -12,46 +13,37 @@ module.exports = {
         try {
             
             const dataNow = new Date().toISOString().slice(0, 10);
-            const dataYear = new Date();
-            const year = dataYear.getFullYear(); 
-            const b = '+ 1';
-            const e = dataNow.slice(5, -3);
-            const g = eval(e + b);
-            const secondDayDate = (year + '-' + g + '-01');
-            const h = new Date().toLocaleDateString();
-            const i = h.slice(3, -5);
-            const dayInit = (year + '-' + i + '-' + h.slice(0, -8)).toString();
-            const j = h.slice(0, -8);
-            const k = eval(j + b);
-            const dayFinaly = (year + '-' + i + '-' + k).toString();
+            const data = new Date();
+            const sumDay = data.toISOString().split('T')[0];
+            const date = new Date();
+            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+            const firstDayDate = firstDay.toISOString().slice(0, 10);
+            const secondDay = new Date(date. getFullYear(), date.getMonth() + 1, 1);
+            const secondDayDate = secondDay.toISOString().slice(0, 10);
 
             const credit = await Cash.find({ 
                 pay: {$eq: 'credito'},
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
             }).count(); 
-
+            
             const debt = await Cash.find({ 
                 pay: {$eq: 'debito'},
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
             }).count(); 
-
+           
             const money = await Cash.find({ 
                 pay: {$eq: 'dinheiro'},
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
-            }).count();                         
-
-            const date = new Date();
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            const firstDayDate = firstDay.toISOString().slice(0, 10);
+            }).count();  
 
             const countMonth = await Cash.find({ 
                 created: { 
@@ -59,7 +51,7 @@ module.exports = {
                     $lt:new Date(`${secondDayDate}`)
                 }
             }).count();  
-
+            
             const creditTotal = await Cash.find({ 
                 pay: {$eq: 'credito'},
                 created: { 
@@ -86,8 +78,8 @@ module.exports = {
 
             const saleDay = await Cash.find({
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
             }).populate(['user']); 
             
@@ -101,8 +93,8 @@ module.exports = {
             const creditValue = await Cash.find({ 
                 pay: {$eq: 'credito'},
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
             });
 
@@ -114,8 +106,8 @@ module.exports = {
             const debtValue = await Cash.find({ 
                 pay: {$eq: 'debito'},
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
             });
 
@@ -127,8 +119,8 @@ module.exports = {
             const moneyValue = await Cash.find({ 
                 pay: {$eq: 'dinheiro'},
                 created: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
                 }
             });
 

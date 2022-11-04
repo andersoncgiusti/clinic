@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngFor="let item of eventSource">
     <!-- <div *ngIf="this.saleMonthLength <= 0">
         <ion-label class="cash">Sem histórico de compras</ion-label>
       </div> -->
@@ -15,11 +15,11 @@
       <ion-list>
           <ion-item>
             <ion-label>
-              <p>Sessões</p>
-              <p>Valor</p>
-              <p>Pagamento no</p>
-              <p>Total da compra</p>
-              <p>Comprado em</p>
+              <p>Sessões {{ item.sessions }}</p>
+              <p>Valor {{ item.value }}</p>
+              <p>Pagamento no {{ item.pay }}</p>
+              <p>Total da compra {{ item.total }}</p>
+              <p>Comprado em {{ item.created | date : 'MM-dd-yyyy' }}</p>
             </ion-label>
           </ion-item>
       </ion-list>

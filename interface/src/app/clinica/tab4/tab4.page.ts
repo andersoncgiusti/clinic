@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { CashService } from 'src/app/services/cash.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tab4',
@@ -14,16 +17,25 @@ export class Tab4Page implements OnInit {
   sessions;
   value;
 
-  constructor(public cashService: CashService) { }
+  private user: User;
+  private usersSub: Subscription;
+  users: User[] = [];
+
+  constructor(
+    public cashService: CashService,
+    public userService: UserService,
+    ) { }
 
   ngOnInit() {
+    this.userService.getUsers();
+    this.usersSub = this.userService.getUsersUpdated()
+    .subscribe((users: User[]) => {
+      this.users = users;
+    });
   }
 
   package = {
-    user: '634ded7b4368bde290802a35',
-    // name: 'Anderson',
-    // email: 'anderson.giusti12@gmail.com',
-    cpf: '',
+    user: '',
     sessions: Number,
     value: Number,
     pay: '',
@@ -40,9 +52,6 @@ export class Tab4Page implements OnInit {
 
     events.push({
       user:       this.package.user,
-      // name:     this.package.name,
-      // email:    this.package.email,
-      // cpf:      this.package.cpf,
       sessions: this.package.sessions,
       value:    this.package.value,
       pay:      this.package.pay,
@@ -58,6 +67,7 @@ export class Tab4Page implements OnInit {
     )
 
     this.eventSource = events;
+    console.log('this.eventSource', this.eventSource);
   }
 
   calcSale() {
@@ -71,7 +81,6 @@ export class Tab4Page implements OnInit {
     this.value = this.package.value.toString();
 
     setTimeout(()=> {
-      this.package.cpf = ''
       this.package.pay = ''
       this.valueTotal = ''
       this.package.user = ''
@@ -79,5 +88,4 @@ export class Tab4Page implements OnInit {
       this.value = ''
     }, 1000);
   }
-
 }

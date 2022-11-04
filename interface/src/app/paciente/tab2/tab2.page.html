@@ -8,8 +8,8 @@
 
 <ion-content>
 
-  <ion-card>
-    <div>
+  <ion-card *ngFor="let item of eventSource">
+    <!-- <div>
       <ion-list>
           <ion-item>
 
@@ -24,12 +24,8 @@
 
           </ion-item>
       </ion-list>
-    </div>
+    </div> -->
 
-    <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
-    </ion-card-content>
+    <ion-card-content>{{ item.treatment }}</ion-card-content>
   </ion-card>
-
 </ion-content>

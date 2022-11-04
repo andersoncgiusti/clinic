@@ -38,6 +38,7 @@ export class Tab3Page implements OnInit {
   public userCity = '';
   public userState = '';
   public userPermission = '';
+  public password = '';
 
   constructor(
     private animationCtrl: AnimationController,
@@ -160,6 +161,7 @@ export class Tab3Page implements OnInit {
     userCity: '',
     userState: '',
     userPermission: 'paciente',
+    password: ''
   };
 
   createPaciente() {
@@ -178,6 +180,7 @@ export class Tab3Page implements OnInit {
       userCity: this.pacienteEvent.userCity,
       userState: this.pacienteEvent.userState,
       userPermission: this.pacienteEvent.userPermission,
+      password: this.pacienteEvent.password,
     });
 
     this.userService.addUser(
@@ -193,6 +196,7 @@ export class Tab3Page implements OnInit {
       this.pacienteEvent.userCity,
       this.pacienteEvent.userState,
       this.pacienteEvent.userPermission,
+      this.pacienteEvent.password
     );
 
     this.eventSource = pacientes;
@@ -213,6 +217,7 @@ export class Tab3Page implements OnInit {
     userCity: '',
     userState: '',
     userPermission: 'administrador',
+    password: ''
   };
 
   createAdmin() {
@@ -231,6 +236,7 @@ export class Tab3Page implements OnInit {
       userCity: this.adminEvent.userCity,
       userState: this.adminEvent.userState,
       userPermission: this.adminEvent.userPermission,
+      password: this.adminEvent.password,
     });
 
     this.userService.addUser(
@@ -246,6 +252,7 @@ export class Tab3Page implements OnInit {
       this.adminEvent.userCity,
       this.adminEvent.userState,
       this.adminEvent.userPermission,
+      this.adminEvent.password
     );
 
     this.eventSource = admins;
@@ -267,6 +274,7 @@ export class Tab3Page implements OnInit {
     userCity: '',
     userState: '',
     userPermission: 'fisioterapeuta',
+    password: ''
   };
 
   createFisio() {
@@ -285,6 +293,7 @@ export class Tab3Page implements OnInit {
       userCity: this.fisioEvent.userCity,
       userState: this.fisioEvent.userState,
       userPermission: this.fisioEvent.userPermission,
+      password: this.fisioEvent.password,
     });
 
     this.userService.addUser(
@@ -300,6 +309,7 @@ export class Tab3Page implements OnInit {
       this.fisioEvent.userCity,
       this.fisioEvent.userState,
       this.fisioEvent.userPermission,
+      this.fisioEvent.password
     );
 
     this.eventSource = fisios;
@@ -329,7 +339,8 @@ export class Tab3Page implements OnInit {
       frm.value.userComplement,
       frm.value.userCity,
       frm.value.userState,
-      frm.value.userPermission
+      frm.value.userPermission,
+      frm.value.password
     )
   }
 

@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Chart } from '../models/chart.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,20 @@ export class ChartService {
   constructor(private http: HttpClient) { }
 
   getCharts() {
-    this.http.get<{ message: string, prontuario: Chart[]}>(environment.apiUrl + '/api/prontuario')
-    .subscribe((prontuarioData) => {
-      this.prontuarios = prontuarioData.prontuario;
+    this.http.get<{ message: string, prontuario: any }>(environment.apiUrl + '/api/prontuario')
+    .pipe(map((chartDate) => {
+        return chartDate.prontuario.map(charts => {
+          return {
+            treatment: charts.treatment,
+            userById: charts.user,
+            created: charts.created,
+            userId: charts.user._id,
+            id: charts._id
+          }
+        })
+    }))
+    .subscribe((transformedChart) => {
+      this.prontuarios = transformedChart;
       this.prontuariosUpdated.next([...this.prontuarios]);
     });
   }

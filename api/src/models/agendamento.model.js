@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const agendamentoSchema = new mongoose.Schema({
     scheduleTitle: {
         type: String,
-        required: true
+        required: false
     },
     scheduleStartTime: {
         type: Date,

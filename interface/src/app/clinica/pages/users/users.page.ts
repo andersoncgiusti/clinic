@@ -42,25 +42,23 @@ export class UsersPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getUsers();
-    this.usersSub = this.userService.getUsersUpdated()
-    .subscribe((users: User[]) => {
-      this.users = users;
-    });
-
-    setTimeout(() => {
-      console.log('users');
-      this.getAllUsers();
-    }, 2000);
-
-  }
-
-  getAllUsers() {
     this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.isLoading = false;
+      this.users = users;
+    });
+  }
+
+  refresh() {
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
+    this.userService.getUsers();
+    this.usersSub = this.userService.getUsersUpdated()
+    .subscribe((users: User[]) => {
       this.users = users;
     });
   }

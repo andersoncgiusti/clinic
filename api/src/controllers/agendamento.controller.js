@@ -13,38 +13,22 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 module.exports = { 
     agendamentoGet: async (req, res) => {  
         try {
-            const agendamento = await Agendamento.find().populate(['user']);
+            const agendamento = await Agendamento.find().populate(['user']);            
             const dataNow = new Date().toISOString().slice(0, 10);
-            const dataYear = new Date();
-            const year = dataYear.getFullYear();  
-
-            // const a = dataNow.slice(8);
-            const b = '+ 1';
-            // const c = eval(a + b);
-            // const d = dataNow.slice(0, -3);
-            // const resultFormated = (d + '-' + c);
-            // console.log(resultFormated);
-            const e = dataNow.slice(5, -3);
-            const g = eval(e + b);
-            const secondDayDate = (year + '-' + g + '-01');
-
-            const h = new Date().toLocaleDateString();
-            const i = h.slice(3, -5);
-            const dayInit = (year + '-' + i + '-' + h.slice(0, -8)).toString();
-            const j = h.slice(0, -8);
-            const k = eval(j + b);
-            const dayFinaly = (year + '-' + i + '-' + k).toString();
-
-            const count = await Agendamento.find({ 
-                scheduleStartTime: { 
-                    $gte:new Date(`${dayInit}`), 
-                    $lt:new Date(`${dayFinaly}`)
-                }
-            }).count();    
-
+            const data = new Date();
+            const sumDay = data.toISOString().split('T')[0];
             const date = new Date();
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
             const firstDayDate = firstDay.toISOString().slice(0, 10);
+            const secondDay = new Date(date. getFullYear(), date.getMonth() + 1, 1);
+            const secondDayDate = secondDay.toISOString().slice(0, 10);
+
+            const count = await Agendamento.find({ 
+                scheduleStartTime: { 
+                    $gte:new Date(`${dataNow}`), 
+                    $lt:new Date(`${sumDay}`)
+                }
+            }).count();    
 
             const countMonth = await Agendamento.find({ 
                 scheduleStartTime: { 
@@ -52,13 +36,6 @@ module.exports = {
                     $lt:new Date(`${secondDayDate.toString()}`)
                 }
             }).count();   
-
-            // agendamento.forEach((res) => {
-            //     const month = res.scheduleStartTime.toISOString().slice(0, 10);
-            //     const data = month.slice(5, -3);
-            //     const countTrue = (dataNow.indexOf(data) !== -1);
-            //     // console.log(countTrue); 
-            // })
 
             res.status(200).json({
                 message: 'Consulting scheduling with successfully!',
@@ -72,7 +49,8 @@ module.exports = {
     },
     agendamentoGetId: async (req, res, next) => {
         // try {
-        //     const agendamento = await Agendamento.findById(req.params.id).populate('userName')
+        //     const agendamento = await Agendamento.findById(req.params.id).populate(['user']);
+        //     console.log(agendamento);
         //     res.json(agendamento)
         //     if (agendamento == null) {
         //         return res.status(404).json({ message: 'Agenda not found!' })
@@ -83,8 +61,11 @@ module.exports = {
         // next()        
     },
     agendamentoPost: async (req, res) => {   
+
+        const user = await User.findById(req.body.user);
+
         const agendamentoBody = new Agendamento({
-            scheduleTitle: req.body.title, 
+            scheduleTitle: `${user.userName}`, 
             scheduleStartTime: req.body.startTime, 
             scheduleEndTime: req.body.endTime,
             user: req.body.user
@@ -99,7 +80,7 @@ module.exports = {
             // })
 
             const agendamento = await (await Agendamento.create(agendamentoBody)).populate(['user']);
-
+            console.log('agendamento', agendamento);
             res.status(201).json({
                 message: 'Create scheduling with successfully!',
                 agendamentoId: agendamento._id
@@ -115,7 +96,7 @@ module.exports = {
                 hoursInit: hoursInit,
                 hoursEnd: hoursEnd
             };
-
+            
             const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/scheduling.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
 
@@ -157,7 +138,7 @@ module.exports = {
         //     scheduleEndTime: req.body.scheduleEndTime,
         //     user: req.body.user
         // });
-
+  
         const agendamentoBody = new Agendamento({
             _id: req.params.id,
             scheduleTitle: req.body.title, 
@@ -170,15 +151,13 @@ module.exports = {
         const date = agendamentoBody.scheduleStartTime.toISOString().slice(0, 10);
         const hoursInit = agendamentoBody.scheduleStartTime.toLocaleTimeString().slice(0, 2);
         const hoursEnd = agendamentoBody.scheduleEndTime.toLocaleTimeString().slice(0, 2);
-
+    
         const dados = {
             name: user.userName,
             date: date,
             hoursInit: hoursInit,
             hoursEnd: hoursEnd
         };      
-
-        console.log('dados', dados);
 
         const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/rescheduling.handlebars"), "utf-8");
         const template = handlebars.compile(emailTemplate);

@@ -17,27 +17,23 @@ Content-Type: application/json
 }
 ###
 ### 
-POST http://localhost:3000/api/project
+PUT http://localhost:3000/api/user/6334ab53981b14a6d5babab3
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson",
+    "userName"      : "Bruno aaaaaaa",
     "userLastName"  : " Carvalho Giusti",
-    "userBirth"     : "26/12/1989",
-    "userPhone"     : "11 99249-9734",
-    "userEmail"     : "anderson_cg12@hotmail.com",
-    "userCpf"       : "37593539830",
+    "userBirth"     : "26121989",
+    "userPhone"     : "1124814222",
+    "userEmail"     : "anderson.giusti12@gmail.com",
+    "userCpf"       : "37593539831",
     "userAddress"   : "Avenida Odair Santanelli",
     "userNumber"    : "990",
     "userComplement": "Bloco 15 Apto B14",
     "userCity"      : "Guarulhos",
     "userState"     : "SP",
     "userPermission": "paciente",
-    "tasks": [
-        {
-            "title": "array 1"
-        }
-    ]
+    "password"      : "123"
 }
 
 ###
@@ -294,3 +290,11 @@ Content-Type: application/json
 {    
     "userCpf": "11111111111"
 }
+###
+GET  http://localhost:3000/api/user
+###
+GET  http://localhost:3000/api/cash 
+###
+GET  http://localhost:3000/api/agendamento 
+###
+GET  http://localhost:3000/api/agendamento/6334ab53981b14a6d5babab3
