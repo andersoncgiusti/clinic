@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { CashService } from 'src/app/services/cash.service';
+import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class Tab4Page implements OnInit {
   constructor(
     public cashService: CashService,
     public userService: UserService,
+    public sessionService: SessionService,
     ) { }
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class Tab4Page implements OnInit {
     this.valueTotal = eval(session + '*' + val);
 
     events.push({
-      user:       this.package.user,
+      user:     this.package.user,
       sessions: this.package.sessions,
       value:    this.package.value,
       pay:      this.package.pay,
@@ -67,7 +69,6 @@ export class Tab4Page implements OnInit {
     )
 
     this.eventSource = events;
-    console.log('this.eventSource', this.eventSource);
   }
 
   calcSale() {
@@ -87,5 +88,26 @@ export class Tab4Page implements OnInit {
       this.sessions = ''
       this.value = ''
     }, 1000);
+  }
+
+  packageQte = {
+    sessionPatient: Number,
+    user: '',
+  }
+
+  session() {
+    const events = [];
+
+    events.push({
+      user: this.packageQte.user,
+      sessionsPatient: this.packageQte.sessionPatient.toString()
+    })
+
+    this.sessionService.addSession(
+      this.packageQte.sessionPatient.toString(),
+      this.packageQte.user,
+    )
+
+    this.eventSource = events;
   }
 }

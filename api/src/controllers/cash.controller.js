@@ -321,13 +321,13 @@ module.exports = {
         try {
             const cash = await Cash.deleteOne({ _id: req.params.id });
             if (cash !== null) {
-                return res.status(200).json({ message: 'Cash was deleted' })
+                return res.status(200).json({ message: 'Cash was deleted' });
             } else {
-                return res.status(404).json({ message: 'Cash ID does not exist to be deleted' })
+                return res.status(404).json({ message: 'Cash ID does not exist to be deleted' });
             }
         } catch (error) {
-            res.status(500).json({ message: error.message })
+            res.status(500).json({ message: error.message });
         }  
-        next()
+        next();
     }
 }

@@ -51,7 +51,6 @@ export class CashService {
       total: total,
       user: user
     }
-    console.log('service', cash);
 
     this.http.post<{ message: string }>(environment.apiUrl + '/api/cash', cash)
     .subscribe(() => {

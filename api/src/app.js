@@ -7,9 +7,9 @@ const agendamentoRouter = require('./routes/agendamento.router');
 const prontuarioRouter = require('./routes/prontuarios.router');
 const userRouter = require('./routes/user.router');
 const cashRouter = require('./routes/cash.router');
+const sessionsRouter = require('./routes/sessions.router');
 const authRouter = require('./routes/auth.router');
 const projectRouter = require('./routes/project.router');
-const sessionsRouter = require('./routes/sessions.router');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); 
@@ -28,12 +28,12 @@ app.use((req, res, next) => {
 });
 
 app.use(agendamentoRouter);
-app.use(statusRouter);
 app.use(prontuarioRouter);
 app.use(userRouter);
 app.use(cashRouter);
 app.use(authRouter);
-app.use(projectRouter);
 app.use(sessionsRouter);
+app.use(statusRouter);
+app.use(projectRouter);
 
 module.exports = app;
