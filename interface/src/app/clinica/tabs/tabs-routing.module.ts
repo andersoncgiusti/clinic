@@ -33,14 +33,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/clinica/tab1',
+        redirectTo: 'init',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/clinica/tab1',
+    redirectTo: 'init',
     pathMatch: 'full'
   }
 ];

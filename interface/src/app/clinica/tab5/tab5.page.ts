@@ -21,6 +21,8 @@ export class Tab5Page implements OnInit {
   prontuarios: Chart[] = [];
   private prontuariosSub: Subscription;
 
+  private userNameIdEdt: String;
+
   constructor(
     public userService: UserService,
     public router: ActivatedRoute,
@@ -54,6 +56,10 @@ export class Tab5Page implements OnInit {
     this.usersSubPacient = this.userService.getUsersPacientUpdated()
     .subscribe((usersPacient: User[]) => {
       this.usersPacient = usersPacient;
+
+      this.usersPacient.forEach((res) => {
+        this.userNameIdEdt = res.userName.slice(0, 1);
+      })
     });
   }
 }

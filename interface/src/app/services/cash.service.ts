@@ -15,7 +15,7 @@ export class CashService {
   constructor(private http: HttpClient) { }
 
   getCashs() {
-    this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any }>(environment.apiUrl + '/api/cash')
+    this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any, sessionId: any }>(environment.apiUrl + '/api/cash')
     .pipe(map((cashDate) => {
         return cashDate.cashs.map(cashs => {
           return {
@@ -65,7 +65,7 @@ export class CashService {
   }
 
   getModule() {
-    return this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any }>(environment.apiUrl + '/api/cash');
+    return this.http.get<{ message: string, cashs: any, credit: any, debt: any, money: any, countMonth: any, creditTotal: any, debtTotal: any, moneyTotal: any, saleDay: any, saleMonth: any, cashsDayCredit: any, cashsDayDebt: any, cashsDayMoney: any, cashsMonthCredit: any, cashsMonthDebt: any, cashsMonthMoney: any, sessionId: any  }>(environment.apiUrl + '/api/cash');
   }
 
   deleteCash(cashId: String) {

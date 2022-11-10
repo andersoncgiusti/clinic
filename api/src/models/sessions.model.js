@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 
-const taskSchema = new mongoose.Schema({
-    title: {
+const sessionsSchema = new mongoose.Schema({
+    session: {
         type: String,
         required: true
     },
-    project: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project',
+        ref: 'User',
         require: true
     },
     created: {
@@ -17,4 +17,4 @@ const taskSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Task', taskSchema)
+module.exports = mongoose.model('Session', sessionsSchema)

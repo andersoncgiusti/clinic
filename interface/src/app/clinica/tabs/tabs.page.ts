@@ -35,7 +35,5 @@ export class TabsPage implements OnInit {
         this.schedulingDay = data.agendamentoDay;
       })
     }, 60000);
-
   }
-
 }

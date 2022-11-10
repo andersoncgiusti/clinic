@@ -6,6 +6,7 @@ import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 import { Subscription } from 'rxjs';
 import { CalModalPage } from 'src/app/paciente/pages/cal-modal/cal-modal.page';
+import { CashService } from 'src/app/services/cash.service';
 
 @Component({
   selector: 'app-tab1',
@@ -14,16 +15,22 @@ import { CalModalPage } from 'src/app/paciente/pages/cal-modal/cal-modal.page';
 })
 export class Tab1Page implements OnInit {
   eventSource = [];
+  SourceEvent = [];
   viewTitle: string;
   showAddEvent: boolean;
   count: number;
   schedulingDay;
+  sessionId;
+  idSession;
 
   // agendamentos: Scheduling[] = [];
   // private agendamentosSub: Subscription;
 
   agendamentos = [];
   private agendamentosSub: Subscription;
+
+  cashs = [];
+  private cashsSub: Subscription;
 
   calendar = {
     mode: 'month',
@@ -45,7 +52,8 @@ export class Tab1Page implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    public schedulingService: SchedulingService
+    public schedulingService: SchedulingService,
+    public cashService: CashService
   ) {}
 
   ngOnInit() {
@@ -72,6 +80,30 @@ export class Tab1Page implements OnInit {
       })
 
       this.eventSource = allscheduling;
+    })
+
+    // this.cashService.getModule()
+    // .subscribe((data) => {
+    //   console.log(data);
+    //   this.sessionId = data.sessionId;
+    // });
+
+    this.cashService.getCashs();
+    this.cashsSub = this.cashService.getCashUpdated()
+    .subscribe((cashs) => {
+      this.cashs = cashs;
+
+      const id = '6334ab53981b14a6d5babab3';
+      const all = [];
+
+      this.cashs.forEach((res) => {
+
+        if (res.user === id) {
+          this.idSession = res.sessions;
+        }
+      })
+
+      this.SourceEvent = all;
     })
   }
 

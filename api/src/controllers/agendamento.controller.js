@@ -15,9 +15,8 @@ module.exports = {
         try {
             const agendamento = await Agendamento.find().populate(['user']);            
             const dataNow = new Date().toISOString().slice(0, 10);
-            const data = new Date();
-            const sumDay = data.toISOString().split('T')[0];
             const date = new Date();
+            const sumDay = new Date(date.setDate(date.getDate() + 1)).toISOString().slice(0, 10);
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
             const firstDayDate = firstDay.toISOString().slice(0, 10);
             const secondDay = new Date(date. getFullYear(), date.getMonth() + 1, 1);
@@ -29,14 +28,14 @@ module.exports = {
                     $lt:new Date(`${sumDay}`)
                 }
             }).count();    
-
+       
             const countMonth = await Agendamento.find({ 
                 scheduleStartTime: { 
                     $gte:new Date(`${firstDayDate.toString()}`), 
                     $lt:new Date(`${secondDayDate.toString()}`)
                 }
             }).count();   
-
+            
             res.status(200).json({
                 message: 'Consulting scheduling with successfully!',
                 agendamento: agendamento,

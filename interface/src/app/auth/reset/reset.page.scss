@@ -29,12 +29,16 @@ ion-content {
   width: 90%;
 }
 
-.forgot {
+.text {
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   font-size: 1rem;
-  color: #2dd36f !important;
   margin: 3%;
+}
+
+.img {
+  width: 60% !important;
+  margin: auto;
 }

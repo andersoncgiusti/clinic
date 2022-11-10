@@ -21,14 +21,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/fisioterapeuta/tab1',
+        redirectTo: 'init',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/fisioterapeuta/tab1',
+    redirectTo: 'init',
     pathMatch: 'full'
   }
 ];

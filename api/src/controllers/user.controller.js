@@ -415,13 +415,126 @@ module.exports = {
             return res.status(400).json({ message: "Invalid password" });
         }
 
-        res.send({ user });
+        user.password = undefined;
+
+        const token = jwt.sign({ id: user.id }, authConfig.secret, {
+            expiresIn: 86400,
+        })
+
+        res.send({ user, token });
     
     },
     forgot: async (req, res) => {
+        const { userEmail } = req.body;
+
+        try {
+
+            const user = await User.findOne({ userEmail });
+
+            if (!user)
+                return res.status(400).send({ message: 'User not found!' });
+
+            const token = crypto.randomBytes(20).toString('hex');
+
+            const now = new Date();
+            now.setHours(now.getHours() + 1);
+
+            await User.findByIdAndUpdate(user.id, {
+                '$set': {
+                    passwordResetToken: token,
+                    passwordResetExpires: now,
+                }
+            });
+
+            const dados = {
+                token: token
+            }
+
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/forgot.handlebars"), "utf-8");
+            const template = handlebars.compile(emailTemplate);
+
+            const messageBody = (template({
+                token: `${ dados.token }`          
+            }))
+
+            const msg = {
+                to: [
+                  '' + `${userEmail}` + ''
+                ], 
+                from: '<'+`${process.env.FROM}`+'>',
+                subject: 'Token - Life Calendar',
+                html: messageBody 
+              };
+            
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email successfully sent');
+                }, error => {
+                  console.error(error);  
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                });  
+
+        } catch (error) {
+            res.status(400).send({ message: 'Erro on forgot password, try again!' });
+        }
 
     },
     reset: async (req, res) => {
+        const { userEmail, token, password } = req.body;
+
+        try {
+            const user = await User.findOne({ userEmail })
+            .select('+passwordResetToken passwordResetExpires');
+
+            if (!user)
+                return res.status(400).send({ message: 'User not found!' });
+            
+            if (token !== user.passwordResetToken)
+            return res.status(400).send({ message: 'Token invalid!' });
+
+            const now = new Date;
+
+            if (now > user.passwordResetExpires)
+                return res.status(400).send({ message: 'Token expired, generate a new one!' });
+
+            user.password = await bcrypt.hash(password, 10);
+
+            await user.save();
+
+            res.send();
+
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/updated-pass.handlebars"), "utf-8");
+            const template = handlebars.compile(emailTemplate);
+
+            // const messageBody = (template({
+            //     name: `${ dados.name }`        
+            // }))
+            
+            const msg = {
+                to: [
+                  '' + `${userEmail}` + ''
+                ], 
+                from: '<'+`${process.env.FROM}`+'>',
+                subject: 'Senha atualizada - Life Calendar',
+                // html: messageBody 
+              };
+            
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email successfully sent');
+                }, error => {
+                  console.error(error);  
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                });  
+        } catch (error) {
+            res.status(400).send({ message: 'Cannot reset password, try again!' });
+        }
 
     }
 }

@@ -53,17 +53,18 @@ const userSchema = new mongoose.Schema({
     },
     password: { 
         type: String, 
-        required: false 
+        required: false,
+        select: false
     },
     passwordResetToken: {
         type: String,
         select: false,
-        required: false 
+        // required: false 
     },
     passwordResetExpires: {
         type: Date,
         select: false,
-        required: false 
+        // required: false 
     },
     prontuarios: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -78,6 +79,11 @@ const userSchema = new mongoose.Schema({
     agendamentos: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Agendamento',
+        require: true
+    }],
+    sessions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Session',
         require: true
     }],
     created: {

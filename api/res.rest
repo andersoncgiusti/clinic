@@ -269,7 +269,7 @@ PUT http://localhost:3000/api/user_password
 Content-Type: application/json
 
 {    
-    "_id"      : "6356ea69ab8e3e2745ca8ef3",
+    "_id"      : "6334ab53981b14a6d5babab3",
     "password" : "12345"
 }
    
@@ -279,7 +279,7 @@ POST http://localhost:3000/api/user_authenticate
 Content-Type: application/json
 
 {    
-    "userEmail": "anderson_cg12@hotmail.com",
+    "userEmail": "anderson.giusti12@gmail.com",
     "password" : "12345"
 }
    
@@ -298,3 +298,49 @@ GET  http://localhost:3000/api/cash
 GET  http://localhost:3000/api/agendamento 
 ###
 GET  http://localhost:3000/api/agendamento/6334ab53981b14a6d5babab3
+
+###
+###
+POST http://localhost:3000/api/user_authenticate
+Content-Type: application/json
+
+{    
+    "userEmail": "anderson.giusti12@gmail.com",
+    "password" : "12345"
+}
+   
+###
+GET  http://localhost:3000/api/project 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzRhYjUzOTgxYjE0YTZkNWJhYmFiMyIsImlhdCI6MTY2ODAyODQ3MCwiZXhwIjoxNjY4MTE0ODcwfQ.G8anbLiK8BAeQdw0AjFBlw8NQWp6sciIobx-Aeu14Xs
+
+###
+
+###
+POST http://localhost:3000/api/user_forgot_password
+Content-Type: application/json
+
+{    
+    "userEmail": "anderson.giusti12@gmail.com"
+}
+   
+###
+###
+POST http://localhost:3000/api/user_reset_password
+Content-Type: application/json
+
+{    
+    "userEmail": "anderson.giusti12@gmail.com",
+    "token": "d6169177fa7afda18eefcc5a4217c2368e9a843e",
+    "password": "12345"
+}
+   
+###
+POST http://localhost:3000/api/prontuario
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzRhYjUzOTgxYjE0YTZkNWJhYmFiMyIsImlhdCI6MTY2ODAyODQ3MCwiZXhwIjoxNjY4MTE0ODcwfQ.G8anbLiK8BAeQdw0AjFBlw8NQWp6sciIobx-Aeu14Xs
+
+Content-Type: application/json
+
+{
+    "idChart": "6334ab53981b14a6d5babab3",
+    "treatment": "wecwecwecwec"
+}

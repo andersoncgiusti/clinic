@@ -3,6 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   //>>>>>>>>>>>>>>>>>>>> START
+
+  {
+    path: 'init',
+    loadChildren: () => import('./auth/init/init.module').then( m => m.InitPageModule)
+  },
   {
     path: 'login',
     loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
@@ -149,6 +154,11 @@ const routes: Routes = [
   {
     path: 'fisioterapeuta/privacy',
     loadChildren: () => import('./fisioterapeuta/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'init',
+    pathMatch: 'full'
   },
 ];
 @NgModule({

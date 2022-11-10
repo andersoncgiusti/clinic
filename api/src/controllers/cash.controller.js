@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Cash = require('../models/cash.model');
+const Session = require('../models/sessions.model');
 const sgMail = require('@sendgrid/mail');
 const handlebars = require('handlebars');
 const fs = require('fs');
@@ -10,17 +11,15 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = { 
     cashGet: async (req, res) => {  
-        try {
-            
+        try {            
             const dataNow = new Date().toISOString().slice(0, 10);
-            const data = new Date();
-            const sumDay = data.toISOString().split('T')[0];
             const date = new Date();
+            const sumDay = new Date(date.setDate(date.getDate() + 1)).toISOString().slice(0, 10);
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
             const firstDayDate = firstDay.toISOString().slice(0, 10);
             const secondDay = new Date(date. getFullYear(), date.getMonth() + 1, 1);
             const secondDayDate = secondDay.toISOString().slice(0, 10);
-
+            
             const credit = await Cash.find({ 
                 pay: {$eq: 'credito'},
                 created: { 
@@ -169,6 +168,12 @@ module.exports = {
             }
 
             const cashs = await Cash.find().populate(['user']);
+
+            let sessionId = 0
+            for (const cashsId of cashs) {
+                sessionId += eval(cashsId.sessions)
+            }
+
             res.status(200).json({
                 message: 'Consulting Cashs with successfully!',
                 cashs: cashs,
@@ -186,7 +191,8 @@ module.exports = {
                 cashsDayMoney: cashsDayMoney,
                 cashsMonthCredit: cashsMonthCredit,
                 cashsMonthDebt: cashsMonthDebt,
-                cashsMonthMoney: cashsMonthMoney
+                cashsMonthMoney: cashsMonthMoney,
+                sessionId: sessionId
             })
         } catch (error) {
             res.status(500).json({ message: error.message })
@@ -195,9 +201,23 @@ module.exports = {
     cashGetId: async (req, res, next) => {
               
     },
+    sessionPost: async (req, res) => {
+        try {          
+            const session = await (await Session.create(req.body)).populate(['user']);
+            console.log(session);  
+
+            res.status(201).json({
+                message: 'Create cash with successfully!',
+                session: session
+            });             
+        } catch (error) {
+            res.status(400).json({ message: error.message })
+        }
+    },
     cashPost: async (req, res) => {  
         try {
             const cash = await (await Cash.create(req.body)).populate(['user']);
+
             res.status(201).json({
                 message: 'Create cash with successfully!',
                 cash: cash

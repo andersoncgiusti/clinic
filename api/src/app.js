@@ -1,7 +1,5 @@
 const express = require('express');
 const app = express();
-// const handlebars = require('express-handlebars');
-// const handlebars = require('handlebars');
 
 //imports routes
 const statusRouter = require('./routes/status.router');
@@ -11,6 +9,7 @@ const userRouter = require('./routes/user.router');
 const cashRouter = require('./routes/cash.router');
 const authRouter = require('./routes/auth.router');
 const projectRouter = require('./routes/project.router');
+const sessionsRouter = require('./routes/sessions.router');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); 
@@ -28,10 +27,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Config template email
-// app.engine('handlebars', handlebars({defaultLayout: 'main'}));
-// app.set('view engine', 'handlebars');
-
 app.use(agendamentoRouter);
 app.use(statusRouter);
 app.use(prontuarioRouter);
@@ -39,6 +34,6 @@ app.use(userRouter);
 app.use(cashRouter);
 app.use(authRouter);
 app.use(projectRouter);
-
+app.use(sessionsRouter);
 
 module.exports = app;

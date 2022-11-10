@@ -1,0 +1,20 @@
+<ion-content *ngIf="!isLoading">
+  <div class="center">
+    <div class="init">
+      <ion-label>Life Vitta</ion-label>
+    </div>
+
+    <div class="img">
+      <ion-img width="50" height="50" src="../../../assets/icon/init.png"></ion-img>
+      <!-- <ion-img width="70" height="70" src="../../../assets/icon/transitions.gif"></ion-img> -->
+    </div>
+  </div>
+</ion-content>
+
+<div class="footer" *ngIf="!isLoading">
+  <ion-label>© LifeVitta 2022</ion-label>
+</div>
+
+<ion-progress-bar type="indeterminate"  *ngIf="isLoading"></ion-progress-bar>
+
+

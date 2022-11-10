@@ -19,10 +19,11 @@ export class CashDetailsPage implements OnInit {
   saleMonth;
   saleDayLength;
   saleMonthLength;
+
   constructor(public cashService: CashService) { }
 
   ngOnInit() {
-    // this.cashService.getCashs;
+    // this.cashService.getCashs();
     // this.cashsSub = this.cashService.getCashUpdated()
     // .subscribe((cashs: Cash[]) => {
     //   console.log(cashs);
@@ -35,7 +36,6 @@ export class CashDetailsPage implements OnInit {
   getCashs() {
     this.cashService.getModule()
     .subscribe((data) => {
-      console.log(data)
       this.saleDay = data.saleDay;
       this.saleMonth = data.saleMonth;
       this.saleDayLength = data.saleDay.length
