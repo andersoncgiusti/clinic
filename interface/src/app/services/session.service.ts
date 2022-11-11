@@ -20,18 +20,12 @@ export class SessionService {
   getSession() {
     this.http.get<{ message: string, session: any }>(environment.apiUrl + '/api/session')
     .pipe(map((sessionDate) => {
-        return sessionDate.session.map(sessions => {
-          console.log(sessions);
-
-          // return {
-          //   sessions: cashs.sessions,
-          //   value: cashs.value,
-          //   pay: cashs.pay,
-          //   total: cashs.total,
-          //   user: cashs.user._id,
-          //   created: cashs.created,
-          //   id: cashs._id
-          // }
+      return sessionDate.session.map(sessions => {
+          return {
+            user: sessions.user._id,
+            sessionPatient: sessions.sessionPatient,
+            id: sessions._id
+          }
         })
     }))
     .subscribe((transformedSession) => {
@@ -67,10 +61,10 @@ export class SessionService {
     });
   }
 
-  deleteSession(sessionId: String) {
-    this.http.delete(environment.apiUrl + '/api/session/' + sessionId)
+  deleteSession(cashtId: String) {
+    this.http.delete(environment.apiUrl + '/api/session/' + cashtId)
     .subscribe(() => {
-      const updatedSession = this.session.filter(p => p.id !== sessionId);
+      const updatedSession = this.session.filter(p => p.id !== cashtId);
       this.session = updatedSession;
       this.sessionUpdated.next([...this.session]);
     });

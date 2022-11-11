@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json');
 const crypto = require('crypto');
+const sgMail = require('@sendgrid/mail');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
  
 generateToken = (params = {}) => {
     return jwt.sign(params, authConfig.secret, {
@@ -68,13 +72,13 @@ module.exports = {
 
         try {
             const user = await User.findOne({ userEmail })
-            console.log(user);
+            // console.log(user);
             if (!user) {
                 return res.status(400).send({ message: 'User not found' })
             }
 
             const token = crypto.randomBytes(20).toString('hex')
-            console.log(token);
+            // console.log(token);
             const now = new Date()
             now.setDate(now.getHours() + 1)
 

@@ -7,6 +7,7 @@ import { SchedulingService } from 'src/app/services/scheduling.service';
 import { Subscription } from 'rxjs';
 import { CalModalPage } from 'src/app/paciente/pages/cal-modal/cal-modal.page';
 import { CashService } from 'src/app/services/cash.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-tab1',
@@ -22,6 +23,7 @@ export class Tab1Page implements OnInit {
   schedulingDay;
   sessionId;
   idSession;
+  totalySessions;
 
   // agendamentos: Scheduling[] = [];
   // private agendamentosSub: Subscription;
@@ -31,6 +33,9 @@ export class Tab1Page implements OnInit {
 
   cashs = [];
   private cashsSub: Subscription;
+
+  sessions = [];
+  private sessionsSub: Subscription;
 
   calendar = {
     mode: 'month',
@@ -53,7 +58,8 @@ export class Tab1Page implements OnInit {
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
     public schedulingService: SchedulingService,
-    public cashService: CashService
+    public cashService: CashService,
+    public sessionService: SessionService,
   ) {}
 
   ngOnInit() {
@@ -82,28 +88,29 @@ export class Tab1Page implements OnInit {
       this.eventSource = allscheduling;
     })
 
-    // this.cashService.getModule()
-    // .subscribe((data) => {
-    //   console.log(data);
-    //   this.sessionId = data.sessionId;
-    // });
-
-    this.cashService.getCashs();
-    this.cashsSub = this.cashService.getCashUpdated()
-    .subscribe((cashs) => {
-      this.cashs = cashs;
+    this.sessionService.getSession();
+    this.sessionsSub = this.sessionService.getSessionUpdated()
+    .subscribe((sessions) => {
+      this.sessions = sessions;
 
       const id = '6334ab53981b14a6d5babab3';
+      // const id = '6356ea69ab8e3e2745ca8ef3';
       const all = [];
 
-      this.cashs.forEach((res) => {
-
-        if (res.user === id) {
-          this.idSession = res.sessions;
+      this.sessions.forEach((resp) => {
+        if (resp.user === id) {
+          all.push({
+            sessionPatient: resp.sessionPatient
+          })
         }
       })
 
       this.SourceEvent = all;
+      let total = 0;
+
+      for (const sessions of this.SourceEvent) {
+        this.totalySessions = total += eval(sessions.sessionPatient)
+      }
     })
   }
 

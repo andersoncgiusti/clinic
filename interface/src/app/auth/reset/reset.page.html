@@ -1,4 +1,6 @@
-<ion-content>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-content *ngIf="!isLoading">
   <div class="center">
     <div class="login">
       <ion-label>Nova senha</ion-label>
@@ -9,24 +11,26 @@
     <div class="text">
       <ion-label>Use-o o token para atualizar sua senha</ion-label>
     </div>
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">E-mail</ion-label>
-        <ion-input type="email" placeholder="E-mail"></ion-input>
-      </ion-item>
+    <form (submit)="onReset(resetForm);" #resetForm="ngForm" #authForm="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input type="email" name="userEmail" ngModel placeholder="E-mail"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Token</ion-label>
-        <ion-input type="text" placeholder="Token"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating">Token</ion-label>
+          <ion-input type="text" name="token" ngModel placeholder="Token"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" placeholder="Senha"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating">Nova senha</ion-label>
+          <ion-input type="password" name="password" ngModel placeholder="Senha"></ion-input>
+        </ion-item>
 
-      <ion-button expand="block" color="success" class="enter">Atualizar</ion-button>
-    </ion-list>
+        <ion-button expand="block" color="success" class="enter" type="submit">Atualizar</ion-button>
+      </ion-list>
+    </form>
 
     <div class="img">
       <ion-img width="50" height="50" src="../../../assets/icon/reset.png"></ion-img>

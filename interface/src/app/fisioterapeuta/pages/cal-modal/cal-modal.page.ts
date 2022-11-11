@@ -19,6 +19,8 @@ export class CalModalPage implements OnInit {
   hours: string;
   endTime: string;
   // desc: string;
+  userIdscheduling: string;
+  user: string;
   agendamento;
   public idEdt = '';
   public titleEdt = '';
@@ -46,10 +48,10 @@ export class CalModalPage implements OnInit {
     this.hours = navParams.get('hours');
     this.endTime = navParams.get('endTime');
     // this.desc = navParams.get('desc');
+    this.userIdscheduling = navParams.get('user');
   }
 
   events = {
-    id: '6334ab53981b14a6d5babab3',
     treatment: '',
   };
 
@@ -57,15 +59,15 @@ export class CalModalPage implements OnInit {
     if (frm.invalid) {
       return;
     }
+    console.log(frm.value);
 
     this.userService.updateChart(
-      this.events.id,
-      this.events.treatment
+      frm.value.idChart,
+      frm.value.treatment
     )
 
     setTimeout(()=> {
       this.modalController.dismiss();
-      this.events.id = ''
       this.events.treatment = ''
     }, 1000);
   }

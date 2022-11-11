@@ -23,7 +23,7 @@
 
   <!-- <ion-searchbar id="open-modal" disabled="false" placeholder="Pesquise"></ion-searchbar> -->
 
-  <ion-button color="grey" routerLink="/users">
+  <ion-button color="grey" routerLink="/users" (click)="routerUser();">
     <ion-icon name="search-outline"></ion-icon>
   </ion-button>
 
@@ -298,12 +298,12 @@
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento</ion-label>
-      <ion-input type="number" name="userBirth" [(ngModel)]="fisioEvent.userBirth"></ion-input>
+      <input type="number" name="userBirth" [(ngModel)]="fisioEvent.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="number" name="userPhone" [(ngModel)]="fisioEvent.userPhone" prefix="+55 " mask="(00) 00000-0000">
+      <input type="number" name="userPhone" [(ngModel)]="fisioEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
@@ -313,7 +313,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="number" name="userCpf" [(ngModel)]="fisioEvent.userCpf" mask="000.000.000-00">
+      <input type="number" name="userCpf" [(ngModel)]="fisioEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
     <ion-item>

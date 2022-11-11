@@ -86,7 +86,7 @@ module.exports = {
 
             const userScheduling = await User.create(req.body);
 
-            // bcrypt.hash(req.body.password, 10).then(hash => {
+            // bcrypt.hash(req.body.userCpf, 3).then(hash => {
             //     const userScheduling = new User({
             //         userName            : req.body.userName,
             //         userLastName        : req.body.userLastName,
@@ -100,31 +100,32 @@ module.exports = {
             //         userCity            : req.body.userCity,
             //         userState           : req.body.userState,
             //         userPermission      : req.body.userPermission,
-            //         password            : hash,
+            //         password            : hash
             //         // passwordResetToken  : req.body.passwordResetToken,
             //         // passwordResetExpires: req.body.passwordResetExpires
             //     })
             //     userScheduling
             //       .save()
             //       .then(result => {
+            //         console.log(result);
             //         res.status(201).json({
             //             message: "User created!",
             //             result: result
             //         })
             //     })
-            // })
+            // }) 
 
             const dados = {
                 name: req.body.userName,
-                email: req.body.userEmail,
-                cpf: req.body.userCpf,
+                password: req.body.userCpf
             }
+
             const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/add-user.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
+
             const messageBody = (template({
-                name: `${ dados.name }`,   
-                email: `${ dados.email }`, 
-                cpf: `${ dados.cpf }`,            
+                name: `${ dados.name }`,  
+                password: `${ dados.password }`,            
             }))
 
             const msg = {
@@ -430,7 +431,7 @@ module.exports = {
         try {
 
             const user = await User.findOne({ userEmail });
-
+           
             if (!user)
                 return res.status(400).send({ message: 'User not found!' });
 
@@ -489,6 +490,10 @@ module.exports = {
             const user = await User.findOne({ userEmail })
             .select('+passwordResetToken passwordResetExpires');
 
+            const user_email = await User.find({userEmail: {$eq: userEmail}});
+
+            // console.log(user_email.userName);
+
             if (!user)
                 return res.status(400).send({ message: 'User not found!' });
             
@@ -506,12 +511,16 @@ module.exports = {
 
             res.send();
 
+            const dados = {
+                name: user_email.userName
+            }
+            
             const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/updated-pass.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
 
-            // const messageBody = (template({
-            //     name: `${ dados.name }`        
-            // }))
+            const messageBody = (template({
+                name: `${ dados.name }`        
+            }))
             
             const msg = {
                 to: [
@@ -519,7 +528,7 @@ module.exports = {
                 ], 
                 from: '<'+`${process.env.FROM}`+'>',
                 subject: 'Senha atualizada - Life Calendar',
-                // html: messageBody 
+                html: messageBody 
               };
             
               sgMail

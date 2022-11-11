@@ -60,6 +60,10 @@ export class Tab3Page implements OnInit {
     this.getUsers();
   }
 
+  routerUser() {
+    this.getUsers();
+  }
+
   getUsers() {
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()

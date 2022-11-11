@@ -10,11 +10,10 @@
       </ion-toolbar>
 
       <ion-item style="display: none;">
-        <ion-input type="txt" name="idChart" [(ngModel)]="events.id"></ion-input>
+        <ion-input type="txt" name="idChart" value="{{this.user}}" [(ngModel)]="user"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>
-      </ion-item>
+        <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>      </ion-item>
     </form>
 </ion-content>

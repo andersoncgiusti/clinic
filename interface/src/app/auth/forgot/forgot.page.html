@@ -1,27 +1,30 @@
-<ion-content>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-content *ngIf="!isLoading">
   <div class="center">
     <div class="login">
       <ion-label>Coloque seu E-mail</ion-label>
     </div>
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">E-mail</ion-label>
-        <ion-input type="email" placeholder="E-mail"></ion-input>
-      </ion-item>
+    <form (submit)="onForgot(forgotForm);" #forgotForm="ngForm" #authForm="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input type="email" name="userEmail" ngModel placeholder="E-mail"></ion-input>
+        </ion-item>
 
-      <!-- <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" placeholder="Senha"></ion-input>
-      </ion-item>
+        <!-- <ion-item>
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input type="password" placeholder="Senha"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Comfirme a Senha</ion-label>
-        <ion-input type="password" placeholder="Comfirme a Senha"></ion-input>
-      </ion-item> -->
+        <ion-item>
+          <ion-label position="floating">Comfirme a Senha</ion-label>
+          <ion-input type="password" placeholder="Comfirme a Senha"></ion-input>
+        </ion-item> -->
 
-      <ion-button expand="block" color="success" class="enter">Enviar</ion-button>
-    </ion-list>
-
+        <ion-button expand="block" color="success" class="enter" type="submit">Enviar</ion-button>
+      </ion-list>
+    </form>
     <div class="img">
       <ion-img width="50" height="50" src="../../../assets/icon/forgot.png"></ion-img>
     </div>

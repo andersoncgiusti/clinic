@@ -1,6 +1,7 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +10,15 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
+  isLoading = false;
+
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    private navCtrl: NavController,
   ) { }
 
   ngOnInit() {
+    // this.isLoading = false;
   }
 
   onLogin(form: NgForm) {
@@ -23,5 +28,13 @@ export class LoginPage implements OnInit {
     }
     this.authService.login(form.value.userEmail, form.value.password);
 
+  }
+
+  forgot() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      this.navCtrl.navigateRoot('/forgot');
+    }, 2000)
   }
 }

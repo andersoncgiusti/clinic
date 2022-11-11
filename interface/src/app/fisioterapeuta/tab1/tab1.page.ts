@@ -49,7 +49,7 @@ export class Tab1Page implements OnInit {
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
-    .subscribe((agendamentos: Scheduling[]) => {
+    .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
 
       const allscheduling = [];
@@ -61,10 +61,13 @@ export class Tab1Page implements OnInit {
           startTime: new Date(""+ `${resp.startTime}`+""),
           endTime: new Date(""+ `${resp.endTime}`+""),
           allDay: resp.allDay,
+          user: resp
         })
       })
 
       this.eventSource = allscheduling;
+
+      console.log(this.eventSource);
     })
   }
 
@@ -90,6 +93,7 @@ export class Tab1Page implements OnInit {
   async onEventSelected(ev) {
     this.getAgendamentosDay();
     this.newEvent = ev;
+    // console.log(ev);
 
     const start = ev.startTime.toISOString().slice(0, 10);
     const startFormated = start.slice(start.length - 2);
@@ -112,8 +116,8 @@ export class Tab1Page implements OnInit {
       month: monthFormated,
       hours: formated,
       endTime: endFormated.toString(),
-      allDay: false
-      // description: '',
+      allDay: false,
+      user: ev.user.user._id
     }
 
     const modal = await this.modalCtrl.create({
