@@ -18,6 +18,8 @@ export class ChartService {
     this.http.get<{ message: string, prontuario: any }>(environment.apiUrl + '/api/prontuario')
     .pipe(map((chartDate) => {
         return chartDate.prontuario.map(charts => {
+          console.log(charts);
+
           return {
             treatment: charts.treatment,
             userById: charts.user,
