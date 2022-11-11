@@ -107,7 +107,6 @@ export class Tab1Page implements OnInit {
 
       this.SourceEvent = all;
       let total = 0;
-
       for (const sessions of this.SourceEvent) {
         this.totalySessions = total += eval(sessions.sessionPatient)
       }

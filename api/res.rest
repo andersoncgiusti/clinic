@@ -350,7 +350,7 @@ Content-Type: application/json
 
 {
     "user": "6334ab53981b14a6d5babab3",
-    "sessionPatient": "10"
+    "sessionPatient": "1"
 }
 ###
 ###
@@ -358,4 +358,12 @@ GET http://localhost:3000/api/session
 ###
 ###
 DELETE  http://localhost:3000/api/session/636cf2a6da839c1b2b332a80
+###
+###
+PUT http://localhost:3000/api/session/6334ab53981b14a6d5babab3
+Content-Type: application/json
+
+{
+    "sessionPatient": "1"
+}
 ###

@@ -38,8 +38,12 @@
   </ion-row>
 
   <ion-item>
-    <ion-label>
-      Você tem {{ this.totalySessions }} sessões
+    <ion-label *ngIf="this.SourceEvent.length <= 0">
+      Você tem 0 sessões para agendar
+    </ion-label>
+
+    <ion-label *ngIf="this.SourceEvent.length > 0">
+      Você tem {{ this.totalySessions }} sessões para agendar
     </ion-label>
   </ion-item>
 

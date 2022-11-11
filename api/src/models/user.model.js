@@ -86,6 +86,11 @@ const userSchema = new mongoose.Schema({
         ref: 'Session',
         require: true
     }],
+    totals: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Total',
+        require: true
+    }],
     created: {
         type: Date,
         required: true,

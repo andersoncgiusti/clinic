@@ -6,7 +6,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<div class="noUser" *ngIf="this.eventSource.length <= 0">
+  <ion-label>Nenhuma compra de pacote de sessões feita</ion-label>
+  <ion-img src="../../../assets/icon/sales.png"></ion-img>
+</div>
+
+<ion-content *ngIf="this.eventSource.length > 0">
   <ion-card *ngFor="let item of eventSource">
     <!-- <div *ngIf="this.saleMonthLength <= 0">
         <ion-label class="cash">Sem histórico de compras</ion-label>
