@@ -9,20 +9,20 @@
 <ion-content>
 
   <ion-content>
-  <ion-searchbar disabled="false" placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
+    <ion-searchbar disabled="false" placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
 
-  <ion-list *ngFor="let user of usersPacient | filter:filter; let i = index">
-    <ion-item [routerLink]="['/fisioterapeuta/chart-id/', user.id]">
-      <ion-avatar slot="start">
-        <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ user.userName }}</h2>
-        <p>{{ user.userPermission | titlecase }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-</ion-content>
+    <ion-list *ngFor="let user of usersPacient | filter:filter; let i = index">
+      <ion-item [routerLink]="['/fisioterapeuta/chart-id/', user.id]">
+        <ion-avatar slot="start">
+          <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ user.userName }}</h2>
+          <p>{{ user.userPermission | titlecase }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 
 
 

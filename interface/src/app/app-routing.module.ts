@@ -156,7 +156,7 @@ const routes: Routes = [
     loadChildren: () => import('./fisioterapeuta/pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
   },
   {
-    path: 'init',
+    path: '',
     redirectTo: 'init',
     pathMatch: 'full'
   },
