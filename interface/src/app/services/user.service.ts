@@ -156,7 +156,7 @@ export class UserService {
       userPermission: userPermission,
       password: password
     };
-  	console.log(user);
+
 
     this.http.put(environment.apiUrl + '/api/user/' + userId, user)
     .subscribe(() => {

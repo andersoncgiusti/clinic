@@ -3,6 +3,9 @@ const router = express.Router();
 
 const totalController = require('../controllers/total.controller');
 
-router.post('/api/total' , totalController.totalPost);
+router.get('/api/total' , totalController.totalGet);
+router.put('/api/total' , totalController.totalPost);
+// router.put('/api/total' , totalController.totalPut);
+// router.put('/api/totals' , totalController.totalForPut);
 
 module.exports = router;

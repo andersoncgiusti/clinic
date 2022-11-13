@@ -63,10 +63,10 @@ export class CalModalPage implements OnInit {
     }
     console.log(frm.value);
 
-    this.userService.updateChart(
-      frm.value.idChart,
-      frm.value.treatment
-    )
+    // this.userService.updateChart(
+    //   frm.value.idChart,
+    //   frm.value.treatment
+    // )
 
     setTimeout(()=> {
       this.modalController.dismiss();

@@ -61,6 +61,21 @@ export class SessionService {
     });
   }
 
+  addSessionStart(
+    user: String,
+  ) {
+
+    const session = {
+      user: user,
+    }
+
+    this.http.post<{ message: string }>(environment.apiUrl + '/api/session_post', session)
+    .subscribe(() => {
+      this.sessions.push(session);
+      this.sessionsUpdated.next([...this.sessions]);
+    });
+  }
+
   deleteSession(cashtId: String) {
     this.http.delete(environment.apiUrl + '/api/session/' + cashtId)
     .subscribe(() => {

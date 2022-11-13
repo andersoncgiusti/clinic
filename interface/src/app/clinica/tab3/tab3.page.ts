@@ -4,6 +4,7 @@ import { AnimationController, LoadingController, NavController } from '@ionic/an
 import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { TotalService } from 'src/app/services/total.service';
 
 @Component({
   selector: 'app-tab3',
@@ -45,7 +46,8 @@ export class Tab3Page implements OnInit {
     public userService: UserService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public totalService: TotalService,
     ) {}
 
   ngOnInit() {

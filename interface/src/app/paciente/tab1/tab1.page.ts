@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { CalModalPage } from 'src/app/paciente/pages/cal-modal/cal-modal.page';
 import { CashService } from 'src/app/services/cash.service';
 import { SessionService } from 'src/app/services/session.service';
+import { TotalService } from 'src/app/services/total.service';
 
 @Component({
   selector: 'app-tab1',
@@ -37,6 +38,9 @@ export class Tab1Page implements OnInit {
   sessions = [];
   private sessionsSub: Subscription;
 
+  total = [];
+  private totalSub: Subscription;
+
   calendar = {
     mode: 'month',
     currentDate: new Date(),
@@ -60,9 +64,30 @@ export class Tab1Page implements OnInit {
     public schedulingService: SchedulingService,
     public cashService: CashService,
     public sessionService: SessionService,
+    public totalService: TotalService,
   ) {}
 
   ngOnInit() {
+    // this.totalService.getTotal();
+    // this.totalSub = this.totalService.getTotalUpdated()
+    // .subscribe((total) => {
+    //   this.total = total;
+
+    //   const id = '6334ab53981b14a6d5babab3';
+    //   const array = [];
+
+    //   this.total.forEach((resp) => {
+
+    //     if (resp.user === id) {
+    //       array.push({
+    //         sessionPatient: resp.sessionPatient
+    //       })
+    //     }
+
+    //     this.SourceEvent = array;
+    //   })
+    // });
+
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()

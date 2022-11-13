@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { CashService } from 'src/app/services/cash.service';
 import { SessionService } from 'src/app/services/session.service';
+import { TotalService } from 'src/app/services/total.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class Tab4Page implements OnInit {
     public cashService: CashService,
     public userService: UserService,
     public sessionService: SessionService,
+    public totalService: TotalService
     ) { }
 
   ngOnInit() {
@@ -109,5 +111,48 @@ export class Tab4Page implements OnInit {
     )
 
     this.eventSource = events;
+  }
+
+  packageTotal = {
+    sessionPatient: Number,
+    user: '',
+  }
+
+  total() {
+    const events = [];
+
+    events.push({
+      user: this.packageTotal.user,
+      sessionsPatient: this.packageTotal.sessionPatient.toString()
+    })
+
+    this.totalService.addTotal(
+      this.packageTotal.sessionPatient.toString(),
+      this.packageTotal.user,
+    )
+
+    this.eventSource = events;
+    console.log('total', this.eventSource);
+
+  }
+
+  packageStart = {
+    user: ''
+  }
+
+  start() {
+    const events = [];
+
+    events.push({
+      user: this.packageStart.user
+    })
+
+    this.sessionService.addSessionStart(
+      this.packageStart.user
+    )
+
+    this.eventSource = events;
+    console.log('start', this.eventSource);
+
   }
 }

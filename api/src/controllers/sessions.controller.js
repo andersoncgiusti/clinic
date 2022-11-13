@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Session = require('../models/sessions.model');
+const Total = require('../models/total.model');
 
 module.exports = {
     sessionPost: async (req, res) => {
@@ -14,9 +15,28 @@ module.exports = {
             res.status(400).json({ message: error.message });
         }
     },
+    sessionPostTotal: async (req, res) => {
+        try {         
+            
+            const session = ({
+                user: req.body.user,
+                sessionPatient: 0
+            });
+
+            const total = await (await Total.create(session)).populate(['user']); 
+      
+            res.status(201).json({
+                message: 'Create session with successfully!',
+                total: total
+            });             
+            
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    },
     sessionGet: async (req, res) => {
         try {          
-            const session = await Session.find(req.body).find().populate(['user']);  
+            const session = await Session.find().populate(['user']);  
     
             res.status(201).json({
                 message: 'Consulting session patient with successfully!',
