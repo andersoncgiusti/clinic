@@ -14,9 +14,15 @@
 
   <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)" *ngIf="!isLoading">
 
-    <ion-avatar slot="start" class="avatarId">
+    <!-- <ion-avatar slot="start" class="avatarId">
       <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-    </ion-avatar>
+    </ion-avatar> -->
+
+    <ion-item>
+      <div class="circulo lime">
+        <h2>{{ this.user.userName.slice(0, 1) }}</h2>
+      </div>
+    </ion-item>
 
     <ion-item style="display: none;">
       <ion-input type="text" name="id" value="{{this.user.id}}" [(ngModel)]="user.id"></ion-input>

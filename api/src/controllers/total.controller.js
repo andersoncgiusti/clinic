@@ -1,7 +1,15 @@
 require('dotenv').config();
 const Session = require('../models/sessions.model');
 const Total = require('../models/total.model');
+const User = require('../models/user.model');
 const ObjectId = require('mongoose').Types.ObjectId;
+
+const sgMail = require('@sendgrid/mail');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
     totalGet: async (req, res) => {
@@ -85,7 +93,12 @@ module.exports = {
             //     sessionPatient: calc
             // })    
 
-            const session = await Total.find(ObjectId(req.body.user));
+            const session = await Total.find(ObjectId(req.body.user)).populate(['user']); 
+            
+            const user = await User.findOne({_id: req.body.user}); 
+
+            console.log({ user });
+
             const qte = parseInt(req.body.sessionPatient);
  
             let sessionId = 0;
@@ -99,14 +112,19 @@ module.exports = {
                 user: req.body.user,
                 sessionPatient: finalized
             })    
+
+            // session.filter((res) => {
+            //     const userName = res.user.userName;
+            //     const userEmail = res.user.userEmail;
+            // })
                            
-            await Total.updateOne({ user: req.body.user }, total)
-            .then(result => {
-                res.status(200).json({ 
-                    message: 'Total session contabilized with successfully!',
-                    result: result 
-                })
-            }); 
+            // await Total.updateOne({ user: req.body.user }, total)
+            // .then(result => {
+            //     res.status(200).json({ 
+            //         message: 'Total session contabilized with successfully!',
+            //         result: result 
+            //     })
+            // }); 
            
         } catch (error) {
             res.status(400).json({ message: error.message });

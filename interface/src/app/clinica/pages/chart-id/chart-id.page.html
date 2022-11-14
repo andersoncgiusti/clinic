@@ -14,13 +14,19 @@
 
 <ion-content>
   <div>
-    <ion-avatar>
+    <!-- <ion-avatar>
       <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-    </ion-avatar><br><br>
+    </ion-avatar> -->
+    <ion-item>
+      <div class="circulo lime">
+        <h2>{{ this.user.userName.slice(0, 1) }}</h2>
+      </div>
+    </ion-item>
+    <br><br>
   </div>
 
   <ion-item>
-    <ion-label>{{this.user.userName}} {{this.user.userLastName}}, 32 anos</ion-label>
+    <ion-label>{{this.user.userName}} {{this.user.userLastName}}</ion-label>
   </ion-item>
 
   <div *ngIf="this.userChart.length <= 0">
@@ -35,7 +41,7 @@
       </ion-card-content>
       <ion-item>
         <ion-icon name="trash-outline" slot="end" color="success" class="delete" (click)="onDelete(this.item.id);"></ion-icon>
-        <ion-label class="date">Criado em {{ item.created | date : 'MM-dd-yyyy' }}</ion-label>
+        <ion-label class="date">Criado em {{ item.created | date : 'dd-MM-yyyy' }}</ion-label>
       </ion-item>
     </ion-card>
   </div>
