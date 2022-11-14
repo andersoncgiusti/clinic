@@ -68,25 +68,29 @@ export class Tab1Page implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.totalService.getTotal();
-    // this.totalSub = this.totalService.getTotalUpdated()
-    // .subscribe((total) => {
-    //   this.total = total;
+    this.totalService.getTotal();
+    this.totalSub = this.totalService.getTotalUpdated()
+    .subscribe((total) => {
+      this.total = total;
 
-    //   const id = '6334ab53981b14a6d5babab3';
-    //   const array = [];
+      const id = '6334ab53981b14a6d5babab3';
+      const array = [];
 
-    //   this.total.forEach((resp) => {
+      this.total.forEach((resp) => {
 
-    //     if (resp.user === id) {
-    //       array.push({
-    //         sessionPatient: resp.sessionPatient
-    //       })
-    //     }
+        if (resp.user === id) {
+          array.push({
+            sessionPatient: resp.sessionPatient
+          })
+        }
 
-    //     this.SourceEvent = array;
-    //   })
-    // });
+        this.SourceEvent = array;
+        let total = 0;
+        for (const sessions of this.SourceEvent) {
+          this.totalySessions = total += eval(sessions.sessionPatient)
+        }
+      })
+    });
 
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
@@ -113,29 +117,29 @@ export class Tab1Page implements OnInit {
       this.eventSource = allscheduling;
     })
 
-    this.sessionService.getSession();
-    this.sessionsSub = this.sessionService.getSessionUpdated()
-    .subscribe((sessions) => {
-      this.sessions = sessions;
+    // this.sessionService.getSession();
+    // this.sessionsSub = this.sessionService.getSessionUpdated()
+    // .subscribe((sessions) => {
+    //   this.sessions = sessions;
 
-      const id = '6334ab53981b14a6d5babab3';
-      // const id = '6356ea69ab8e3e2745ca8ef3';
-      const all = [];
+    //   const id = '6334ab53981b14a6d5babab3';
+    //   // const id = '6356ea69ab8e3e2745ca8ef3';
+    //   const all = [];
 
-      this.sessions.forEach((resp) => {
-        if (resp.user === id) {
-          all.push({
-            sessionPatient: resp.sessionPatient
-          })
-        }
-      })
+    //   this.sessions.forEach((resp) => {
+    //     if (resp.user === id) {
+    //       all.push({
+    //         sessionPatient: resp.sessionPatient
+    //       })
+    //     }
+    //   })
 
-      this.SourceEvent = all;
-      let total = 0;
-      for (const sessions of this.SourceEvent) {
-        this.totalySessions = total += eval(sessions.sessionPatient)
-      }
-    })
+    //   this.SourceEvent = all;
+    //   let total = 0;
+    //   for (const sessions of this.SourceEvent) {
+    //     this.totalySessions = total += eval(sessions.sessionPatient)
+    //   }
+    // })
   }
 
   getAgendamentosDay() {
