@@ -183,7 +183,8 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="number" name="userCpf" maxlength="11" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910">
+      <input type="number" name="userCpf" maxlength="11" [(ngModel)]="pacienteEvent.userCpf" [(ngModel)]="pacienteEvent.password" placeholder="Ex. 12345678910">
+      <!-- <input style="display: none;" name="password" [(ngModel)]="pacienteEvent.password"> -->
     </ion-item>
 
     <ion-item>

@@ -90,7 +90,7 @@ module.exports = {
                 return res.status(400).send({ message: "User alredy exists!" });
             }
 
-            const userScheduling = await User.create(req.body);
+            
 
             // bcrypt.hash(req.body.userCpf, 3).then(hash => {
             //     const userScheduling = new User({
@@ -120,6 +120,10 @@ module.exports = {
             //         })
             //     })
             // }) 
+
+            // bcrypt.hash(req.body.password, 10);
+
+            const userScheduling = await User.create(req.body);
 
             const dados = {
                 name: req.body.userName,
@@ -231,7 +235,7 @@ module.exports = {
     chartUpdateId: async (req, res, next) => {              
         try {            
             const user = await User.findById({ _id: req.params.id});
-            
+
             const userPacientChat = new Prontuario({
                 treatment: req.body.treatment,
                 user: user._id
@@ -445,7 +449,7 @@ module.exports = {
         if (!await bcrypt.compare(password, user.password)){
             return res.status(400).json({ message: "Invalid password" });
         }
-
+        
         user.password = undefined;
 
         const token = jwt.sign({ id: user.id }, authConfig.secret, {

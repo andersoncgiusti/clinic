@@ -280,7 +280,7 @@ Content-Type: application/json
 
 {    
     "userEmail": "anderson.giusti12@gmail.com",
-    "password" : "12345"
+    "password" : "37593539830"
 }
    
 ###
@@ -306,7 +306,7 @@ Content-Type: application/json
 
 {    
     "userEmail": "anderson.giusti12@gmail.com",
-    "password" : "12345"
+    "password" : "37593539830"
 }
    
 ###
