@@ -88,11 +88,9 @@ module.exports = {
         try {            
             if (await User.findOne({ userEmail } )) {
                 return res.status(400).send({ message: "User alredy exists!" });
-            }
+            }            
 
-            
-
-            // bcrypt.hash(req.body.userCpf, 3).then(hash => {
+            // bcrypt.hash((req.body.userCpf, 3).slice(0, 5)).then(hash => {
             //     const userScheduling = new User({
             //         userName            : req.body.userName,
             //         userLastName        : req.body.userLastName,
