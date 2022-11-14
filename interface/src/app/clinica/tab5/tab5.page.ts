@@ -57,9 +57,10 @@ export class Tab5Page implements OnInit {
     .subscribe((usersPacient: User[]) => {
       this.usersPacient = usersPacient;
 
-      this.usersPacient.forEach((res) => {
-        this.userNameIdEdt = res.userName.slice(0, 1);
-      })
+      // this.usersPacient.forEach((res) => {
+      //   this.userNameIdEdt = res.userName.slice(0, 1);
+      //   console.log(this.userNameIdEdt);
+      // })
     });
   }
 }

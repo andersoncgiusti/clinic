@@ -16,14 +16,14 @@
 
   <ion-list *ngFor="let user of usersPacient | filter:filter; let i = index">
     <ion-item [routerLink]="['/chart-id/', user.id]">
-      <ion-avatar slot="start">
+      <!-- <ion-avatar slot="start">
         <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-      </ion-avatar>
-      <!-- <ion-item class="circle">
+      </ion-avatar> -->
+      <ion-item class="circle">
         <div class="circulo lime">
-          <h2 class="h2">{{ user.userName }}</h2>
+          <h2 class="h2">{{ user.userName.slice(0, 1) }}</h2>
         </div>
-      </ion-item> -->
+      </ion-item>
 
       <ion-label>
         <h2>{{ user.userName }}</h2>

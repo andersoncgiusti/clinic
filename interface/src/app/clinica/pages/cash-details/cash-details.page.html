@@ -23,9 +23,16 @@
 
       <ion-list *ngFor="let item of saleDay">
           <ion-item>
-            <ion-avatar slot="start">
+            <!-- <ion-avatar slot="start">
               <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-            </ion-avatar>
+            </ion-avatar> -->
+
+            <ion-item class="circle">
+              <div class="circulo lime">
+                <h2 class="h2">{{ item.user.userName.slice(0, 1) }}</h2>
+              </div>
+            </ion-item>
+
             <ion-label>
               <h2>Paciente {{ item.user.userName }}</h2>
               <p>Sessões {{ item.sessions }}</p>
@@ -54,9 +61,16 @@
 
       <ion-list *ngFor="let item of saleMonth | filter:filter; let i = index">
           <ion-item>
-            <ion-avatar slot="start">
+            <!-- <ion-avatar slot="start">
               <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-            </ion-avatar>
+            </ion-avatar> -->
+
+            <ion-item class="circle">
+              <div class="circulo lime">
+                <h2 class="h2">{{ item.user.userName.slice(0, 1) }}</h2>
+              </div>
+            </ion-item>
+
             <ion-label>
               <h2>Paciente {{ item.user.userName }}</h2>
               <p>Sessões {{ item.sessions }}</p>
