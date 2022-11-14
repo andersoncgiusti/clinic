@@ -1,14 +1,20 @@
 require('dotenv').config();
+
 const User = require('../models/user.model');
 const Prontuario = require('../models/prontuarios.model');
 const Cash = require('../models/cash.model');
 const Agendamento = require('../models/agendamento.model');
-const ObjectID = require('mongodb').ObjectID;
+const Session = require('../models/sessions.model');
+const Total = require('../models/total.model');
+
+const ObjectId = require('mongoose').Types.ObjectId;
+
 const sgMail = require('@sendgrid/mail');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
+
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json');
 const crypto = require('crypto');
@@ -243,21 +249,13 @@ module.exports = {
     },
     userDeleteId: async (req, res, next) => {
         try {
-            // const user = await User.findById({ _id: req.params.id });
-
-            // const userBody = req.params.id;
-            // console.log(userBody);
-            
-            // { userPermission: {$eq: 'paciente'} }
-            // const userProntuario = await Prontuario.findById({ user: { $eq: `${userBody}` }});
-            // const userCash = await Cash.findById({ user: { $eq: `${userBody}` }});
-            // const userAgendamento = await Agendamento.findById({ user: { $eq: `${userBody}` }});
-            // console.log('user', user);
-            // console.log('userProntuario', userProntuario);
-            // console.log('userCash', userCash);
-            // console.log('userAgendamento', userAgendamento);
-
             const user = await User.deleteOne({ _id: req.params.id });
+            const prontuario = await Prontuario.deleteMany({ user: user._id });
+            const cash = await Cash.deleteMany({ user: user._id });
+            const agendamento = await Agendamento.deleteMany({ user: user._id });
+            const session = await Session.deleteMany({ user: user._id });
+            const total = await Total.deleteMany({ user: user._id });
+
             if (user !== null) {
                 return res.status(200).json({ message: 'User was deleted' });
             } else {

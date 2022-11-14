@@ -119,7 +119,6 @@ export class ChartIdPage implements OnInit {
     if (frm.invalid) {
       return;
     }
-    console.log(frm.value);
 
     this.userService.updateChart(
       frm.value.idChart,

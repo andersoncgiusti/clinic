@@ -219,7 +219,7 @@ Content-Type: application/json
     "_id": "634f4c1602adcdf17d3f264e"
 }
 ###
-GET  http://localhost:3000/api/user/634ded7b4368bde290802a35
+DELETE   http://localhost:3000/api/user/636d4c723b5bfef5dbdf13ca
 ###
 ### register password
 POST http://localhost:3000/api/register

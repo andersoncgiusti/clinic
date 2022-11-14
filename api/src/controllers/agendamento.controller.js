@@ -79,7 +79,7 @@ module.exports = {
             // })
 
             const agendamento = await (await Agendamento.create(agendamentoBody)).populate(['user']);
-            console.log('agendamento', agendamento);
+            
             res.status(201).json({
                 message: 'Create scheduling with successfully!',
                 agendamentoId: agendamento._id
