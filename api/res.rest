@@ -388,11 +388,12 @@ GET http://localhost:3000/api/total
 ###
 PUT http://localhost:3000/api/totals
 ###
-PUT http://localhost:3000/api/total
+PUT http://localhost:3000/api/totals
 Content-Type: application/json
 
 {
-    "user": "6334ab53981b14a6d5babab3"
+    "user": "6334ab53981b14a6d5babab3",
+    "sessionPatient": "1"
 }
 ###
 POST http://localhost:3000/api/session_post

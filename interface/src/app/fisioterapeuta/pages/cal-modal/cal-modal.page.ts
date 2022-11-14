@@ -4,6 +4,7 @@ import { ModalController, NavController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
+import { TotalService } from 'src/app/services/total.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class CalModalPage implements OnInit {
   month: string;
   hours: string;
   endTime: string;
+  endTimeNumber: number;
   // desc: string;
   userIdscheduling: string;
   user: string;
@@ -38,7 +40,8 @@ export class CalModalPage implements OnInit {
     public userService: UserService,
     public router: ActivatedRoute,
     public schedulingService: SchedulingService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public totalService: TotalService,
   ) {
 
     this.id = navParams.get('id');
@@ -47,9 +50,7 @@ export class CalModalPage implements OnInit {
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
     this.endTime = navParams.get('endTime');
-    console.log(this.endTime);
-
-    // this.desc = navParams.get('desc');
+    this.endTimeNumber = parseInt(this.endTime);
     this.userIdscheduling = navParams.get('user');
   }
 
@@ -61,12 +62,19 @@ export class CalModalPage implements OnInit {
     if (frm.invalid) {
       return;
     }
-    console.log(frm.value);
 
-    // this.userService.updateChart(
-    //   frm.value.idChart,
-    //   frm.value.treatment
-    // )
+    const session = parseInt(frm.value.endTime);
+    console.log(session);
+
+    this.userService.updateChart(
+      frm.value.idChart,
+      frm.value.treatment
+    )
+
+    this.totalService.totalUp(
+      frm.value.endTime,
+      frm.value.idChart
+    )
 
     setTimeout(()=> {
       this.modalController.dismiss();
@@ -122,5 +130,27 @@ export class CalModalPage implements OnInit {
   //   })
   // }
 
+  packageTotal = {
+    sessionPatient: '',
+    user: '',
+  }
+
+  total() {
+    const events = [];
+
+    events.push({
+      user: this.packageTotal.user,
+      sessionsPatient: this.packageTotal.sessionPatient
+    })
+
+    // // this.totalService.totalUp(
+    // //   this.packageTotal.sessionPatient.toString(),
+    // //   this.packageTotal.user,
+    // // )
+
+    this.eventSource = events;
+    console.log('total >>>>', this.eventSource);
+
+  }
 }
 

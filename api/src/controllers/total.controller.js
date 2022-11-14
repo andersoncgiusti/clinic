@@ -39,7 +39,7 @@ module.exports = {
             //         result: result
             //     })
             // })
-
+            
             const session = await Session.find(ObjectId(req.body.user));
             
             // const qte = req.body.sessionPatient;
@@ -72,22 +72,34 @@ module.exports = {
     },
     totalPut: async (req, res) => {  
         try {         
-            const session = await Session.find(ObjectId(req.body.user));
-            
-            const qte = req.body.sessionPatient;
+            // const session = await Session.find(ObjectId(req.body.user));
+            // const qte = parseInt(req.body.sessionPatient);     
+            // let sessionId = 0;
+            // for (const cashsId of session) {
+            //     sessionId += eval(cashsId.sessionPatient);
+            // }
+            // const finalized = sessionId - qte;
+            // const calc = finalized - qte;
+            // const total = ({
+            //     user: req.body.user,
+            //     sessionPatient: calc
+            // })    
 
+            const session = await Total.find(ObjectId(req.body.user));
+            const qte = parseInt(req.body.sessionPatient);
+ 
             let sessionId = 0;
             for (const cashsId of session) {
                 sessionId += eval(cashsId.sessionPatient);
             }
-
-            const finalized = (sessionId - qte)
+          
+            const finalized = sessionId - qte;            
 
             const total = ({
                 user: req.body.user,
                 sessionPatient: finalized
-            })            
-            
+            })    
+                           
             await Total.updateOne({ user: req.body.user }, total)
             .then(result => {
                 res.status(200).json({ 

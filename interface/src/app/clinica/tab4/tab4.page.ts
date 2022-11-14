@@ -132,8 +132,6 @@ export class Tab4Page implements OnInit {
     )
 
     this.eventSource = events;
-    console.log('total', this.eventSource);
-
   }
 
   packageStart = {
@@ -141,18 +139,24 @@ export class Tab4Page implements OnInit {
   }
 
   start() {
-    const events = [];
+    setTimeout(() => {
 
-    events.push({
-      user: this.packageStart.user
-    })
+      const events = [];
 
-    this.sessionService.addSessionStart(
-      this.packageStart.user
-    )
+      events.push({
+        user: this.packageStart.user
+      })
 
-    this.eventSource = events;
-    console.log('start', this.eventSource);
+      this.sessionService.addSessionStart(
+        this.packageStart.user
+      )
 
+      this.totalService.addTotalized(
+        this.packageStart.user
+      )
+
+      this.eventSource = events;
+
+    }, 1000)
   }
 }
