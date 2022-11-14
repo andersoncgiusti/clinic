@@ -41,7 +41,8 @@ module.exports = {
     prontuarioPost: async (req, res) => { 
         try {
             const chart = await (await Prontuario.create(req.body)).populate(['user']);
-
+            console.log(chart);
+         
             res.status(201).json({
                 message: 'Create prontuario with successfully!',
                 chart: chart

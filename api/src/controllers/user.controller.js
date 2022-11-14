@@ -231,6 +231,7 @@ module.exports = {
     chartUpdateId: async (req, res, next) => {              
         try {            
             const user = await User.findById({ _id: req.params.id});
+            
             const userPacientChat = new Prontuario({
                 treatment: req.body.treatment,
                 user: user._id
@@ -242,7 +243,38 @@ module.exports = {
                     message: 'Add chart with successfully!',
                     userId: createdChart._id
                 })
-            });           
+            });      
+            
+            const dados = {
+                name: user.userName
+            }
+            
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/chart.handlebars"), "utf-8");
+            const template = handlebars.compile(emailTemplate);
+
+            const messageBody = (template({
+                name: `${ dados.name }`        
+            }))
+
+            const msg = {
+                to: [
+                  '' + `${user.userEmail}` + ''
+                ], 
+                from: '<'+`${process.env.FROM}`+'>',
+                subject: 'Prontuário - Life Calendar',
+                html: messageBody 
+              };
+            
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email successfully sent');
+                }, error => {
+                  console.error(error);  
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                });  
         } catch (error) {
             return res.status(400).send({ message: error.message });
         }

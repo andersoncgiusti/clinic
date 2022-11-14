@@ -25,39 +25,13 @@ module.exports = {
         }
     },
     totalPost: async (req, res) => {  
-        try {         
-            // const session = await Session.find(ObjectId(req.body.user));
-          
-            // let sessionId = 0;
-            // for (const cashsId of session) {
-            //     sessionId += eval(cashsId.sessionPatient);
-            // }
-            
-            // const total = new Total({
-            //     user: req.body.user,
-            //     sessionPatient: sessionId
-            // })
-            
-            // total
-            //     .save()
-            //     .then(result => {
-            //     console.log(result);
-            //     res.status(201).json({
-            //         message: "Total session contabilized with successfully!",
-            //         result: result
-            //     })
-            // })
-            
+        try {                     
             const session = await Session.find(ObjectId(req.body.user));
-            
-            // const qte = req.body.sessionPatient;
 
             let sessionId = 0;
             for (const cashsId of session) {
                 sessionId += eval(cashsId.sessionPatient);
             }
-
-            // const finalized = (sessionId - qte);
 
             const total = ({
                 user: req.body.user,
@@ -94,13 +68,10 @@ module.exports = {
             // })    
 
             const session = await Total.find(ObjectId(req.body.user)).populate(['user']); 
-            
             const user = await User.findOne({_id: req.body.user}); 
-
-            console.log({ user });
-
+            
             const qte = parseInt(req.body.sessionPatient);
- 
+            
             let sessionId = 0;
             for (const cashsId of session) {
                 sessionId += eval(cashsId.sessionPatient);
@@ -112,19 +83,45 @@ module.exports = {
                 user: req.body.user,
                 sessionPatient: finalized
             })    
-
-            // session.filter((res) => {
-            //     const userName = res.user.userName;
-            //     const userEmail = res.user.userEmail;
-            // })
                            
-            // await Total.updateOne({ user: req.body.user }, total)
-            // .then(result => {
-            //     res.status(200).json({ 
-            //         message: 'Total session contabilized with successfully!',
-            //         result: result 
-            //     })
-            // }); 
+            await Total.updateOne({ user: req.body.user }, total)
+            .then(result => {
+                res.status(200).json({ 
+                    message: 'Total session contabilized with successfully!',
+                    result: result 
+                })
+            }); 
+
+            const dados = {
+                name: user.userName
+            }
+            
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/finish.handlebars"), "utf-8");
+            const template = handlebars.compile(emailTemplate);
+
+            const messageBody = (template({
+                name: `${ dados.name }`        
+            }))
+
+            const msg = {
+                to: [
+                  '' + `${user.userEmail}` + ''
+                ], 
+                from: '<'+`${process.env.FROM}`+'>',
+                subject: 'Sessão finalizada - Life Calendar',
+                html: messageBody 
+              };
+            
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email successfully sent');
+                }, error => {
+                  console.error(error);  
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                });  
            
         } catch (error) {
             res.status(400).json({ message: error.message });
