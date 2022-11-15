@@ -96,6 +96,25 @@ export class TotalService {
     });
   }
 
+  totalUps(
+    user: String,
+    sessionPatient: Number,
+  ) {
+
+    const total = {
+      user: user,
+      sessionPatient: sessionPatient,
+    }
+    console.log(total);
+
+    this.http.put<{ message: string }>(environment.apiUrl + '/api/totals', total)
+    .subscribe(() => {
+      const updatedTotal = this.total.filter(total => total.id !== user);
+      this.total = updatedTotal;
+      this.totalUpdated.next([...this.total]);
+    });
+  }
+
   totalUp(
     sessionPatient: Number,
     user: String,
@@ -105,6 +124,7 @@ export class TotalService {
       sessionPatient: sessionPatient,
       user: user,
     }
+    console.log(total);
 
     this.http.put<{ message: string }>(environment.apiUrl + '/api/totals', total)
     .subscribe(() => {

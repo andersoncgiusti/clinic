@@ -140,7 +140,7 @@ module.exports = {
   
         const agendamentoBody = new Agendamento({
             _id: req.params.id,
-            scheduleTitle: req.body.title, 
+            scheduleTitle: req.body.title + ' - REMARCADO', 
             scheduleStartTime: req.body.startTime, 
             scheduleEndTime: req.body.endTime,
             user: req.body.user
@@ -266,5 +266,61 @@ module.exports = {
             res.status(500).json({ message: error.message });
         }  
         next();
-    }
+    },
+    agendamentoUpdateIdFinish: async (req, res, next) => { 
+  
+        const agendamentoBody = new Agendamento({
+            _id: req.params.id,
+            scheduleTitle: req.body.title + ' - CONCLUÍDO', 
+            user: req.body.user
+        });
+        
+        // const user = await User.findById(agendamentoBody.user);
+    
+        // const dados = {
+        //     name: user.userName
+        // };      
+
+        // const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/finish.handlebars"), "utf-8");
+        // const template = handlebars.compile(emailTemplate);
+
+        // const messageBody = (template({
+        //     name: `${ dados.name }` 
+        // }))
+
+        // const msg = {
+        //     to: [
+        //       '' + `${user.userEmail}` + ''
+        //     ], 
+        //     from: '<'+`${process.env.FROM}`+'>',
+        //     subject: 'Sessão finalizada - Life Calendar',
+        //     html: messageBody 
+        //   };
+            
+        //   sgMail
+        //     .send(msg)
+        //     .then(() => {
+        //       console.log('Email successfully sent');
+        //     }, error => {
+        //       console.error(error);  
+        //       if (error.response) {
+        //         console.error(error.response.body);
+        //       }
+        //     });  
+        
+        try {            
+
+            await Agendamento.updateOne({ _id: req.params.id }, agendamentoBody)
+            .then(updateAgendamento => {
+                res.status(200).json({ 
+                    message: 'Finalized scheduling with successfully!',
+                    agendamentoId: updateAgendamento._id 
+                })
+            });
+            
+        } catch (error) {
+            res.status(400).json({ message: error.message })
+        }  
+        next();
+    },
 }

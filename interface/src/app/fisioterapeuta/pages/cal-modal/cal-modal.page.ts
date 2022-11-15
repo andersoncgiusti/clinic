@@ -63,8 +63,12 @@ export class CalModalPage implements OnInit {
       return;
     }
 
-    const session = parseInt(frm.value.endTime);
-    console.log(session);
+    this.schedulingService.updateAgendamentoFinish(
+      frm.value.allDay = false,
+      frm.value.titleEdt,
+      frm.value.idEdt,
+      frm.value.userEdt,
+    );
 
     this.userService.updateChart(
       frm.value.idChart,
@@ -77,6 +81,7 @@ export class CalModalPage implements OnInit {
     )
 
     setTimeout(()=> {
+      this.refreshScheduling();
       this.modalController.dismiss();
       this.events.treatment = ''
     }, 1000);
@@ -86,8 +91,8 @@ export class CalModalPage implements OnInit {
 
   ngOnInit() {
     this.getAgendamentos();
+    this.refreshScheduling();
     // this.initAgendamentos();
-    // this.refreshScheduling();
   }
 
   // initAgendamentos() {
@@ -122,35 +127,12 @@ export class CalModalPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  // refreshScheduling() {
-  //   this.schedulingService.getAgendamentos();
-  //   this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
-  //   .subscribe((agendamentos: Scheduling[]) => {
-  //     this.agendamentos = agendamentos;
-  //   })
-  // }
-
-  packageTotal = {
-    sessionPatient: '',
-    user: '',
-  }
-
-  total() {
-    const events = [];
-
-    events.push({
-      user: this.packageTotal.user,
-      sessionsPatient: this.packageTotal.sessionPatient
+  refreshScheduling() {
+    this.schedulingService.getAgendamentos();
+    this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
+    .subscribe((agendamentos: Scheduling[]) => {
+      this.agendamentos = agendamentos;
     })
-
-    // // this.totalService.totalUp(
-    // //   this.packageTotal.sessionPatient.toString(),
-    // //   this.packageTotal.user,
-    // // )
-
-    this.eventSource = events;
-    console.log('total >>>>', this.eventSource);
-
   }
 }
 

@@ -6,6 +6,7 @@ import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 import { UserService } from 'src/app/services/user.service';
 import { AlertController } from '@ionic/angular';
+import { TotalService } from 'src/app/services/total.service';
 
 @Component({
   selector: 'app-cal-modal',
@@ -20,6 +21,7 @@ export class CalModalPage implements OnInit {
   month: string;
   hours: string;
   endTime: string;
+  endTimeNumber: number;
   // desc: string;
   userId: string;
   userIdscheduling: string;
@@ -45,18 +47,18 @@ export class CalModalPage implements OnInit {
     public router: ActivatedRoute,
     public schedulingService: SchedulingService,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public totalService: TotalService
   ) {
 
     this.id = navParams.get('id');
     this.title = navParams.get('userById');
     this.titleUp = navParams.get('userById');
-    console.log(this.titleUp);
-
     this.startTime = navParams.get('startTime');
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
     this.endTime = navParams.get('endTime');
+    this.endTimeNumber = parseInt(this.endTime);
     this.userId = navParams.get('user');
     // this.desc = navParams.get('desc');
     this.userIdscheduling = navParams.get('userById');
@@ -98,34 +100,32 @@ export class CalModalPage implements OnInit {
     await alert.present();
   }
 
-  event = {
-    userId: '',
-    titleUp: '',
-    endTime: '',
+  ngSubmits(form: any) {
+    if (form.invalid) {
+      return;
+    }
+    console.log(form.value)
+
+    this.schedulingService.updateAgendamentoFinish(
+      form.value.allDay = false,
+      form.value.titleEdt,
+      form.value.idEdt,
+      form.value.userEdt,
+    );
+
+    this.totalService.totalUps(
+      form.value.userEdt,
+      form.value.endTime,
+    )
+
+    this.initAgendamentos();
+
+    setTimeout(() => {
+      this.initAgendamentos();
+      this.refreshScheduling();
+      this.modalController.dismiss();
+    }, 1000);
   }
-
-  finish(){
-    const events = [];
-    console.log(this.event);
-
-    events.push({
-      userId: this.event.userId,
-      titleUp: this.event.titleUp,
-      endTime: this.event.endTime
-    })
-
-    // this.schedulingService.updateAgendamento(
-    //   this.event.id,
-    //   this.event.name,
-    //   this.event.total
-    // )
-
-    this.eventSource = events;
-    console.log(this.eventSource);
-  }
-
-
-
 
   onDelete(agendamentoId: String) {
     this.schedulingService.deleteAgendamento(agendamentoId);

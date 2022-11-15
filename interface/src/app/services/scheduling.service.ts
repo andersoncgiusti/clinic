@@ -13,6 +13,9 @@ export class SchedulingService {
   private agendamentos: Scheduling[] = [];
   private agendamentosUpdated = new Subject<Scheduling[]>();
 
+  private agendamento = [];
+  private agendamentoUpdated = new Subject();
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -149,6 +152,29 @@ export class SchedulingService {
       this.agendamentos = updatedAgendamento;
       this.agendamentosUpdated.next([...this.agendamentos]);
       // this.router.navigate(["/clinica/tab2"]);
+    });
+  }
+
+  updateAgendamentoFinish(
+    allDay: boolean,
+    title: String,
+    agendamentoId: String,
+    user: String
+  ) {
+
+    const scheduling = {
+      allDay: allDay,
+      title: title,
+      id: agendamentoId,
+      user: user
+    }
+    console.log(scheduling);
+
+    this.http.put(environment.apiUrl + '/api/agendamento_finish/' + agendamentoId, scheduling)
+    .subscribe(() => {
+      const updatedAgendamento = this.agendamentos.filter(agendamento => agendamento.id !== agendamentoId);
+      this.agendamento = updatedAgendamento;
+      this.agendamentoUpdated.next([...this.agendamento]);
     });
   }
 
