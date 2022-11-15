@@ -40,6 +40,7 @@ export class Tab3Page implements OnInit {
   public userState = '';
   public userPermission = '';
   public password = '';
+  public userPassword = '';
 
   constructor(
     private animationCtrl: AnimationController,
@@ -60,6 +61,12 @@ export class Tab3Page implements OnInit {
       // })
     });
     this.getUsers();
+
+    // const aleatory = (Math.random() * 10).toFixed(5);
+    // const key_aleatory = aleatory.replace(/\D/g, '');
+    // this.userPassword = key_aleatory;
+    // console.log(this.userPassword);
+
   }
 
   routerUser() {
@@ -173,6 +180,10 @@ export class Tab3Page implements OnInit {
   createPaciente() {
     const pacientes = [];
 
+    const aleatory = (Math.random() * 10).toFixed(5);
+    const key_aleatory = aleatory.replace(/\D/g, '');
+    this.userPassword = key_aleatory;
+
     pacientes.push({
       userName: this.pacienteEvent.userName,
       userLastName: this.pacienteEvent.userLastName,
@@ -186,7 +197,7 @@ export class Tab3Page implements OnInit {
       userCity: this.pacienteEvent.userCity,
       userState: this.pacienteEvent.userState,
       userPermission: this.pacienteEvent.userPermission,
-      password: this.pacienteEvent.password,
+      password: this.pacienteEvent.password
     });
 
     this.userService.addUser(
@@ -202,11 +213,10 @@ export class Tab3Page implements OnInit {
       this.pacienteEvent.userCity,
       this.pacienteEvent.userState,
       this.pacienteEvent.userPermission,
-      this.pacienteEvent.password
+      this.pacienteEvent.password = this.userPassword
     );
 
     this.eventSource = pacientes;
-    console.log(pacientes);
   }
 
   adminEvent = {

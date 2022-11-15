@@ -169,18 +169,19 @@ POST http://localhost:3000/api/user
 Content-Type: application/json
 
 {
-    "userName"      : "Anderson Master",
+    "userName"      : "Anderson",
     "userLastName"  : " Carvalho Giusti",
     "userBirth"     : "26121989",
     "userPhone"     : "11992499734",
-    "userEmail"     : "anderson.giusti@ibm.com",
+    "userEmail"     : "anderson.giusti12@gmail.com",
     "userCpf"       : "37593539830",
     "userAddress"   : "Avenida Odair Santanelli",
     "userNumber"    : "990",
     "userComplement": "Bloco 15 Apto B14",
     "userCity"      : "Guarulhos",
     "userState"     : "SP",
-    "userPermission": "administrador"
+    "userPermission": "administrador",
+    "password"      : "and123"
 }
    
 ###

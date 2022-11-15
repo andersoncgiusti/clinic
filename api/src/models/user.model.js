@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     userName: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     userLastName: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     userBirth: {
         type: String,
@@ -29,23 +31,28 @@ const userSchema = new mongoose.Schema({
     },
     userAddress: {
         type: String,
-        required: false
+        required: false,
+        uppercase: true
     },
     userNumber: {
         type: String,
-        required: true
+        required: false,
+        uppercase: true
     },
     userComplement: {
         type: String,
-        required: true
+        required: false,
+        uppercase: true
     },
     userCity: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     userState: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     userPermission: {
         type: String,
@@ -54,7 +61,7 @@ const userSchema = new mongoose.Schema({
     password: { 
         type: String, 
         required: false,
-        select: false
+        // select: false
     },
     passwordResetToken: {
         type: String,

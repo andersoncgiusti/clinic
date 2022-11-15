@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 import { UserService } from 'src/app/services/user.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cal-modal',
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class CalModalPage implements OnInit {
   id: string;
   title: string;
+  titleUp: string;
   startTime: string;
   month: string;
   hours: string;
@@ -24,6 +26,7 @@ export class CalModalPage implements OnInit {
   agendamento;
   public idEdt = '';
   public titleEdt = '';
+  public titleEdtUp = '';
   public monthEdt = '';
   public startTimeEdt = '';
   public hoursEdt = '';
@@ -33,17 +36,23 @@ export class CalModalPage implements OnInit {
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
 
+  public string_id: String;
+
   constructor(
     public modalController: ModalController,
     public navParams: NavParams,
     public userService: UserService,
     public router: ActivatedRoute,
     public schedulingService: SchedulingService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private alertController: AlertController
   ) {
 
     this.id = navParams.get('id');
     this.title = navParams.get('userById');
+    this.titleUp = navParams.get('userById');
+    console.log(this.titleUp);
+
     this.startTime = navParams.get('startTime');
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
@@ -77,6 +86,45 @@ export class CalModalPage implements OnInit {
       this.modalController.dismiss();
     }, 1000);
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Finalizar Sessão',
+      subHeader: 'Deseja confirmar que o paciente realizou a sessão?',
+      message: 'Clique em Confirmar',
+      buttons: ['Confirmar'],
+    });
+
+    await alert.present();
+  }
+
+  event = {
+    userId: '',
+    titleUp: '',
+    endTime: '',
+  }
+
+  finish(){
+    const events = [];
+    console.log(this.event);
+
+    events.push({
+      userId: this.event.userId,
+      titleUp: this.event.titleUp,
+      endTime: this.event.endTime
+    })
+
+    // this.schedulingService.updateAgendamento(
+    //   this.event.id,
+    //   this.event.name,
+    //   this.event.total
+    // )
+
+    this.eventSource = events;
+    console.log(this.eventSource);
+  }
+
+
 
 
   onDelete(agendamentoId: String) {

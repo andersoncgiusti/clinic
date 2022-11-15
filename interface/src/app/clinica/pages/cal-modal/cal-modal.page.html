@@ -11,6 +11,11 @@
       </ion-buttons>
       <!-- <ion-title>Editar/ Excluir</ion-title> -->
       <ion-buttons slot="end">
+        <ion-button (click)="presentAlert()">
+          <ion-icon name="checkmark-outline" class="icon check"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-button type="submit">
           <ion-icon name="pencil-outline" class="icon"></ion-icon>
         </ion-button>
@@ -29,6 +34,7 @@
     </ion-item>
     <ion-item style="display: none;">
       <ion-input type="text" value="{{ userId }}" name="userEdt" [(ngModel)]="userId"></ion-input>
+      <!-- <ion-input type="text" value="{{ this.userId }}" name="userEdt" [(ngModel)]="event.userId">{{ userId }}</ion-input> -->
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Paciente</ion-label>

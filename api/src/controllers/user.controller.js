@@ -90,42 +90,29 @@ module.exports = {
                 return res.status(400).send({ message: "User alredy exists!" });
             }            
 
-            // bcrypt.hash((req.body.userCpf, 3).slice(0, 5)).then(hash => {
-            //     const userScheduling = new User({
-            //         userName            : req.body.userName,
-            //         userLastName        : req.body.userLastName,
-            //         userBirth           : req.body.userBirth,
-            //         userPhone           : req.body.userPhone,
-            //         userEmail           : req.body.userEmail,
-            //         userCpf             : req.body.userCpf,
-            //         userAddress         : req.body.userAddress,
-            //         userNumber          : req.body.userNumber,
-            //         userComplement      : req.body.userComplement,
-            //         userCity            : req.body.userCity,
-            //         userState           : req.body.userState,
-            //         userPermission      : req.body.userPermission,
-            //         password            : hash
-            //         // passwordResetToken  : req.body.passwordResetToken,
-            //         // passwordResetExpires: req.body.passwordResetExpires
-            //     })
-            //     userScheduling
-            //       .save()
-            //       .then(result => {
-            //         console.log(result);
-            //         res.status(201).json({
-            //             message: "User created!",
-            //             result: result
-            //         })
-            //     })
-            // }) 
-
-            // bcrypt.hash(req.body.password, 10);
-
-            const userScheduling = await User.create(req.body);
-
+            const hash = await bcrypt.hash(req.body.password, 10);
+         
+            const user_scheduling = ({
+                userName            : req.body.userName,
+                userLastName        : req.body.userLastName,
+                userBirth           : req.body.userBirth,
+                userPhone           : req.body.userPhone,
+                userEmail           : req.body.userEmail,
+                userCpf             : req.body.userCpf,
+                userAddress         : req.body.userAddress,
+                userNumber          : req.body.userNumber,
+                userComplement      : req.body.userComplement,
+                userCity            : req.body.userCity,
+                userState           : req.body.userState,
+                userPermission      : req.body.userPermission,
+                password            : await bcrypt.hash(req.body.password, 10)
+            })      
+             
+            const userScheduling = await User.create(user_scheduling);
+       
             const dados = {
                 name: req.body.userName,
-                password: req.body.userCpf
+                password: req.body.password
             }
 
             const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/add-user.handlebars"), "utf-8");

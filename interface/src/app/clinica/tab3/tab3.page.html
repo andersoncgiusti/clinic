@@ -183,8 +183,7 @@
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="number" name="userCpf" maxlength="11" [(ngModel)]="pacienteEvent.userCpf" [(ngModel)]="pacienteEvent.password" placeholder="Ex. 12345678910">
-      <!-- <input style="display: none;" name="password" [(ngModel)]="pacienteEvent.password"> -->
+      <input type="number" name="userCpf" maxlength="11" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
     <ion-item>
@@ -210,6 +209,7 @@
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
       <ion-input type="txt" name="userState" [(ngModel)]="pacienteEvent.userState"></ion-input>
+      <!-- <ion-input style="display: none;" type="text" name="password" [(ngModel)]="pacienteEvent.password">{{ this.userPassword }}</ion-input> -->
     </ion-item>
 
     <div class="criar">

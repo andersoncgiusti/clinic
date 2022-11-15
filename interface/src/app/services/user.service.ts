@@ -111,6 +111,7 @@ export class UserService {
       password: password
     };
 
+    console.log(user);
 
     this.http.post<{ message: string, userId: string }>(environment.apiUrl + '/api/user', user)
     .subscribe((responseData) => {
@@ -120,6 +121,8 @@ export class UserService {
       this.users.push(user);
       this.usersUpdated.next([...this.users]);
       this.router.navigate(["/users"]);
+      // this.users.push(user);
+      // this.usersUpdated.next([...this.users]);
     });
   }
 
