@@ -69,6 +69,9 @@ export class CalModalPage implements OnInit {
       return;
     }
 
+    console.log(frm.value);
+
+
     this.schedulingService.updateAgendamento(
       frm.value.allDay = false,
       frm.value.endTimeEdt,
@@ -76,7 +79,7 @@ export class CalModalPage implements OnInit {
       frm.value.idEdt,
       frm.value.monthEdt,
       frm.value.startTimeEdt,
-      frm.value.titleEdt,
+      frm.value.titleEdt + ' - REMARCADO',
       frm.value.userEdt
     );
 
@@ -104,11 +107,10 @@ export class CalModalPage implements OnInit {
     if (form.invalid) {
       return;
     }
-    console.log(form.value)
 
     this.schedulingService.updateAgendamentoFinish(
       form.value.allDay = false,
-      form.value.titleEdt,
+      form.value.titleEdt + ' - CONCLUÍDO',
       form.value.idEdt,
       form.value.userEdt,
     );

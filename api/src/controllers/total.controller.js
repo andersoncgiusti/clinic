@@ -79,9 +79,9 @@ module.exports = {
           
             const finalized = sessionId - qte;            
 
-            const total = ({
+            const total = ({  
                 user: req.body.user,
-                sessionPatient: finalized
+                sessionPatient: finalized.toString() 
             })    
             console.log(total);        
             await Total.updateOne({ user: req.body.user }, total)

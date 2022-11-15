@@ -140,7 +140,7 @@ module.exports = {
   
         const agendamentoBody = new Agendamento({
             _id: req.params.id,
-            scheduleTitle: req.body.title + ' - REMARCADO', 
+            scheduleTitle: req.body.title, 
             scheduleStartTime: req.body.startTime, 
             scheduleEndTime: req.body.endTime,
             user: req.body.user
@@ -271,7 +271,7 @@ module.exports = {
   
         const agendamentoBody = new Agendamento({
             _id: req.params.id,
-            scheduleTitle: req.body.title + ' - CONCLUÍDO', 
+            scheduleTitle: req.body.title, 
             user: req.body.user
         });
         

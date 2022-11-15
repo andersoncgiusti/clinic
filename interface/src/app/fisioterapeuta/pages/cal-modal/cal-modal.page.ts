@@ -65,7 +65,7 @@ export class CalModalPage implements OnInit {
 
     this.schedulingService.updateAgendamentoFinish(
       frm.value.allDay = false,
-      frm.value.titleEdt,
+      frm.value.titleEdt + ' - CONCLUÍDO',
       frm.value.idEdt,
       frm.value.userEdt,
     );
