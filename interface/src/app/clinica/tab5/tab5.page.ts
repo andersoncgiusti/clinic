@@ -31,6 +31,7 @@ export class Tab5Page implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     // this.userService.getUsersPacient();
     // this.usersSubPacient = this.userService.getUsersPacientUpdated()
     // .subscribe((usersPacient: User[]) => {
@@ -49,6 +50,7 @@ export class Tab5Page implements OnInit {
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios: Chart[]) => {
       this.prontuarios = prontuarios;
+      this.isLoading = false;
     })
   }
 

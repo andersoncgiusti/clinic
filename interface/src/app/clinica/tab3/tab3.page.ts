@@ -52,10 +52,14 @@ export class Tab3Page implements OnInit {
     ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
+      this.isLoading = false;
+
       // this.users.forEach(resp => {
       //   this.nameTilte = resp.userName;
       // })
@@ -74,22 +78,18 @@ export class Tab3Page implements OnInit {
   }
 
   getUsers() {
+    this.isLoading = true;
+
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
+      this.isLoading = false;
+
       this.users = users;
       // this.users.forEach(resp => {
       //   this.nameTilte = resp.userName;
       // })
     });
-  }
-
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      duration: 3000,
-      cssClass: 'custom-loading',
-    });
-    loading.present();
   }
 
   onDelete(userId: String) {
@@ -217,6 +217,7 @@ export class Tab3Page implements OnInit {
     );
 
     this.eventSource = pacientes;
+    this.showLoading();
   }
 
   adminEvent = {
@@ -272,8 +273,7 @@ export class Tab3Page implements OnInit {
     );
 
     this.eventSource = admins;
-    console.log(admins);
-
+    this.showLoading();
   }
 
   fisioEvent = {
@@ -329,7 +329,7 @@ export class Tab3Page implements OnInit {
     );
 
     this.eventSource = fisios;
-    console.log(fisios);
+    this.showLoading();
   }
 
   backList() {
@@ -412,5 +412,14 @@ export class Tab3Page implements OnInit {
       this.fisioEvent.userState = ''
       this.fisioEvent.userPermission = ''
     }, 1000)
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
   }
 }

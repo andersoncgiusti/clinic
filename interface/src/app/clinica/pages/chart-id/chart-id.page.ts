@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { ChartService } from 'src/app/services/chart.service';
 import { Chart } from 'src/app/models/chart.model';
-import { ModalController, NavController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { userChart } from 'src/app/models/user-chart.model';
 
 @Component({
@@ -53,9 +53,11 @@ export class ChartIdPage implements OnInit {
     public chartService: ChartService,
     private navCtrl: NavController,
     public modalController: ModalController,
+    private loadingCtrl: LoadingController,
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
 
     this.getChartParams();
     this.getUsersCharts();
@@ -65,6 +67,8 @@ export class ChartIdPage implements OnInit {
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios: Chart[]) => {
       this.prontuarios = prontuarios;
+      this.isLoading = false;
+
     })
 
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
@@ -130,6 +134,7 @@ export class ChartIdPage implements OnInit {
       this.modalController.dismiss();
       this.events.treatment = ''
     }, 1000);
+    this.showLoading();
   }
 
   getUsersCharts() {
@@ -150,5 +155,15 @@ export class ChartIdPage implements OnInit {
     setTimeout(() => {
       this.getChartParams();
     }, 1000);
+    this.showLoading();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
   }
 }

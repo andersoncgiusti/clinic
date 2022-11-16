@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">Vendas</ion-title>
     <ion-buttons slot="start">
@@ -9,7 +11,7 @@
 
 <!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
 
   <!-- <div>
     <ion-label>Outubro</ion-label><br><br>

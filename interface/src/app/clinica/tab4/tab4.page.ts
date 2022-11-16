@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { CashService } from 'src/app/services/cash.service';
@@ -27,14 +28,17 @@ export class Tab4Page implements OnInit {
     public cashService: CashService,
     public userService: UserService,
     public sessionService: SessionService,
-    public totalService: TotalService
+    public totalService: TotalService,
+    private loadingCtrl: LoadingController,
     ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
+      this.isLoading = false;
     });
   }
 
@@ -71,6 +75,7 @@ export class Tab4Page implements OnInit {
     )
 
     this.eventSource = events;
+    this.showLoading();
   }
 
   calcSale() {
@@ -158,5 +163,14 @@ export class Tab4Page implements OnInit {
       this.eventSource = events;
 
     }, 1000)
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
   }
 }

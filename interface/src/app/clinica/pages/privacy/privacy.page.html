@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">Privacidade</ion-title>
     <ion-buttons slot="start">
@@ -9,7 +11,7 @@
 
 <!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <ion-label class="privacy">POLÍTICA DE PRIVACIDADE</ion-label>
   <p class="decleration">A política de privacidade (ou declaração de política de privacidade) é o documento por meio do qual a pessoa física ou jurídica que mantém um site ou aplicativo expõe e explica a todos os interessados a forma como os dados pessoais dos usuários da plataforma serão tratados.
 

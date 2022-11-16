@@ -67,26 +67,32 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
+      this.isLoading = false;
       this.users = users;
     })
 
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
+      this.isLoading = false;
       this.agendamentos = agendamentos;
     })
 
     this.chartService.getCharts();
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios: Chart[]) => {
+      this.isLoading = false;
       this.prontuarios = prontuarios;
     })
 
     this.userService.getPermission()
     .subscribe((data) => {
+      this.isLoading = false;
       this.pacient = data.pacient;
       this.administrator = data.administrator;
       this.physiotherapist = data.physiotherapist;
@@ -94,12 +100,14 @@ export class Tab1Page implements OnInit {
 
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
+      this.isLoading = false;
       this.schedulingDay = data.agendamentoDay;
       this.schedulingMonth = data.agendamentoMonth;
     });
 
     this.cashService.getModule()
     .subscribe((data) => {
+      this.isLoading = false;
       this.credit = data.credit;
       this.debt = data.debt;
       this.money = data.money;

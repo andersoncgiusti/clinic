@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Cash } from 'src/app/models/cash.model';
 import { Session } from 'src/app/models/session.model';
@@ -28,9 +29,12 @@ export class CashDetailsPage implements OnInit {
   constructor(
     public cashService: CashService,
     public sessionService: SessionService,
+    private loadingCtrl: LoadingController,
     ) { }
 
   ngOnInit() {
+    this.isLoading = true;
+
     // this.cashService.getCashs();
     // this.cashsSub = this.cashService.getCashUpdated()
     // .subscribe((cashs: Cash[]) => {
@@ -48,6 +52,7 @@ export class CashDetailsPage implements OnInit {
       this.saleMonth = data.saleMonth;
       this.saleDayLength = data.saleDay.length
       this.saleMonthLength = data.saleMonth.length;
+      this.isLoading = false;
     });
   }
 
@@ -56,6 +61,7 @@ export class CashDetailsPage implements OnInit {
     setTimeout(() => {
       this.sessionService.deleteSession(cashtId);
       this.getCashs();
+      this.showLoading();
     }, 1000);
   }
 
@@ -64,5 +70,14 @@ export class CashDetailsPage implements OnInit {
 
   //   this.sessionService.deleteSession(cashtId);
   // }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
+  }
 
 }

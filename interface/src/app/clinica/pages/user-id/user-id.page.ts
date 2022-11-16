@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -38,7 +38,8 @@ export class UserIdPage implements OnInit {
   constructor(
     public userService: UserService,
     private navCtrl: NavController,
-    public router: ActivatedRoute
+    public router: ActivatedRoute,
+    private loadingCtrl: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -58,7 +59,6 @@ export class UserIdPage implements OnInit {
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
 
-      this.isLoading = false;
       this.users = users;
 
       this.birth = this.user.userBirth.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{2})?([\d]{4})?/, "$1/$2/$3");
@@ -66,7 +66,7 @@ export class UserIdPage implements OnInit {
       this.cpf = this.user.userCpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
 
       const phone = this.user.userPhone;
-
+      this.isLoading = false;
       if (phone.length === 11) {
         return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{5})?([\d]{4})?/, "($1) $2-$3");
       } else {
@@ -92,6 +92,7 @@ export class UserIdPage implements OnInit {
   onDelete(userId: String) {
     this.userService.deleteUser(userId);
     this.getAllUsers();
+    this.showLoading();
   }
 
   ngSubmit(frm: any) {
@@ -119,6 +120,7 @@ export class UserIdPage implements OnInit {
     // setTimeout(() => {
     //   this.navCtrl.navigateRoot('users');
     // }, 1000);
+    this.showLoading();
   }
 
   // navigate() {
@@ -129,4 +131,13 @@ export class UserIdPage implements OnInit {
   //     this.getAllUsers();
   //   }, 1000);
   // }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
+  }
 }

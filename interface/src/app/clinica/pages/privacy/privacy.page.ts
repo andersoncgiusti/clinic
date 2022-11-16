@@ -12,6 +12,10 @@ export class PrivacyPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // this.isLoading = true;
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 100);
   }
 
 }

@@ -32,6 +32,7 @@ export class CashPage implements OnInit {
   constructor(public cashService: CashService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.cashService.getModule()
     .subscribe((data) => {
       this.credit = data.credit;
@@ -50,6 +51,7 @@ export class CashPage implements OnInit {
       this.moneyTotalMonth = data.cashsMonthMoney;
       this.totalDayValue = this.creditTotalDay + this.debtTotalDay + this.moneyTotalDay;
       this.totalMonthValue = this.creditTotalMonth + this.debtTotalMonth + this.moneyTotalMonth;
+      this.isLoading = false;
     });
   }
 

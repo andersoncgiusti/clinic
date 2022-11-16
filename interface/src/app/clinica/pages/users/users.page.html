@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">Usuários</ion-title>
     <ion-buttons slot="end">
@@ -7,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
+<!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
 <!-- <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar> -->
 
 <ion-content *ngIf="!isLoading" (mouseenter)="refresh();">

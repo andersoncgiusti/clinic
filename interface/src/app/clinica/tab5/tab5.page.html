@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">
       Prontuários
@@ -11,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <ion-searchbar disabled="false" placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
 
   <ion-list *ngFor="let user of usersPacient | filter:filter; let i = index">

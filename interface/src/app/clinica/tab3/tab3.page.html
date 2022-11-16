@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">
       Cadastrar
@@ -8,7 +10,7 @@
 
 <!-- <ion-spinner name="circles"></ion-spinner> -->
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <ion-segment>
     <ion-segment-button (click)="cliente();">
       <ion-label>Paciente</ion-label>

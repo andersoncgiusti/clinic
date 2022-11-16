@@ -56,13 +56,14 @@ export class Tab2Page implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
-
-      console.log(this.agendamentos);
+      this.isLoading = false;
 
       const allscheduling = [];
 
@@ -91,11 +92,12 @@ export class Tab2Page implements OnInit {
   }
 
   updatedScheduling() {
+    this.isLoading = true;
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
-
+      this.isLoading = false;
       const allscheduling = [];
 
       this.agendamentos.forEach((resp) => {
@@ -228,6 +230,7 @@ export class Tab2Page implements OnInit {
     )
 
     this.eventSource = events;
+    this.showLoading();
   }
 
   clear() {
@@ -243,7 +246,8 @@ export class Tab2Page implements OnInit {
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
-      duration: 3000,
+      message: 'Salvando...',
+      duration: 2000,
       cssClass: 'custom-loading',
     });
     loading.present();
