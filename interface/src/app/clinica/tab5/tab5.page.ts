@@ -22,6 +22,7 @@ export class Tab5Page implements OnInit {
   private prontuariosSub: Subscription;
 
   private userNameIdEdt: String;
+  isLoading = false;
 
   constructor(
     public userService: UserService,

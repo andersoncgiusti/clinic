@@ -16,7 +16,7 @@ export class CashDetailsPage implements OnInit {
 
   sessions: Session[] = [];
   private sessionsSub: Subscription;
-
+  isLoading = false;
   credit;
   debt;
   money;

@@ -68,3 +68,27 @@
 .space {
   margin-left: 8%;
 }
+
+ion-progress-bar {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  size: 2rem;
+  color: #2dd36f !important;
+}
+
+.blockss {
+  display: block !important;
+}
+
+.none {
+  display: none !important;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

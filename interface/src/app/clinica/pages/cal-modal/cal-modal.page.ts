@@ -17,6 +17,9 @@ export class CalModalPage implements OnInit {
   id: string;
   title: string;
   titleUp: string;
+  titleFormat: string;
+  title_Format: string;
+  // title_Format: string;
   startTime: string;
   month: string;
   hours: string;
@@ -29,6 +32,9 @@ export class CalModalPage implements OnInit {
   public idEdt = '';
   public titleEdt = '';
   public titleEdtUp = '';
+  public titleEdtFormat = '';
+  public titleEdt_Format = '';
+  // public titleEdt_Format = '';
   public monthEdt = '';
   public startTimeEdt = '';
   public hoursEdt = '';
@@ -39,6 +45,7 @@ export class CalModalPage implements OnInit {
   private agendamentosSub: Subscription;
 
   public string_id: String;
+  isLoading = false;
 
   constructor(
     public modalController: ModalController,
@@ -54,6 +61,10 @@ export class CalModalPage implements OnInit {
     this.id = navParams.get('id');
     this.title = navParams.get('userById');
     this.titleUp = navParams.get('userById');
+    this.titleFormat = navParams.get('userFormated');
+
+    this.titleEdtFormat = this.titleFormat.slice(this.titleFormat.length - 11);
+
     this.startTime = navParams.get('startTime');
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
@@ -68,9 +79,6 @@ export class CalModalPage implements OnInit {
     if (frm.invalid) {
       return;
     }
-
-    console.log(frm.value);
-
 
     this.schedulingService.updateAgendamento(
       frm.value.allDay = false,
@@ -107,6 +115,7 @@ export class CalModalPage implements OnInit {
     if (form.invalid) {
       return;
     }
+    console.log(form.value);
 
     this.schedulingService.updateAgendamentoFinish(
       form.value.allDay = false,

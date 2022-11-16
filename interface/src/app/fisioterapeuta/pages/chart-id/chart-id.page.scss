@@ -113,3 +113,14 @@ h2 {
   font-size: 5rem;
   color: #2dd36f !important;
 }
+
+ion-progress-bar {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  size: 2rem;
+  color: #2dd36f !important;
+}

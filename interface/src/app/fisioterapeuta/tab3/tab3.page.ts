@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab3Page implements OnInit {
 
+  isLoading = false;
+
   constructor() {}
 
   ngOnInit() {

@@ -1,6 +1,8 @@
 require('dotenv').config();
 const Session = require('../models/sessions.model');
 const Total = require('../models/total.model');
+const User = require('../models/user.model');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
     sessionPost: async (req, res) => {
@@ -77,5 +79,60 @@ module.exports = {
             res.status(500).json({ message: error.message });
         }  
         next();
+    },
+    totalPut: async (req, res) => {  
+        try {     
+            const user = await User.findOne({_id: req.body.user}).populate('sessions');            
+            const session = await Session.findOne(ObjectId(user._id)).populate('user');  
+            const qte = parseInt(req.body.sessionPatient);                 
+            const finalized = session.sessionPatient - qte;                
+
+            const total = ({  
+                user: req.body.user,
+                sessionPatient: finalized
+            })    
+         
+            await Session.updateOne({ user: req.body.user }, total)
+            .then(result => {
+                res.status(200).json({ 
+                    message: 'Total session contabilized with successfully!',
+                    result: result 
+                })
+            }); 
+
+            const dados = {
+                name: user.user.userName
+            }
+            
+            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/finish.handlebars"), "utf-8");
+            const template = handlebars.compile(emailTemplate);
+
+            const messageBody = (template({
+                name: `${ dados.name }`        
+            }))
+
+            const msg = {
+                to: [
+                  '' + `${user.user.userEmail}` + ''
+                ], 
+                from: '<'+`${process.env.FROM}`+'>',
+                subject: 'Sessão finalizada - Life Calendar',
+                html: messageBody 
+              };
+            
+              sgMail
+                .send(msg)
+                .then(() => {
+                  console.log('Email successfully sent');
+                }, error => {
+                  console.error(error);  
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                });  
+           
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
     },
 }

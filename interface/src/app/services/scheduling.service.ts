@@ -168,7 +168,6 @@ export class SchedulingService {
       id: agendamentoId,
       user: user
     }
-    console.log(scheduling);
 
     this.http.put(environment.apiUrl + '/api/agendamento_finish/' + agendamentoId, scheduling)
     .subscribe(() => {

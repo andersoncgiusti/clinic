@@ -15,7 +15,7 @@ export class Tab4Page implements OnInit {
   eventSource = [];
   valueTotal: String;
   valueTotalFormated: String;
-
+  isLoading = false;
   sessions;
   value;
 

@@ -84,4 +84,23 @@ export class SessionService {
       this.sessionUpdated.next([...this.session]);
     });
   }
+
+  totalUpSession(
+    sessionPatient: Number,
+    user: String,
+  ) {
+
+    const session = {
+      sessionPatient: sessionPatient,
+      user: user,
+    }
+    console.log(session);
+
+    this.http.put<{ message: string }>(environment.apiUrl + '/api/session_total', session)
+    .subscribe(() => {
+      const updatedTotal = this.session.filter(total => total.id !== user);
+      this.session = updatedTotal;
+      this.sessionUpdated.next([...this.session]);
+    });
+  }
 }

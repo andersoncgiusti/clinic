@@ -28,6 +28,7 @@ export class Tab2Page implements OnInit {
   private usersSub: Subscription;
   users: User[] = [];
   public cpf = '';
+  isLoading = false;
 
   calendar = {
     mode: 'month',
@@ -60,6 +61,8 @@ export class Tab2Page implements OnInit {
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
+
+      console.log(this.agendamentos);
 
       const allscheduling = [];
 
@@ -156,7 +159,8 @@ export class Tab2Page implements OnInit {
       endTime: endFormated.toString(),
       allDay: false,
       user: ev.user.user._id,
-      userById: ev.user.user.userName
+      userById: ev.user.user.userName,
+      userFormated: ev.user.title
     };
 
     const modal = await this.modalCtrl.create({

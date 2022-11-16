@@ -65,7 +65,7 @@ export class PersonalPage implements OnInit {
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
-      const id = '6334ab53981b14a6d5babab3';
+      const id = '6356ea69ab8e3e2745ca8ef3';
       this.users.map((res) => {
         if (res.id === id) {
           this.usersId = res.id;

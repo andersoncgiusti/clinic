@@ -12,7 +12,7 @@ export class Tab3Page implements OnInit {
   eventSource = [];
   cashs = [];
   private cashsSub: Subscription;
-
+  isLoading = false;
   cashsId = [];
 
   constructor(

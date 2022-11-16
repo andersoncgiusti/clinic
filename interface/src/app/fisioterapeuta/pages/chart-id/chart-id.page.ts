@@ -45,6 +45,7 @@ export class ChartIdPage implements OnInit {
   public idChart = '';
   public treatment = '';
   public created = '';
+  isLoading = false;
 
   constructor(
     public userService: UserService,

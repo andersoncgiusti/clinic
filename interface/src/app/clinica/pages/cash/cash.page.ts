@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class CashPage implements OnInit {
   cashs: Cash[] = [];
   private cashsSub: Subscription;
-
+  isLoading = false;
   credit;
   debt;
   money;

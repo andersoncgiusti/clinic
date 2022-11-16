@@ -18,7 +18,7 @@ export class ChartIdPage implements OnInit {
 
   usersPacient: User[] = [];
   eventSource = [];
-
+  isLoading = false;
   user;
   charts;
   date;

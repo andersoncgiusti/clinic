@@ -29,6 +29,7 @@ export class CalModalPage implements OnInit {
   eventSource = [];
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
+  isLoading = false;
 
   constructor(
     public modalController: ModalController,

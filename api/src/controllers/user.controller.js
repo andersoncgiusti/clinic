@@ -55,7 +55,7 @@ module.exports = {
     },
     userGet: async (req, res) => {  
         try {
-            const users = await User.find().populate(['prontuarios']);
+            const users = await User.find().populate(['prontuarios', 'cashs', 'agendamentos', 'sessions', 'totals']);
             const pacient = await User.find({ userPermission: {$eq: 'paciente'} }).count();
             const administrator = await User.find({ userPermission: {$eq: 'administrador'} }).count();
             const physiotherapist = await User.find({ userPermission: {$eq: 'fisioterapeuta'} }).count();

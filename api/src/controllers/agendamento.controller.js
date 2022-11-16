@@ -13,7 +13,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 module.exports = { 
     agendamentoGet: async (req, res) => {  
         try {
-            const agendamento = await Agendamento.find().populate(['user']);            
+            const agendamento = await Agendamento.find().populate(['user']);        
             const dataNow = new Date().toISOString().slice(0, 10);
             const date = new Date();
             const sumDay = new Date(date.setDate(date.getDate() + 1)).toISOString().slice(0, 10);
@@ -69,7 +69,7 @@ module.exports = {
             scheduleEndTime: req.body.endTime,
             user: req.body.user
         })
-
+        
         try {
             // await agendamento.save().then(createdAgendamento => {
             //     res.status(201).json({

@@ -83,7 +83,7 @@ module.exports = {
                 user: req.body.user,
                 sessionPatient: finalized.toString() 
             })    
-            console.log(total);        
+              
             await Total.updateOne({ user: req.body.user }, total)
             .then(result => {
                 res.status(200).json({ 

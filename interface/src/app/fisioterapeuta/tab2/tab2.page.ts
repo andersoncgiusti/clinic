@@ -17,6 +17,7 @@ export class Tab2Page implements OnInit {
   private usersSubPacient: Subscription;
   prontuarios: Chart[] = [];
   private prontuariosSub: Subscription;
+  isLoading = false;
 
   constructor(
     public userService: UserService,

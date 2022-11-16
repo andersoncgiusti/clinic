@@ -145,17 +145,19 @@
       </div>
   </form>
 
-  <form #form="ngForm" (ngSubmit)="ngSubmits(form)">
-    <div class="button">
-      <ion-button type="submit">
-        <ion-icon name="checkmark-outline" class="icon check"></ion-icon>
-      </ion-button>
-    </div>
-    <ion-item style="display: none;">
-      <ion-input type="text" value="{{ id }}" name="idEdt" [(ngModel)]="id"></ion-input>
-      <ion-input type="text" value="{{ userId }}" name="userEdt" [(ngModel)]="userId"></ion-input>
-      <ion-input type="text" value="{{ title }}" name="titleEdt" [(ngModel)]="title"></ion-input>
-      <ion-input type="text" name="endTime" value="{{this.endTime}}" [(ngModel)]="endTime"></ion-input>
-    </ion-item>
-  </form>
+  <div>
+    <form #form="ngForm" (ngSubmit)="ngSubmits(form)" >
+      <div class="button">
+        <ion-button type="submit" class="checkin">
+          <ion-icon name="checkmark-outline" class="icon check"></ion-icon>
+        </ion-button>
+      </div>
+      <ion-item style="display: none;">
+        <ion-input type="text" value="{{ id }}" name="idEdt" [(ngModel)]="id"></ion-input>
+        <ion-input type="text" value="{{ userId }}" name="userEdt" [(ngModel)]="userId"></ion-input>
+        <ion-input type="text" value="{{ title }}" name="titleEdt" [(ngModel)]="title"></ion-input>
+        <ion-input type="text" name="endTime" value="{{this.endTime}}" [(ngModel)]="endTime"></ion-input>
+      </ion-item>
+    </form>
+  </div>
 </ion-content>

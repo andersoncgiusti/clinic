@@ -18,7 +18,7 @@ export class Tab1Page implements OnInit {
   showAddEvent: boolean;
   count: number;
   schedulingDay;
-
+  isLoading = false;
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
 

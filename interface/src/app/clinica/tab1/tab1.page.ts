@@ -34,7 +34,7 @@ export class Tab1Page implements OnInit {
   showAddEvent: boolean;
   isModalOpen = false;
   showAdd: boolean;
-
+  isLoading = false;
   pacient;
   administrator;
   physiotherapist;

@@ -13,6 +13,7 @@ export class Tab2Page implements OnInit {
   prontuarios = [];
   private prontuariosSub: Subscription;
   // charts;
+  isLoading = false;
 
   constructor(
     public chartService: ChartService,

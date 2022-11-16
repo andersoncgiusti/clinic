@@ -8,5 +8,6 @@ router.post('/api/session_post' , sessionsController.sessionPostTotal);
 router.get('/api/session', sessionsController.sessionGet);
 router.delete('/api/session/:id', sessionsController.sessionDelete);
 router.put('/api/session/:id', sessionsController.sessionPut);
+router.put('/api/session_total', sessionsController.totalPut);
 
 module.exports = router;

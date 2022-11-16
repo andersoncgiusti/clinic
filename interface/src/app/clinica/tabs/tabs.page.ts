@@ -14,6 +14,7 @@ export class TabsPage implements OnInit {
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
   schedulingDay;
+  isLoading = false;
 
   constructor(public schedulingService: SchedulingService) {}
 

@@ -4,6 +4,7 @@ import { ModalController, NavController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
+import { SessionService } from 'src/app/services/session.service';
 import { TotalService } from 'src/app/services/total.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -30,9 +31,11 @@ export class CalModalPage implements OnInit {
   public startTimeEdt = '';
   public hoursEdt = '';
   public endTimeEdt = '';
+  public titleEdtFormat = '';
   eventSource = [];
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
+  isLoading = false;
 
   constructor(
     public modalController: ModalController,
@@ -42,10 +45,13 @@ export class CalModalPage implements OnInit {
     public schedulingService: SchedulingService,
     private navCtrl: NavController,
     public totalService: TotalService,
+    public sessionService: SessionService,
   ) {
 
     this.id = navParams.get('id');
     this.title = navParams.get('title');
+    this.titleEdtFormat = this.title.slice(this.title.length - 11);
+    console.log(this.titleEdtFormat);
     this.startTime = navParams.get('startTime');
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
@@ -62,10 +68,11 @@ export class CalModalPage implements OnInit {
     if (frm.invalid) {
       return;
     }
+    console.log(frm.value);
 
     this.schedulingService.updateAgendamentoFinish(
       frm.value.allDay = false,
-      frm.value.titleEdt + ' - CONCLUÍDO',
+      frm.value.titleEdt + ' - ATENDIDO',
       frm.value.idEdt,
       frm.value.userEdt,
     );
@@ -75,13 +82,18 @@ export class CalModalPage implements OnInit {
       frm.value.treatment
     )
 
-    this.totalService.totalUp(
+    // this.totalService.totalUp(
+    //   frm.value.endTime,
+    //   frm.value.idChart
+    // )
+
+    this.sessionService.totalUpSession(
       frm.value.endTime,
       frm.value.idChart
     )
 
     setTimeout(()=> {
-      this.refreshScheduling();
+      // this.refreshScheduling();
       this.modalController.dismiss();
       this.events.treatment = ''
     }, 1000);
@@ -91,7 +103,7 @@ export class CalModalPage implements OnInit {
 
   ngOnInit() {
     this.getAgendamentos();
-    this.refreshScheduling();
+    // this.refreshScheduling();
     // this.initAgendamentos();
   }
 
