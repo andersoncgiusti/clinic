@@ -15,20 +15,25 @@
       <ion-list>
         <ion-item>
           <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" name="userEmail" ngModel placeholder="E-mail"></ion-input>
+          <ion-input type="email" name="userEmail" ngModel placeholder="E-mail" #emailInput="ngModel" [clearInput]="true"></ion-input>
+          <ion-note slot="helper">Entre com um e-mail valido</ion-note>
+          <ion-note slot="error">E-mail inválido</ion-note>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Token</ion-label>
-          <ion-input type="text" name="token" ngModel placeholder="Token"></ion-input>
+          <ion-input type="text" name="token" ngModel placeholder="Token" #tokenInput="ngModel" [clearInput]="true"></ion-input>
+          <ion-note slot="helper">Entre com um token valido</ion-note>
+          <ion-note slot="error">Token inválido</ion-note>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Nova senha</ion-label>
-          <ion-input type="password" name="password" ngModel placeholder="Senha"></ion-input>
+          <ion-input type="password" name="password" ngModel placeholder="Senha" #passwordInput="ngModel" [clearInput]="true"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" color="success" class="enter" type="submit">Atualizar</ion-button>
+        <ion-button expand="block" color="success" class="enter" type="submit"
+        [disabled]="emailInput.invalid || tokenInput.invalid || passwordInput.invalid">Atualizar</ion-button>
       </ion-list>
     </form>
 

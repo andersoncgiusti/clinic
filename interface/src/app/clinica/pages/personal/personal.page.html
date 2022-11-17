@@ -35,57 +35,57 @@
 
     <ion-item>
       <ion-label position="stacked">Nome*</ion-label>
-      <ion-input type="text" name="userName" value="{{ this.userNameId }}" [(ngModel)]="userNameId"></ion-input>
+      <ion-input type="text" name="userName" value="{{ this.userNameId }}" [(ngModel)]="userNameId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Sobrenome*</ion-label>
-      <ion-input type="text" name="userLastName" value="{{ this.userLastNameId }}" [(ngModel)]="userLastNameId"></ion-input>
+      <ion-input type="text" name="userLastName" value="{{ this.userLastNameId }}" [(ngModel)]="userLastNameId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento*</ion-label>
-      <input type="text" name="userBirth" maxlength="10" placeholder="Ex. 00000000" value="{{ this.birth }}" [(ngModel)]="this.birth">
+      <ion-input type="text" name="userBirth" maxlength="10" placeholder="Ex. 00000000" value="{{ this.birth }}" [(ngModel)]="this.birth" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular*</ion-label>
-      <input type="text" name="userPhone" maxlength="15" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" value="{{ this.phone }}" [(ngModel)]="this.phone">
+      <ion-input type="text" name="userPhone" maxlength="15" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" value="{{ this.phone }}" [(ngModel)]="this.phone" [clearInput]="true"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="disabled">
       <ion-label position="stacked">E-mail*</ion-label>
-      <ion-input type="text" name="userEmail" readonly value="{{ this.userEmailId }}" [(ngModel)]="userEmailId"></ion-input>
+      <ion-input type="text" name="userEmail" readonly value="{{ this.userEmailId }}" [(ngModel)]="userEmailId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF*</ion-label>
-      <input type="text" name="userCpf" maxlength="14" placeholder="Ex. 12345678910" value="{{ this.cpf }}" [(ngModel)]="this.cpf">
+      <ion-input type="text" name="userCpf" maxlength="14" placeholder="Ex. 12345678910" value="{{ this.cpf }}" [(ngModel)]="this.cpf" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Rua/Av</ion-label>
-      <ion-input type="text" name="userAddress" value="{{ this.userAddressId }}" [(ngModel)]="userAddressId"></ion-input>
+      <ion-input type="text" name="userAddress" value="{{ this.userAddressId }}" [(ngModel)]="userAddressId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Número</ion-label>
-      <ion-input type="text" name="userNumber" value="{{ this.userNumberId }}" [(ngModel)]="userNumberId"></ion-input>
+      <ion-input type="text" name="userNumber" value="{{ this.userNumberId }}" [(ngModel)]="userNumberId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Complemento</ion-label>
-      <ion-input type="text" name="userComplement" value="{{ this.userComplementId }}" [(ngModel)]="userComplementId"></ion-input>
+      <ion-input type="text" name="userComplement" value="{{ this.userComplementId }}" [(ngModel)]="userComplementId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="text" name="userCity" value="{{ this.userCityId }}" [(ngModel)]="userCityId"></ion-input>
+      <ion-input type="text" name="userCity" value="{{ this.userCityId }}" [(ngModel)]="userCityId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="text" name="userState" value="{{ this.userStateId }}" [(ngModel)]="userStateId"></ion-input>
+      <ion-input type="text" name="userState" value="{{ this.userStateId }}" [(ngModel)]="userStateId" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item style="display: none;">

@@ -9,7 +9,9 @@
       <ion-list>
         <ion-item>
           <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" name="userEmail" ngModel placeholder="E-mail"></ion-input>
+          <ion-input type="email" name="userEmail" ngModel #emailInput="ngModel" placeholder="E-mail" [clearInput]="true"></ion-input>
+          <ion-note slot="helper">Entre com um e-mail valido</ion-note>
+          <ion-note slot="error">E-mail inválido</ion-note>
         </ion-item>
 
         <!-- <ion-item>
@@ -22,7 +24,8 @@
           <ion-input type="password" placeholder="Comfirme a Senha"></ion-input>
         </ion-item> -->
 
-        <ion-button expand="block" color="success" class="enter" type="submit">Enviar</ion-button>
+        <ion-button expand="block" color="success" class="enter" type="submit"
+        [disabled]="emailInput.invalid">Enviar</ion-button>
       </ion-list>
     </form>
     <div class="img">

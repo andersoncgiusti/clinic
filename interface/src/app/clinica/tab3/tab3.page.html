@@ -161,57 +161,59 @@
 
     <ion-item>
       <ion-label position="stacked">Nome*</ion-label>
-      <ion-input type="txt" name="userName" [(ngModel)]="pacienteEvent.userName"></ion-input>
+      <ion-input type="txt" name="userName" [(ngModel)]="pacienteEvent.userName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Sobrenome*</ion-label>
-      <ion-input type="txt"name="userLastName" [(ngModel)]="pacienteEvent.userLastName"></ion-input>
+      <ion-input type="txt"name="userLastName" [(ngModel)]="pacienteEvent.userLastName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento*</ion-label>
-      <input type="text" name="userBirth" maxlength="10" [(ngModel)]="pacienteEvent.userBirth" placeholder="Ex. 00000000">
+      <ion-input type="text" name="userBirth" maxlength="10" [(ngModel)]="pacienteEvent.userBirth" placeholder="Ex. 00000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular*</ion-label>
-      <input type="text" name="userPhone" maxlength="15" [(ngModel)]="pacienteEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <ion-input type="text" name="userPhone" maxlength="15" [(ngModel)]="pacienteEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail*</ion-label>
-      <ion-input type="email" name="userEmail" [(ngModel)]="pacienteEvent.userEmail"></ion-input>
+      <ion-input type="email" name="userEmail" [(ngModel)]="pacienteEvent.userEmail" placeholder="Ex. email@domain.com" [clearInput]="true"></ion-input>
+      <ion-note slot="helper">Entre com um e-mail valido</ion-note>
+      <ion-note slot="error">E-mail já existe na base de dados</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF*</ion-label>
-      <input type="text" name="userCpf" maxlength="14" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910">
+      <ion-input type="text" name="userCpf" maxlength="14" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Rua/Av</ion-label>
-      <ion-input type="txt" name="userAddress" [(ngModel)]="pacienteEvent.userAddress"></ion-input>
+      <ion-input type="txt" name="userAddress" [(ngModel)]="pacienteEvent.userAddress" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Número</ion-label>
-      <ion-input type="txt" name="userNumber" [(ngModel)]="pacienteEvent.userNumber"></ion-input>
+      <ion-input type="txt" name="userNumber" [(ngModel)]="pacienteEvent.userNumber" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Complemento</ion-label>
-      <ion-input type="txt" name="userComplement" [(ngModel)]="pacienteEvent.userComplement"></ion-input>
+      <ion-input type="txt" name="userComplement" [(ngModel)]="pacienteEvent.userComplement" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="txt" name="userCity" [(ngModel)]="pacienteEvent.userCity"></ion-input>
+      <ion-input type="txt" name="userCity" [(ngModel)]="pacienteEvent.userCity" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="txt" name="userState" [(ngModel)]="pacienteEvent.userState"></ion-input>
+      <ion-input type="txt" name="userState" [(ngModel)]="pacienteEvent.userState" [clearInput]="true"></ion-input>
       <!-- <ion-input style="display: none;" type="text" name="password" [(ngModel)]="pacienteEvent.password">{{ this.userPassword }}</ion-input> -->
     </ion-item>
 
@@ -229,57 +231,59 @@
 
     <ion-item>
       <ion-label position="stacked">Nome*</ion-label>
-      <ion-input type="txt" name="userName" [(ngModel)]="adminEvent.userName"></ion-input>
+      <ion-input type="txt" name="userName" [(ngModel)]="adminEvent.userName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Sobrenome*</ion-label>
-      <ion-input type="txt" name="userLastName" [(ngModel)]="adminEvent.userLastName"></ion-input>
+      <ion-input type="txt" name="userLastName" [(ngModel)]="adminEvent.userLastName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento*</ion-label>
-      <input type="text" name="userBirth" maxlength="10" [(ngModel)]="adminEvent.userBirth" placeholder="Ex. 00000000">
+      <ion-input type="text" name="userBirth" maxlength="10" [(ngModel)]="adminEvent.userBirth" placeholder="Ex. 00000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular*</ion-label>
-      <input type="text" name="userPhone" maxlength="15" [(ngModel)]="adminEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <ion-input type="text" name="userPhone" maxlength="15" [(ngModel)]="adminEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail*</ion-label>
-      <ion-input type="email" name="userEmail" [(ngModel)]="adminEvent.userEmail"></ion-input>
+      <ion-input type="email" name="userEmail" [(ngModel)]="adminEvent.userEmail" placeholder="Ex. email@domain.com" [clearInput]="true"></ion-input>
+      <ion-note slot="helper">Entre com um e-mail valido</ion-note>
+      <ion-note slot="error">E-mail já existe na base de dados</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF*</ion-label>
-      <input type="text" name="userCpf" maxlength="14" [(ngModel)]="adminEvent.userCpf" placeholder="Ex. 12345678910">
+      <ion-input type="text" name="userCpf" maxlength="14" [(ngModel)]="adminEvent.userCpf" placeholder="Ex. 12345678910" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Rua/Av</ion-label>
-      <ion-input type="txt" name="userAddress" [(ngModel)]="adminEvent.userAddress"></ion-input>
+      <ion-input type="txt" name="userAddress" [(ngModel)]="adminEvent.userAddress" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Número</ion-label>
-      <ion-input type="txt" name="userNumber" [(ngModel)]="adminEvent.userNumber"></ion-input>
+      <ion-input type="txt" name="userNumber" [(ngModel)]="adminEvent.userNumber" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Complemento</ion-label>
-      <ion-input type="txt" name="userComplement" [(ngModel)]="adminEvent.userComplement"></ion-input>
+      <ion-input type="txt" name="userComplement" [(ngModel)]="adminEvent.userComplement" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="txt" name="userCity" [(ngModel)]="adminEvent.userCity"></ion-input>
+      <ion-input type="txt" name="userCity" [(ngModel)]="adminEvent.userCity" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="txt" name="userState" [(ngModel)]="adminEvent.userState"></ion-input>
+      <ion-input type="txt" name="userState" [(ngModel)]="adminEvent.userState" [clearInput]="true"></ion-input>
     </ion-item>
 
     <div class="criar">
@@ -296,57 +300,59 @@
 
     <ion-item>
       <ion-label position="stacked">Nome*</ion-label>
-      <ion-input type="txt" name="userName" [(ngModel)]="fisioEvent.userName"></ion-input>
+      <ion-input type="txt" name="userName" [(ngModel)]="fisioEvent.userName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Sobrenome*</ion-label>
-      <ion-input type="txt" name="userLastName" [(ngModel)]="fisioEvent.userLastName"></ion-input>
+      <ion-input type="txt" name="userLastName" [(ngModel)]="fisioEvent.userLastName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento*</ion-label>
-      <input type="text" name="userBirth"  maxlength="10" [(ngModel)]="fisioEvent.userBirth" placeholder="Ex. 00000000">
+      <ion-input type="text" name="userBirth"  maxlength="10" [(ngModel)]="fisioEvent.userBirth" placeholder="Ex. 00000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular*</ion-label>
-      <input type="text" name="userPhone" maxlength="15" [(ngModel)]="fisioEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <ion-input type="text" name="userPhone" maxlength="15" [(ngModel)]="fisioEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail*</ion-label>
-      <ion-input type="email" name="userEmail" [(ngModel)]="fisioEvent.userEmail"></ion-input>
+      <ion-input type="email" name="userEmail" [(ngModel)]="fisioEvent.userEmail" placeholder="Ex. email@domain.com" [clearInput]="true"></ion-input>
+      <ion-note slot="helper">Entre com um e-mail valido</ion-note>
+      <ion-note slot="error">E-mail já existe na base de dados</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF*</ion-label>
-      <input type="text" name="userCpf"  maxlength="14" [(ngModel)]="fisioEvent.userCpf" placeholder="Ex. 12345678910">
+      <ion-input type="text" name="userCpf"  maxlength="14" [(ngModel)]="fisioEvent.userCpf" placeholder="Ex. 12345678910" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Rua/Av</ion-label>
-      <ion-input type="txt" name="userAddress" [(ngModel)]="fisioEvent.userAddress"></ion-input>
+      <ion-input type="txt" name="userAddress" [(ngModel)]="fisioEvent.userAddress" [clearInput]="true">
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Número</ion-label>
-      <ion-input type="txt" name="userNumber" [(ngModel)]="fisioEvent.userNumber"></ion-input>
+      <ion-input type="txt" name="userNumber" [(ngModel)]="fisioEvent.userNumber" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Complemento</ion-label>
-      <ion-input type="txt" name="userComplement" [(ngModel)]="fisioEvent.userComplement"></ion-input>
+      <ion-input type="txt" name="userComplement" [(ngModel)]="fisioEvent.userComplement" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="txt" name="userCity" [(ngModel)]="fisioEvent.userCity"></ion-input>
+      <ion-input type="txt" name="userCity" [(ngModel)]="fisioEvent.userCity" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="txt" name="userState" [(ngModel)]="fisioEvent.userState"></ion-input>
+      <ion-input type="txt" name="userState" [(ngModel)]="fisioEvent.userState" [clearInput]="true"></ion-input>
     </ion-item>
 
     <div class="criar">

@@ -37,58 +37,58 @@
 
     <ion-item>
       <ion-label position="stacked">Nome*</ion-label>
-      <ion-input type="text" name="userName" value="{{this.user.userName}}" [(ngModel)]="user.userName"></ion-input>
+      <ion-input type="text" name="userName" value="{{this.user.userName}}" [(ngModel)]="user.userName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Sobrenome*</ion-label>
-      <ion-input type="text" name="userLastName" value="{{this.user.userLastName}}" [(ngModel)]="user.userLastName"></ion-input>
+      <ion-input type="text" name="userLastName" value="{{this.user.userLastName}}" [(ngModel)]="user.userLastName" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Data Nascimento*</ion-label>
-      <input type="text" name="userBirth" maxlength="10" value="{{this.birth}}" [(ngModel)]="this.birth" placeholder="Ex. 00000000">
+      <ion-input type="text" name="userBirth" maxlength="10" value="{{this.birth}}" [(ngModel)]="this.birth" placeholder="Ex. 00000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular*</ion-label>
-      <input type="text" name="userPhone" maxlength="14" value="{{this.phone}}" [(ngModel)]="this.phone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
+      <ion-input type="text" name="userPhone" maxlength="14" value="{{this.phone}}" [(ngModel)]="this.phone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">E-mail*</ion-label>
-      <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input>
+      <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail" [clearInput]="true"></ion-input>
       <!-- <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input> -->
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">CPF</ion-label>
-      <input type="text" name="userCpf" maxlength="14" value="{{this.cpf}}" [(ngModel)]="this.cpf" placeholder="Ex. 12345678910">
+      <ion-input type="text" name="userCpf" maxlength="14" value="{{this.cpf}}" [(ngModel)]="this.cpf" placeholder="Ex. 12345678910" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Rua/Av</ion-label>
-      <ion-input type="text" name="userAddress" value="{{this.user.userAddress}}" [(ngModel)]="user.userAddress"></ion-input>
+      <ion-input type="text" name="userAddress" value="{{this.user.userAddress}}" [(ngModel)]="user.userAddress" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Número</ion-label>
-      <ion-input type="text" name="userNumber" value="{{this.user.userNumber}}" [(ngModel)]="user.userNumber"></ion-input>
+      <ion-input type="text" name="userNumber" value="{{this.user.userNumber}}" [(ngModel)]="user.userNumber" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Complemento</ion-label>
-      <ion-input type="text" name="userComplement" value="{{this.user.userComplement}}" [(ngModel)]="user.userComplement"></ion-input>
+      <ion-input type="text" name="userComplement" value="{{this.user.userComplement}}" [(ngModel)]="user.userComplement" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
-      <ion-input type="text" name="userCity" value="{{this.user.userCity}}" [(ngModel)]="user.userCity"></ion-input>
+      <ion-input type="text" name="userCity" value="{{this.user.userCity}}" [(ngModel)]="user.userCity" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Estado</ion-label>
-      <ion-input type="text" name="userState" value="{{this.user.userState}}" [(ngModel)]="user.userState"></ion-input>
+      <ion-input type="text" name="userState" value="{{this.user.userState}}" [(ngModel)]="user.userState" [clearInput]="true"></ion-input>
     </ion-item>
 
     <ion-item style="display: none;">
