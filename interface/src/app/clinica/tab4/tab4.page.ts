@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class Tab4Page implements OnInit {
   eventSource = [];
+  eventSources = [];
   valueTotal: String;
   valueTotalFormated: String;
   isLoading = false;
@@ -62,6 +63,29 @@ export class Tab4Page implements OnInit {
     // .subscribe((cashs: Cash[]) => {
     //   console.log(cashs);
     //   this.cashs = cashs;
+    //   this.isLoading = false;
+    // })
+
+    // this.sessionService.getSession();
+    // this.sessionsSub = this.sessionService.getSessionUpdated()
+    // .subscribe((sessions) => {
+    //   this.sessions = sessions;
+    //   // console.log(this.sessions);
+
+    //   const allSession = [];
+
+    //   this.sessions.filter((resp) => {
+    //     console.log(resp);
+
+    //     if (resp.sessionPatient === null) {
+
+    //       allSession.push({
+    //         session: resp
+    //       })
+    //     }
+    //   })
+    //   this.eventSources = allSession;
+    //   console.log(this.eventSources);
     //   this.isLoading = false;
     // })
   }
@@ -135,8 +159,8 @@ export class Tab4Page implements OnInit {
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
-      this.users.filter((resp) => {
 
+      this.users.filter((resp) => {
         if (resp.id === this.packageQte.user) {
           events.push({
             sessionsPatient: this.packageQte.sessionPatient.toString(),

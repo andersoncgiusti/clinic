@@ -97,8 +97,6 @@ export class Tab2Page implements OnInit {
         }
       })
       this.eventSources = allSession;
-      console.log(this.eventSources);
-
       this.isLoading = false;
     })
 
