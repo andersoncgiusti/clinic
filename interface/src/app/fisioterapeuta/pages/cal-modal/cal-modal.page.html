@@ -7,7 +7,7 @@
           <ion-button color="light" (click)="close();">Cancelar</ion-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <ion-button color="light" type="submit">Confirmar</ion-button>
+          <ion-button color="light" type="submit" [disabled]="titleEdtFormat === '- CONCLUÍDO'">Confirmar</ion-button>
         </ion-buttons>
       </ion-toolbar>
 

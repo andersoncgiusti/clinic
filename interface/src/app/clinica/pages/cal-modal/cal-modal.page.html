@@ -136,12 +136,12 @@
       </ion-list>
     </ion-item>
       <div class="button space">
-        <ion-button type="submit">
+        <ion-button type="submit" [disabled]="titleEdtFormat === '- CONCLUÍDO'">
           <ion-icon name="pencil-outline" class="icon check"></ion-icon>
         </ion-button>
       </div>
       <div class="button">
-        <ion-button (click)="onDelete(this.agendamento.id, this.userId)">
+        <ion-button (click)="onDelete(this.agendamento.id, this.userId)" [disabled]="titleEdtFormat === '- CONCLUÍDO'">
           <ion-icon name="trash-bin-outline" class="icon check"></ion-icon>
         </ion-button>
       </div>
@@ -150,7 +150,7 @@
   <div>
     <form #form="ngForm" (ngSubmit)="ngSubmits(form)" >
       <div class="button">
-        <ion-button type="submit" class="checkin">
+        <ion-button type="submit" class="checkin"  [disabled]="titleEdtFormat === '- CONCLUÍDO'">
           <ion-icon name="checkmark-outline" class="icon check"></ion-icon>
         </ion-button>
       </div>

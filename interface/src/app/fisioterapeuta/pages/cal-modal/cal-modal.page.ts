@@ -52,7 +52,6 @@ export class CalModalPage implements OnInit {
     this.id = navParams.get('id');
     this.title = navParams.get('title');
     this.titleEdtFormat = this.title.slice(this.title.length - 11);
-    console.log(this.titleEdtFormat);
     this.startTime = navParams.get('startTime');
     this.month = navParams.get('month');
     this.hours = navParams.get('hours');
