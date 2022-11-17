@@ -1,5 +1,5 @@
 export interface Auth {
-  id: String,
+  userId: String,
   userEmail: String,
   password: String,
   userPermission: String,

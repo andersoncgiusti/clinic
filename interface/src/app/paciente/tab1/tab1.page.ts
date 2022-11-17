@@ -101,7 +101,8 @@ export class Tab1Page implements OnInit {
     .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
 
-      const id = '6356ea69ab8e3e2745ca8ef3';
+      const user = localStorage.getItem('user');
+      const id = user;
 
       const allscheduling = [];
 
@@ -126,7 +127,8 @@ export class Tab1Page implements OnInit {
     .subscribe((sessions) => {
       this.sessions = sessions;
 
-      const id = '6356ea69ab8e3e2745ca8ef3';
+      const user = localStorage.getItem('user');
+      const id = user;
 
       const all = [];
 

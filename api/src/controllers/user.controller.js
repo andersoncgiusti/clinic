@@ -395,53 +395,53 @@ module.exports = {
         next();
     },
     authenticate: async (req, res) => {
-    //     let fetchedUser        
-    //     User.findOne({ userEmail: req.body.userEmail })
-    //     .then(async user => {
-    //     if (!user) {
-    //       return res.status(401).json({
-    //         message: "Auth failed"
-    //       });
-    //     } 
-    //     fetchedUser = user
-    //     console.log(await bcrypt.hash(req.body.password, 10), user.password);
-    //     return bcrypt.compare(req.body.password, user.password)
-    //   })
-    //   .then(result => {
-    //     if (!result) {
-    //       return res.status(401).json({ message: "Auth failed" })
-    //     }
-    //     const token = jwt.sign(
-    //       { userEmail: fetchedUser.userEmail, userId: fetchedUser.id }, process.env.SECRET_STRING,
-    //       { expiresIn: "1h" }
-    //     )
-    //     console.log(token);
-    //     res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.id })
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     return res.status(401).json({ message: "Invalid authentication credentials!" })
-    //   })
-
-        const { userEmail, password } = req.body;
-
-        const user = await User.findOne({ userEmail }).select('+password');
-        
-        if (!user){
-            return res.status(400).json({ message: "User not found" });
+        let fetchedUser        
+        User.findOne({ userEmail: req.body.userEmail })
+        .then(async user => {
+        if (!user) {
+          return res.status(401).json({
+            message: "Auth failed"
+          });
+        } 
+        fetchedUser = user
+        console.log(await bcrypt.hash(req.body.password, 10), user.password);
+        return bcrypt.compare(req.body.password, user.password)
+      })
+      .then(result => {
+        if (!result) {
+          return res.status(401).json({ message: "Auth failed" })
         }
+        const token = jwt.sign(
+          { userEmail: fetchedUser.userEmail, userId: fetchedUser.id, userPermission: fetchedUser.userPermission }, process.env.SECRET_STRING,
+          { expiresIn: "1h" }
+        )
+        // console.log({token: token, expiresIn: 3600, userId: fetchedUser.id, userPermission: fetchedUser.userPermission});
+        res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser.id, userPermission: fetchedUser.userPermission })
+      })
+      // .catch(err => {
+      //   console.log(err);
+      //   return res.status(401).json({ message: "Invalid authentication credentials!" })
+      // })
 
-        if (!await bcrypt.compare(password, user.password)){
-            return res.status(400).json({ message: "Invalid password" });
-        }
+        // const { userEmail, password, userPermission } = req.body;
+
+        // const user = await User.findOne({ userEmail }).select('+password');
         
-        user.password = undefined;
+        // if (!user){
+        //     return res.status(400).json({ message: "User not found" });
+        // }
 
-        const token = jwt.sign({ id: user.id }, authConfig.secret, {
-            expiresIn: 86400,
-        })
+        // if (!await bcrypt.compare(password, user.password)){
+        //     return res.status(400).json({ message: "Invalid password" });
+        // }
+        
+        // user.password = undefined;
 
-        res.send({ user, token });
+        // const token = jwt.sign({ id: user.id }, authConfig.secret, {
+        //     expiresIn: 86400,
+        // })
+
+        // res.send({ user, token, userPermission });
     
     },
     forgot: async (req, res) => {

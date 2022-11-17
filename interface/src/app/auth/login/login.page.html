@@ -1,6 +1,6 @@
 <ion-progress-bar type="indeterminate"  *ngIf="isLoading"></ion-progress-bar>
 
-<ion-content *ngIf="!isLoading">
+<ion-content [ngClass]="{ 'remove':isLoading }">
   <div class="center">
     <div class="login">
       <ion-label>Realize o login</ion-label>
@@ -25,10 +25,11 @@
           <ion-label (click)="forgot();">Esqueceu sua senha?</ion-label>
         </div>
 
-        <ion-button expand="block" color="success" class="enter" type="submit"
+        <ion-button expand="block" color="success" class="enter" type="submit" (click)="error();"
         [disabled]="emailInput.invalid || passwordInput.invalid">Acessar</ion-button>
       </ion-list>
     </form>
+    <ion-label class="error" *ngIf="message">Email ou senha estão incorretos!</ion-label>
     <div class="img">
       <ion-img width="50" height="50" src="../../../assets/icon/login.png"></ion-img>
     </div>

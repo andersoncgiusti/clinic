@@ -11,6 +11,7 @@ import { NavController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   isLoading = false;
+  message = false;
 
   constructor(
     public authService: AuthService,
@@ -22,10 +23,12 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(form: NgForm) {
-    console.log(form.value);
+    // console.log(form.value);
     if (form.invalid) {
+      this.navCtrl.navigateRoot('/login');
       return;
     }
+    this.isLoading = true;
     this.authService.login(form.value.userEmail, form.value.password);
 
   }
@@ -36,5 +39,13 @@ export class LoginPage implements OnInit {
       this.isLoading = false;
       this.navCtrl.navigateRoot('/forgot');
     }, 2000)
+  }
+
+  error() {
+    this.message = false;
+    setTimeout(() => {
+      this.message = true;
+      this.isLoading = false;
+    }, 9000)
   }
 }

@@ -10,12 +10,12 @@
 </ion-header>
 
 
-<div class="noUser" *ngIf="this.eventSource.length <= 0 || !isLoading">
+<div class="noUser" *ngIf="this.eventSource.length <= 0">
   <ion-label>Nenhuma compra de pacote de sessões feita</ion-label>
   <ion-img src="../../../assets/icon/sales.png"></ion-img>
 </div>
 
-<ion-content *ngIf="this.eventSource.length > 0 || !isLoading">
+<ion-content *ngIf="this.eventSource.length > 0">
   <ion-card *ngFor="let item of eventSource">
     <div>
       <ion-list>

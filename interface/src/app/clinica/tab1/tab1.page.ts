@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
@@ -10,13 +10,17 @@ import { Chart } from 'src/app/models/chart.model';
 import { ChartService } from 'src/app/services/chart.service';
 import { CashService } from 'src/app/services/cash.service';
 import { Cash } from 'src/app/models/cash.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
 
   users: User[] = [];
   private usersSub: Subscription;
@@ -53,7 +57,8 @@ export class Tab1Page implements OnInit {
     public schedulingService: SchedulingService,
     public chartService: ChartService,
     public cashService: CashService,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    public authService: AuthService
     ) {}
 
   async showLoading() {
@@ -67,6 +72,11 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.isLoading = true;
 
     this.userService.getUsers();
@@ -113,6 +123,10 @@ export class Tab1Page implements OnInit {
       this.isLoading = false;
     });
 
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   openModal() {

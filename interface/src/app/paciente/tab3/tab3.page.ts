@@ -27,7 +27,8 @@ export class Tab3Page implements OnInit {
     .subscribe((cashs) => {
       this.cashs = cashs;
 
-      const id = '6356ea69ab8e3e2745ca8ef3';
+      const user = localStorage.getItem('user');
+      const id = user;
 
       const allcashs = [];
 

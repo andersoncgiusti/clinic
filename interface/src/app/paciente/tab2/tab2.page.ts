@@ -27,7 +27,8 @@ export class Tab2Page implements OnInit {
     .subscribe((prontuarios) => {
       this.prontuarios = prontuarios;
 
-      const id = '6356ea69ab8e3e2745ca8ef3';
+      const user = localStorage.getItem('user');
+      const id = user;
 
       const allcharts = [];
 

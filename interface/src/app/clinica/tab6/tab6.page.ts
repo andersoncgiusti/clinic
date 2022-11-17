@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab6',
@@ -12,6 +13,7 @@ export class Tab6Page implements OnInit {
 
   constructor(
     private loadingCtrl: LoadingController,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,11 @@ export class Tab6Page implements OnInit {
       cssClass: 'custom-loading',
     });
     loading.present();
+  }
+
+  onLogout() {
+    this.authService.logout();
+    localStorage.clear();
   }
 
 }

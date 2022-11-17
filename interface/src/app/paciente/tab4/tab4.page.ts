@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab4',
@@ -9,10 +10,15 @@ export class Tab4Page implements OnInit {
 
   isLoading = false;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     // this.isLoading = true;
+  }
+
+  onLogout() {
+    this.authService.logout();
+    localStorage.clear();
   }
 
 }

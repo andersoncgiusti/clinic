@@ -9,12 +9,12 @@
 </ion-header>
 
 
-<div class="noUser" *ngIf="this.eventSource.length <= 0 || !isLoading">
+<div class="noUser" *ngIf="this.eventSource.length <= 0">
   <ion-label>Nenhum comentário adicionado</ion-label>
   <ion-img src="../../../assets/icon/progress.png"></ion-img>
 </div>
 
-<ion-content *ngIf="this.eventSource.length > 0 || !isLoading">
+<ion-content *ngIf="this.eventSource.length > 0">
   <ion-card *ngFor="let item of eventSource">
     <ion-card-content>{{ item.treatment }}</ion-card-content>
   </ion-card>

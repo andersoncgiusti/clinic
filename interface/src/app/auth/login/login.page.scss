@@ -39,6 +39,16 @@ ion-content {
   margin: 3%;
 }
 
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: red !important;
+  margin: 3%;
+}
+
 ion-progress-bar {
   margin: 0;
   position: absolute;
