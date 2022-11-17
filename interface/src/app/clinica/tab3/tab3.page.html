@@ -154,37 +154,38 @@
   </ion-modal>
 
   <div class="paciente" *ngIf="paciente" #paciente>
+    <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
     <ion-item style="display: none;">
       <ion-input type="txt" name="userPermission" [(ngModel)]="pacienteEvent.userPermission"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
+      <ion-label position="stacked">Nome*</ion-label>
       <ion-input type="txt" name="userName" [(ngModel)]="pacienteEvent.userName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-label position="stacked">Sobrenome*</ion-label>
       <ion-input type="txt"name="userLastName" [(ngModel)]="pacienteEvent.userLastName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-label position="stacked">Data Nascimento*</ion-label>
       <input type="text" name="userBirth" maxlength="10" [(ngModel)]="pacienteEvent.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-label position="stacked">Telefone/Celular*</ion-label>
       <input type="text" name="userPhone" maxlength="15" [(ngModel)]="pacienteEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
+      <ion-label position="stacked">E-mail*</ion-label>
       <ion-input type="email" name="userEmail" [(ngModel)]="pacienteEvent.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">CPF</ion-label>
+      <ion-label position="stacked">CPF*</ion-label>
       <input type="text" name="userCpf" maxlength="14" [(ngModel)]="pacienteEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
@@ -215,42 +216,44 @@
     </ion-item>
 
     <div class="criar">
-      <ion-button expand="block" color="success" (click)="createPaciente(); clearPaciente()">Criar</ion-button>
+      <ion-button expand="block" color="success" (click)="createPaciente(); clearPaciente()"
+      [disabled]="pacienteEvent.userName.length === 0 || pacienteEvent.userLastName.length === 0 || pacienteEvent.userBirth.length === 0 || pacienteEvent.userPhone.length === 0 || pacienteEvent.userEmail.length === 0 || pacienteEvent.userCpf.length === 0">Criar</ion-button>
     </div>
   </div>
 
   <div class="admin" *ngIf="admin" #admin>
+    <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
     <ion-item style="display: none;">
       <ion-input type="txt" name="userPermission" [(ngModel)]="adminEvent.userPermission"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
+      <ion-label position="stacked">Nome*</ion-label>
       <ion-input type="txt" name="userName" [(ngModel)]="adminEvent.userName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-label position="stacked">Sobrenome*</ion-label>
       <ion-input type="txt" name="userLastName" [(ngModel)]="adminEvent.userLastName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-label position="stacked">Data Nascimento*</ion-label>
       <input type="text" name="userBirth" maxlength="10" [(ngModel)]="adminEvent.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-label position="stacked">Telefone/Celular*</ion-label>
       <input type="text" name="userPhone" maxlength="15" [(ngModel)]="adminEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
+      <ion-label position="stacked">E-mail*</ion-label>
       <ion-input type="email" name="userEmail" [(ngModel)]="adminEvent.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">CPF</ion-label>
+      <ion-label position="stacked">CPF*</ion-label>
       <input type="text" name="userCpf" maxlength="14" [(ngModel)]="adminEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
@@ -280,42 +283,44 @@
     </ion-item>
 
     <div class="criar">
-      <ion-button expand="block" color="success" (click)="createAdmin(); clearAdmin()">Criar</ion-button>
+      <ion-button expand="block" color="success" (click)="createAdmin(); clearAdmin()"
+      [disabled]="adminEvent.userName.length === 0 || adminEvent.userLastName.length === 0 || adminEvent.userBirth.length === 0 || adminEvent.userPhone.length === 0 || adminEvent.userEmail.length === 0 || adminEvent.userCpf.length === 0">Criar</ion-button>
     </div>
   </div>
 
   <div class="fisio" *ngIf="fisio " #fisio>
+    <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
     <ion-item style="display: none;">
       <ion-input type="txt" name="" [(ngModel)]="fisioEvent.userPermission"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
+      <ion-label position="stacked">Nome*</ion-label>
       <ion-input type="txt" name="userName" [(ngModel)]="fisioEvent.userName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-label position="stacked">Sobrenome*</ion-label>
       <ion-input type="txt" name="userLastName" [(ngModel)]="fisioEvent.userLastName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-label position="stacked">Data Nascimento*</ion-label>
       <input type="text" name="userBirth"  maxlength="10" [(ngModel)]="fisioEvent.userBirth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-label position="stacked">Telefone/Celular*</ion-label>
       <input type="text" name="userPhone" maxlength="15" [(ngModel)]="fisioEvent.userPhone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
+      <ion-label position="stacked">E-mail*</ion-label>
       <ion-input type="email" name="userEmail" [(ngModel)]="fisioEvent.userEmail"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">CPF</ion-label>
+      <ion-label position="stacked">CPF*</ion-label>
       <input type="text" name="userCpf"  maxlength="14" [(ngModel)]="fisioEvent.userCpf" placeholder="Ex. 12345678910">
     </ion-item>
 
@@ -345,7 +350,8 @@
     </ion-item>
 
     <div class="criar">
-      <ion-button expand="block" color="success" (click)="createFisio(); clearFisio()">Criar</ion-button>
+      <ion-button expand="block" color="success" (click)="createFisio(); clearFisio()"
+      [disabled]="fisioEvent.userName.length === 0 || fisioEvent.userLastName.length === 0 || fisioEvent.userBirth.length === 0 || fisioEvent.userPhone.length === 0 || fisioEvent.userEmail.length === 0 || fisioEvent.userCpf.length === 0">Criar</ion-button>
     </div>
   </div>
 

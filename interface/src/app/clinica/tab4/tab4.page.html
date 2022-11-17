@@ -30,10 +30,10 @@
       </div>
     </ion-chip>
   </ion-item> -->
-
+  <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
   <ion-list>
     <ion-item>
-      <ion-label position="stacked">Paciente</ion-label>
+      <ion-label position="stacked">Paciente*</ion-label>
       <ion-select interface="action-sheet" placeholder="Paciente" [(ngModel)]="package.user" [(ngModel)]="packageQte.user" [(ngModel)]="packageTotal.user" [(ngModel)]="packageStart.user">
         <div *ngFor="let user of users">
           <ion-select-option value="{{ user.id }}">{{ user.userName }}</ion-select-option>
@@ -56,7 +56,7 @@
     <ion-radio-group [(ngModel)]="package.pay" (keyup)="calcSale();">
       <ion-list-header>
         <ion-label>
-          Forma de Pagamento
+          Forma de Pagamento*
         </ion-label>
       </ion-list-header>
 
@@ -83,7 +83,9 @@
     <ion-input slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }}</ion-input>
   </ion-item>
 
-  <ion-button expand="block" type="submit" (click)="sales(); clearCash(); session(); start();">Concluir</ion-button>
+  <ion-button expand="block" type="submit" (click)="sales(); clearCash(); session(); start();"
+  [disabled]="package.user.length === 0 || package.sessions.length === 0 || package.value.length === 0 || package.pay.length === 0">
+  Concluir</ion-button>
 
 
 

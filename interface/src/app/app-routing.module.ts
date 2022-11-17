@@ -3,7 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   //>>>>>>>>>>>>>>>>>>>> START
-
+  {
+    path: '',
+    loadChildren: () => import('./auth/init/init.module').then( m => m.InitPageModule)
+  },
   {
     path: 'init',
     loadChildren: () => import('./auth/init/init.module').then( m => m.InitPageModule)

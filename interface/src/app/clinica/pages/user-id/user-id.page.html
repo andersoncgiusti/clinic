@@ -26,7 +26,7 @@
         <h2>{{ this.user.userName.slice(0, 1) }}</h2>
       </div>
     </ion-item>
-
+    <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
     <ion-item style="display: none;">
       <ion-input type="text" name="id" value="{{this.user.id}}" [(ngModel)]="user.id"></ion-input>
     </ion-item>
@@ -36,28 +36,28 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
+      <ion-label position="stacked">Nome*</ion-label>
       <ion-input type="text" name="userName" value="{{this.user.userName}}" [(ngModel)]="user.userName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-label position="stacked">Sobrenome*</ion-label>
       <ion-input type="text" name="userLastName" value="{{this.user.userLastName}}" [(ngModel)]="user.userLastName"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-label position="stacked">Data Nascimento*</ion-label>
       <input type="text" name="userBirth" maxlength="10" value="{{this.birth}}" [(ngModel)]="this.birth" placeholder="Ex. 00000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-label position="stacked">Telefone/Celular*</ion-label>
       <input type="text" name="userPhone" maxlength="14" value="{{this.phone}}" [(ngModel)]="this.phone" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail" readonly></ion-input>
+      <ion-label position="stacked">E-mail*</ion-label>
+      <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input>
       <!-- <ion-input type="text" name="userEmail" value="{{this.user.userEmail}}" [(ngModel)]="user.userEmail"></ion-input> -->
     </ion-item>
 
@@ -99,8 +99,9 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" color="success" type="submit" routerLink="/users">
-              <ion-icon name="pencil-outline" class="icon"></ion-icon>
+            <ion-button expand="block" color="success" type="submit" routerLink="/users"
+            [disabled]="user.userName.length <= 0 || user.userLastName.length <= 0 || user.userBirth.length <= 0 || user.userPhone.length <= 0 || user.userEmail.length <= 0 || user.userCpf.length <= 0"
+            ><ion-icon name="pencil-outline" class="icon"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col>

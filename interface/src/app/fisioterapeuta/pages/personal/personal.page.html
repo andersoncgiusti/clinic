@@ -23,7 +23,7 @@
         <h2>{{ this.userNameIdEdt }}</h2>
       </div>
     </ion-item>
-
+    <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
     <ion-item style="display: none;">
       <ion-input type="text" name="id" value="{{ this.usersId }}" [(ngModel)]="usersId"></ion-input>
     </ion-item>
@@ -33,32 +33,32 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
+      <ion-label position="stacked">Nome*</ion-label>
       <ion-input type="text" name="userName" value="{{ this.userNameId }}" [(ngModel)]="userNameId"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Sobrenome</ion-label>
+      <ion-label position="stacked">Sobrenome*</ion-label>
       <ion-input type="text" name="userLastName" value="{{ this.userLastNameId }}" [(ngModel)]="userLastNameId"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Data Nascimento</ion-label>
+      <ion-label position="stacked">Data Nascimento*</ion-label>
       <input type="text" name="userBirth" maxlength="10" placeholder="Ex. 00000000" value="{{ this.birth }}" [(ngModel)]="this.birth">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Telefone/Celular</ion-label>
+      <ion-label position="stacked">Telefone/Celular*</ion-label>
       <input type="text" name="userPhone" maxlength="15" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" value="{{ this.phone }}" [(ngModel)]="this.phone">
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
+      <ion-label position="stacked">E-mail*</ion-label>
       <ion-input type="text" name="userEmail" readonly value="{{ this.userEmailId }}" [(ngModel)]="userEmailId"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">CPF</ion-label>
+      <ion-label position="stacked">CPF*</ion-label>
       <input type="text" name="userCpf" maxlength="14" placeholder="Ex. 12345678910" value="{{ this.cpf }}" [(ngModel)]="this.cpf">
     </ion-item>
 
@@ -95,8 +95,9 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" color="success" type="submit">
-              <ion-icon name="pencil-outline" class="icon"></ion-icon>
+            <ion-button expand="block" color="success" type="submit"
+            [disabled]="userNameId.length <= 0 || userLastNameId.length <= 0 || userBirthId.length <= 0 || userPhoneId.length <= 0 || userEmailId.length <= 0 || userCpfId.length <= 0"
+            ><ion-icon name="pencil-outline" class="icon"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>

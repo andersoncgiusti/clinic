@@ -92,7 +92,14 @@
         </ion-buttons>
         <!-- <ion-title>Modal</ion-title> -->
         <ion-buttons slot="end">
-          <ion-button color="light" (click)="createEvents(); clear();">Confirmar</ion-button>
+          <ion-button color="light" (click)="createEvents(); clear();"
+          [disabled]="
+          event.user.length === 0 ||
+          event.day.length === 0 ||
+          event.month.length === 0 ||
+          event.startTime.length === 0 ||
+          event.endTime.length === 0
+          ">Confirmar</ion-button>
         </ion-buttons>
       </ion-toolbar>
 
@@ -102,10 +109,10 @@
             <ion-label position="stacked">Paciente</ion-label>
             <ion-input id="popover-button" type="email" [(ngModel)]="event.title"></ion-input>
           </ion-item> -->
-
+          <ion-label position="stacked" class="cheked">*Todos os compos são obrigatórios</ion-label>
           <ion-list>
             <ion-item>
-              <ion-label position="stacked">Paciente</ion-label>
+              <ion-label position="stacked">Paciente*</ion-label>
               <ion-select interface="action-sheet" placeholder="Paciente" [(ngModel)]="event.user">
                 <div *ngFor="let user of users">
                   <ion-select-option value="{{ user.id }}">{{ user.userName }}</ion-select-option>
@@ -119,7 +126,7 @@
           </ion-item> -->
 
           <ion-item button="true" detail="false">
-            <ion-label position="stacked">Dia</ion-label>
+            <ion-label position="stacked">Dia*</ion-label>
             <ion-list>
               <ion-item>
                 <ion-select interface="popover" placeholder="Dia" [(ngModel)]="event.day">
@@ -159,7 +166,7 @@
             </ion-list>
           </ion-item>
           <ion-item button="true" detail="false">
-            <ion-label position="stacked">Mês</ion-label>
+            <ion-label position="stacked">Mês*</ion-label>
             <ion-list>
               <ion-item>
                 <ion-select interface="popover" placeholder="Mês" [(ngModel)]="event.month">
@@ -180,7 +187,7 @@
             </ion-list>
           </ion-item>
           <ion-item button="true" detail="false">
-            <ion-label position="stacked">Horário</ion-label>
+            <ion-label position="stacked">Horário*</ion-label>
             <ion-list>
               <ion-item>
                 <ion-select interface="popover" placeholder="Horário" [(ngModel)]="event.startTime">
@@ -202,7 +209,7 @@
             </ion-list>
           </ion-item>
           <ion-item button="true" detail="false">
-            <ion-label position="stacked">Sessões</ion-label>
+            <ion-label position="stacked">Sessões*</ion-label>
             <ion-list>
               <ion-item>
                 <ion-select interface="popover" placeholder="Sessões" [(ngModel)]="event.endTime">

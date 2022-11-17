@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     },
     userBirth: {
         type: String,
-        required: false
+        required: true
     },
     userPhone: {
         type: String,
@@ -46,12 +46,12 @@ const userSchema = new mongoose.Schema({
     },
     userCity: {
         type: String,
-        required: true,
+        required: false,
         uppercase: true
     },
     userState: {
         type: String,
-        required: true,
+        required: false,
         uppercase: true
     },
     userPermission: {

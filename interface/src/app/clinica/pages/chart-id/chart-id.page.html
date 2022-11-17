@@ -57,7 +57,7 @@
             <ion-button color="light" (click)="modal.dismiss();">Cancelar</ion-button>
           </ion-buttons>
           <ion-buttons slot="end">
-            <ion-button color="light" type="submit">Confirmar</ion-button>
+            <ion-button color="light" type="submit" [disabled]="events.treatment.length === 0">Confirmar</ion-button>
           </ion-buttons>
         </ion-toolbar>
 
