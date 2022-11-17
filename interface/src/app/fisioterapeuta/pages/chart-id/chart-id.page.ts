@@ -142,6 +142,10 @@ export class ChartIdPage implements OnInit {
     this.showLoading();
   }
 
+  clear() {
+    this.events.treatment = ''
+  }
+
   getUsersCharts() {
     this.isLoading = true;
     this.userService.getUsersPacient();

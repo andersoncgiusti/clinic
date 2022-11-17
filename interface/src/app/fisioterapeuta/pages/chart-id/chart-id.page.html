@@ -68,6 +68,11 @@
           <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>
         </ion-item>
       </form>
+      <ion-item>
+        <ion-buttons slot="end">
+          <ion-button (click)="clear();">Limpar</ion-button>
+        </ion-buttons>
+      </ion-item>
     </ng-template>
   </ion-modal>
 </ion-content>

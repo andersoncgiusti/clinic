@@ -65,10 +65,15 @@
           <ion-input type="txt" name="idChart" value="{{this.user.id}}" [(ngModel)]="user.id"></ion-input>
         </ion-item>
 
-        <ion-item>
-          <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>
+        <ion-item [counterFormatter]="customCounterFormatter">
+          <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment" [clearOnEdit]="true"></ion-textarea>
         </ion-item>
       </form>
+      <ion-item>
+        <ion-buttons slot="end">
+          <ion-button (click)="clear();">Limpar</ion-button>
+        </ion-buttons>
+      </ion-item>
     </ng-template>
   </ion-modal>
 </ion-content>

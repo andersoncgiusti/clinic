@@ -22,4 +22,9 @@
       <ion-item>
         <ion-textarea rows="20" cols="20" maxlength="418" name="treatment" placeholder="Digite um comentário..." [(ngModel)]="events.treatment"></ion-textarea>      </ion-item>
     </form>
+    <ion-item>
+      <ion-buttons slot="end">
+        <ion-button [disabled]="titleEdtFormat === '- CONCLUÍDO'" (click)="clear();">Limpar</ion-button>
+      </ion-buttons>
+    </ion-item>
 </ion-content>

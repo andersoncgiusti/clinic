@@ -154,6 +154,10 @@ export class ChartIdPage implements OnInit {
     this.navCtrl.navigateRoot('/clinica/tab5');
   }
 
+  clear() {
+    this.events.treatment = ''
+  }
+
   onDelete(chartId: String) {
     this.chartService.deleteChart(chartId);
     setTimeout(() => {
@@ -169,5 +173,9 @@ export class ChartIdPage implements OnInit {
       cssClass: 'custom-loading',
     });
     loading.present();
+  }
+
+  customCounterFormatter(inputLength: number, maxLength: number) {
+    return `${maxLength - inputLength} characters remaining`;
   }
 }

@@ -101,7 +101,9 @@ export class CalModalPage implements OnInit {
     this.showLoading();
   }
 
-
+  clear() {
+    this.events.treatment = ''
+  }
 
   ngOnInit() {
     this.isLoading = true;
