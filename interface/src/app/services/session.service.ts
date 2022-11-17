@@ -22,8 +22,9 @@ export class SessionService {
     .pipe(map((sessionDate) => {
       return sessionDate.session.map(sessions => {
           return {
-            user: sessions.user._id,
             sessionPatient: sessions.sessionPatient,
+            user: sessions.user._id,
+            userName: sessions.user.userName,
             id: sessions._id
           }
         })
@@ -46,12 +47,14 @@ export class SessionService {
     // id: String,
     sessionPatient: String,
     user: String,
+    userName: String,
   ) {
 
     const session = {
       // id: null,
       sessionPatient: sessionPatient,
       user: user,
+      userName: userName,
     }
 
     this.http.post<{ message: string }>(environment.apiUrl + '/api/session', session)

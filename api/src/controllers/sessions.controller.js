@@ -8,7 +8,7 @@ module.exports = {
     sessionPost: async (req, res) => {
         try {          
             const session = await (await Session.create(req.body)).populate(['user']); 
-
+          
             res.status(201).json({
                 message: 'Create session with successfully!',
                 session: session
@@ -40,7 +40,7 @@ module.exports = {
         try {          
             const session = await Session.find().populate(['user']);  
 
-            const delete_zero = await Session.find({sessionPatient: {$eq: '0'}}).populate(['user']).count();  
+            const delete_zero = await Session.deleteMany({sessionPatient: {$eq: '0'}}).populate(['user']);  
             console.log(delete_zero);
 
 

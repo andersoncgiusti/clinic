@@ -10,6 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { CashService } from 'src/app/services/cash.service';
 import { Cash } from 'src/app/models/cash.model';
+import { Session } from 'src/app/models/session.model';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-tab2',
@@ -19,6 +21,7 @@ import { Cash } from 'src/app/models/cash.model';
 
 export class Tab2Page implements OnInit {
   eventSource = [];
+  eventSources = [];
   viewTitle: string;
   showAddEvent: boolean;
   count: number;
@@ -34,6 +37,11 @@ export class Tab2Page implements OnInit {
 
   cashs: Cash[] = [];
   private cashsSub: Subscription;
+
+  sessions = [];
+  private sessionsSub: Subscription;
+
+  session: Session[] = [];
 
   calendar = {
     mode: 'month',
@@ -59,16 +67,38 @@ export class Tab2Page implements OnInit {
     public schedulingService: SchedulingService,
     public userService: UserService,
     public cashService: CashService,
+    public sessionService: SessionService,
   ) {}
 
   ngOnInit() {
     this.isLoading = true;
 
-    this.cashService.getCashs();
-    this.cashsSub = this.cashService.getCashUpdated()
-    .subscribe((cashs: Cash[]) => {
-      console.log(cashs);
-      this.cashs = cashs;
+    // this.cashService.getCashs();
+    // this.cashsSub = this.cashService.getCashUpdated()
+    // .subscribe((cashs: Cash[]) => {
+    //   console.log(cashs);
+    //   this.cashs = cashs;
+    //   this.isLoading = false;
+    // })
+
+    this.sessionService.getSession();
+    this.sessionsSub = this.sessionService.getSessionUpdated()
+    .subscribe((sessions) => {
+      this.sessions = sessions;
+
+      const allSession = [];
+
+      this.sessions.filter((resp) => {
+        if (resp.sessionPatient >= '1') {
+
+          allSession.push({
+            session: resp
+          })
+        }
+      })
+      this.eventSources = allSession;
+      console.log(this.eventSources);
+
       this.isLoading = false;
     })
 

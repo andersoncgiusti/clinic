@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
 const sessionsSchema = new mongoose.Schema({
+    userName: {
+        type: String,
+        required: true,
+        uppercase: true
+    },
     sessionPatient: {
         type: String,
         required: true

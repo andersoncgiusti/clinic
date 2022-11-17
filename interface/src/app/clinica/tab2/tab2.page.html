@@ -114,8 +114,8 @@
             <ion-item>
               <ion-label position="stacked">Paciente*</ion-label>
               <ion-select interface="action-sheet" placeholder="Paciente" [(ngModel)]="event.user">
-                <div *ngFor="let user of users">
-                  <ion-select-option value="{{ user.id }}">{{ user.userName }}</ion-select-option>
+                <div *ngFor="let user of eventSources">
+                  <ion-select-option value="{{ user.session.user }}">{{ user.session.userName }} - {{ user.session.sessionPatient }}</ion-select-option>
                 </div>
               </ion-select>
             </ion-item>

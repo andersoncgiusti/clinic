@@ -28,6 +28,9 @@ export class Tab4Page implements OnInit {
   cashs: Cash[] = [];
   private cashsSub: Subscription;
 
+  sessionss = [];
+  private sessionsSub: Subscription;
+
   constructor(
     public cashService: CashService,
     public userService: UserService,
@@ -46,13 +49,21 @@ export class Tab4Page implements OnInit {
       this.isLoading = false;
     });
 
-    this.cashService.getCashs();
-    this.cashsSub = this.cashService.getCashUpdated()
-    .subscribe((cashs: Cash[]) => {
-      console.log(cashs);
-      this.cashs = cashs;
+    this.sessionService.getSession();
+    this.sessionsSub = this.sessionService.getSessionUpdated()
+    .subscribe((sessions) => {
+      // console.log(sessions);
+      this.sessions = sessions;
       this.isLoading = false;
     })
+
+    // this.cashService.getCashs();
+    // this.cashsSub = this.cashService.getCashUpdated()
+    // .subscribe((cashs: Cash[]) => {
+    //   console.log(cashs);
+    //   this.cashs = cashs;
+    //   this.isLoading = false;
+    // })
   }
 
   package = {
@@ -111,24 +122,38 @@ export class Tab4Page implements OnInit {
   }
 
   packageQte = {
+    userName: '',
     sessionPatient: Number,
     user: '',
   }
 
   session() {
+    this.isLoading = true;
     const events = [];
 
-    events.push({
-      user: this.packageQte.user,
-      sessionsPatient: this.packageQte.sessionPatient.toString()
-    })
+    this.userService.getUsers();
+    this.usersSub = this.userService.getUsersUpdated()
+    .subscribe((users: User[]) => {
+      this.users = users;
+      this.users.filter((resp) => {
 
-    this.sessionService.addSession(
-      this.packageQte.sessionPatient.toString(),
-      this.packageQte.user,
-    )
+        if (resp.id === this.packageQte.user) {
+          events.push({
+            sessionsPatient: this.packageQte.sessionPatient.toString(),
+            user: this.packageQte.user,
+            userName: resp.userName,
+          })
 
-    this.eventSource = events;
+          this.sessionService.addSession(
+            this.packageQte.sessionPatient.toString(),
+            this.packageQte.user,
+            this.packageQte.userName + resp.userName,
+          )
+        }
+      })
+      this.eventSource = events;
+      this.isLoading = false;
+    });
   }
 
   packageTotal = {

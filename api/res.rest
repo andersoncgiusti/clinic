@@ -417,3 +417,13 @@ GET http://localhost:3000/api/cash
 ###
 GET http://localhost:3000/api/session
 ###
+###
+POST http://localhost:3000/api/session
+Content-Type: application/json
+
+{
+    "userName": "ANA PAULAQQ", 
+    "user": "6356ea69ab8e3e2745ca8ef3",
+    "sessionPatient": "1"
+}
+###
