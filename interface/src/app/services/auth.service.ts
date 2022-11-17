@@ -100,7 +100,7 @@ export class AuthService {
     const auth = { userEmail: userEmail };
     this.http.post(environment.apiUrl + '/api/user_forgot_password', auth)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
       // this.router.navigate(["/reset"]);
     })
   }
@@ -109,7 +109,7 @@ export class AuthService {
     const auth = { userEmail: userEmail, token: token, password: password };
     this.http.post(environment.apiUrl + '/api/user_reset_password', auth)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
       // this.router.navigate(["/login"]);
     })
   }
