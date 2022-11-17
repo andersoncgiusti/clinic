@@ -43,12 +43,12 @@
   </ion-list>
 
   <ion-item>
-    <ion-label position="fixed">Sessões</ion-label>
+    <ion-label position="fixed">Sessões*</ion-label>
     <ion-input type="number" min="0" [(ngModel)]="package.sessions" [(ngModel)]="packageQte.sessionPatient" [(ngModel)]="packageTotal.sessionPatient"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="fixed">Valor</ion-label>
+    <ion-label position="fixed">Valor*</ion-label>
     <ion-input type="number" min="0" placeholder="R$" [(ngModel)]="package.value"></ion-input>
   </ion-item>
 
@@ -79,8 +79,9 @@
 
   <ion-item class="venda">
     <ion-label class="total">Total da venda</ion-label>
-    <ion-input style="display: none;" slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>R$ {{ this.valueTotal }}</ion-input>
-    <ion-input slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }}</ion-input>
+    <ion-input style="display: none;" slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>{{ this.valueTotal }}</ion-input>
+    <ion-input *ngIf="this.valueTotalFormated <= '1'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} real</ion-input>
+    <ion-input *ngIf="this.valueTotalFormated >= '2'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} reais</ion-input>
   </ion-item>
 
   <ion-button expand="block" type="submit" (click)="sales(); clearCash(); session(); start();"

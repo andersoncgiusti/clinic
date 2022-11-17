@@ -36,12 +36,14 @@
             </ion-item>
 
             <ion-label>
-              <h2>Paciente {{ item.user.userName }}</h2>
+              <h2>{{ item.user.userName }}</h2>
               <p>Sessões {{ item.sessions }}</p>
-              <p>Valor {{ item.value }}</p>
+              <p>R$ Valor {{ item.value }} reais</p>
+              <!-- <p *ngIf="item.value <= '1'">R$ Valor {{ item.value }} real</p> -->
               <p>Pagamento no {{ item.pay }}</p>
-              <p>Total da compra {{ item.total }}</p>
-              <p>Comprado em {{ item.created | date : 'MM-dd-yyyy' }}</p>
+              <p>R$ Total {{ item.total }} reais</p>
+              <!-- <p *ngIf="item.total <= '1'">R$ Total da compra {{ item.total }} real</p> -->
+              <p>Comprado em {{ item.created | date : 'dd-mm-yyyy' }}</p>
             </ion-label>
             <div>
               <ion-icon name="trash-outline" slot="end" (click)="onDelete(item._id);"></ion-icon>
@@ -74,12 +76,14 @@
             </ion-item>
 
             <ion-label>
-              <h2>Paciente {{ item.user.userName }}</h2>
+              <h2>{{ item.user.userName }}</h2>
               <p>Sessões {{ item.sessions }}</p>
-              <p>Valor {{ item.value }}</p>
+              <p>R$ Valor {{ item.value }} reais</p>
+              <!-- <p *ngIf="item.value <= '1'">R$ Valor {{ item.value }} real</p> -->
               <p>Pagamento no {{ item.pay }}</p>
-              <p>Total da compra {{ item.total }}</p>
-              <p>Comprado em {{ item.created | date : 'MM-dd-yyyy' }}</p>
+              <p>R$ Total {{ item.total }} reais</p>
+              <!-- <p *ngIf="item.total <= '1'">R$ Total da compra {{ item.total }} real</p> -->
+              <p>Comprado em {{ item.created | date : 'dd-MM-yyyy' }}</p>
             </ion-label>
             <div>
               <ion-icon name="trash-outline" slot="end" (click)="onDelete(item._id);"></ion-icon>

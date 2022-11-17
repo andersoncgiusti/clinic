@@ -1,7 +1,7 @@
 
 <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
 
-<ion-header *ngIf="!isLoading">
+<ion-header>
   <ion-toolbar>
     <ion-title class="agendar">
       Suas Compras
@@ -9,27 +9,29 @@
   </ion-toolbar>
 </ion-header>
 
-<div *ngIf="!isLoading">
-  <div class="noUser" *ngIf="this.eventSource.length <= 0">
-    <ion-label>Nenhuma compra de pacote de sessões feita</ion-label>
-    <ion-img src="../../../assets/icon/sales.png"></ion-img>
-  </div>
 
-  <ion-content *ngIf="this.eventSource.length > 0">
-    <ion-card *ngFor="let item of eventSource">
-      <div>
-        <ion-list>
-            <ion-item>
-              <ion-label>
-                <p>Sessões {{ item.sessions }}</p>
-                <p>Valor {{ item.value }}</p>
-                <p>Pagamento no {{ item.pay }}</p>
-                <p>Total da compra {{ item.total }}</p>
-                <p>Comprado em {{ item.created | date : 'MM-dd-yyyy' }}</p>
-              </ion-label>
-            </ion-item>
-        </ion-list>
-      </div>
-    </ion-card>
-  </ion-content>
+<div class="noUser" *ngIf="this.eventSource.length <= 0 || !isLoading">
+  <ion-label>Nenhuma compra de pacote de sessões feita</ion-label>
+  <ion-img src="../../../assets/icon/sales.png"></ion-img>
 </div>
+
+<ion-content *ngIf="this.eventSource.length > 0 || !isLoading">
+  <ion-card *ngFor="let item of eventSource">
+    <div>
+      <ion-list>
+          <ion-item>
+            <ion-label>
+              <p>Sessões {{ item.sessions }}</p>
+              <p>R$ Valor {{ item.value }} reais</p>
+              <!-- <p *ngIf="item.value <= '1'">R$ Valor {{ item.value }} real</p> -->
+              <p>Pagamento no {{ item.pay }}</p>
+              <p>R$ Total {{ item.total }} reais</p>
+              <!-- <p *ngIf="item.total <= '1'">R$ Total da compra {{ item.total }} real</p> -->
+              <p>Comprado em {{ item.created | date : 'dd-MM-yyyy' }}</p>
+            </ion-label>
+          </ion-item>
+      </ion-list>
+    </div>
+  </ion-card>
+</ion-content>
+
