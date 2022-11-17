@@ -412,3 +412,8 @@ Content-Type: application/json
     "sessionPatient": "1"
 }
 ###
+###
+GET http://localhost:3000/api/cash 
+###
+GET http://localhost:3000/api/session
+###

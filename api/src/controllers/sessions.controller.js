@@ -39,7 +39,11 @@ module.exports = {
     sessionGet: async (req, res) => {
         try {          
             const session = await Session.find().populate(['user']);  
-    
+
+            const delete_zero = await Session.find({sessionPatient: {$eq: '0'}}).populate(['user']).count();  
+            console.log(delete_zero);
+
+
             res.status(201).json({
                 message: 'Consulting session patient with successfully!',
                 session: session

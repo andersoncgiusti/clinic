@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { Cash } from 'src/app/models/cash.model';
 import { User } from 'src/app/models/user.model';
 import { CashService } from 'src/app/services/cash.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -24,6 +25,9 @@ export class Tab4Page implements OnInit {
   private usersSub: Subscription;
   users: User[] = [];
 
+  cashs: Cash[] = [];
+  private cashsSub: Subscription;
+
   constructor(
     public cashService: CashService,
     public userService: UserService,
@@ -34,12 +38,21 @@ export class Tab4Page implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
+
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
       this.isLoading = false;
     });
+
+    this.cashService.getCashs();
+    this.cashsSub = this.cashService.getCashUpdated()
+    .subscribe((cashs: Cash[]) => {
+      console.log(cashs);
+      this.cashs = cashs;
+      this.isLoading = false;
+    })
   }
 
   package = {
