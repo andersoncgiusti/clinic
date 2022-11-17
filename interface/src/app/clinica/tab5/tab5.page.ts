@@ -55,11 +55,12 @@ export class Tab5Page implements OnInit {
   }
 
   getUsersCharts() {
+    this.isLoading = true;
     this.userService.getUsersPacient();
     this.usersSubPacient = this.userService.getUsersPacientUpdated()
     .subscribe((usersPacient: User[]) => {
       this.usersPacient = usersPacient;
-
+      this.isLoading = false;
       // this.usersPacient.forEach((res) => {
       //   this.userNameIdEdt = res.userName.slice(0, 1);
       //   console.log(this.userNameIdEdt);

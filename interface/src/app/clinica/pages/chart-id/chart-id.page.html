@@ -8,7 +8,7 @@
     </ion-buttons>
     <ion-title class="agendar">Prontuário</ion-title>
     <ion-buttons slot="end">
-      <ion-button id="open-custom-dialog">
+      <ion-button id="prontuarios">
         <ion-icon name="add" slot="icon-only" class="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -49,7 +49,7 @@
     </ion-card>
   </div>
 
-  <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+  <ion-modal id="example-modal" #modal trigger="prontuarios">
     <ng-template>
       <form #frm="ngForm" (ngSubmit)="ngSubmit(frm);">
         <ion-toolbar>

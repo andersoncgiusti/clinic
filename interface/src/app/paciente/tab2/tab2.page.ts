@@ -20,6 +20,8 @@ export class Tab2Page implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.chartService.getCharts();
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios) => {
@@ -38,6 +40,7 @@ export class Tab2Page implements OnInit {
       });
 
       this.eventSource = allcharts;
+      this.isLoading = false;
     })
   }
 }

@@ -93,6 +93,7 @@ export class Tab1Page implements OnInit {
     //     }
     //   })
     // });
+    this.isLoading = true;
 
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
@@ -117,6 +118,7 @@ export class Tab1Page implements OnInit {
       })
 
       this.eventSource = allscheduling;
+      this.isLoading = false;
     })
 
     this.sessionService.getSession();
@@ -141,13 +143,16 @@ export class Tab1Page implements OnInit {
       for (const sessions of this.SourceEvent) {
         this.totalySessions = total += eval(sessions.sessionPatient)
       }
+      this.isLoading = false;
     })
   }
 
   getAgendamentosDay() {
+    this.isLoading = true;
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
       this.schedulingDay = data.agendamentoDay;
+      this.isLoading = false;
     });
   }
 

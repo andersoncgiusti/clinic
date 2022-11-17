@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -57,10 +57,12 @@ export class PersonalPage implements OnInit {
   constructor(
     public userService: UserService,
     private navCtrl: NavController,
-    public router: ActivatedRoute
+    public router: ActivatedRoute,
+    private loadingCtrl: LoadingController,
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
@@ -89,7 +91,7 @@ export class PersonalPage implements OnInit {
           this.userPasswordId = res.password;
 
           const phone = this.userPhoneId;
-
+          this.isLoading = false;
           if (phone.length === 11) {
             return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{5})?([\d]{4})?/, "($1) $2-$3");
           } else {
@@ -121,6 +123,16 @@ export class PersonalPage implements OnInit {
       frm.value.userPermission,
       frm.value.userPassword
     )
+    this.showLoading();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
   }
 }
 

@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">Dados Pessoais</ion-title>
     <ion-buttons slot="start">
@@ -7,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
 
   <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)" *ngIf="!isLoading">
@@ -47,7 +49,7 @@
 
     <ion-item>
       <ion-label position="stacked">Telefone/Celular</ion-label>
-      <input type="text" name="userPhone" maxlength="14" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" value="{{ this.phone }}" [(ngModel)]="this.phone">
+      <input type="text" name="userPhone" maxlength="15" placeholder="Ex. Telefone 1100000000 ou Celular 11000000000" value="{{ this.phone }}" [(ngModel)]="this.phone">
     </ion-item>
 
     <ion-item>

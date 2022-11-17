@@ -63,7 +63,6 @@ export class Tab2Page implements OnInit {
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
-      this.isLoading = false;
 
       const allscheduling = [];
 
@@ -79,6 +78,7 @@ export class Tab2Page implements OnInit {
       })
 
       this.eventSource = allscheduling;
+      this.isLoading = false;
     })
 
     this.userService.getUsers();
@@ -87,6 +87,7 @@ export class Tab2Page implements OnInit {
       this.users = users;
       this.users.forEach((res) => {
         this.cpf = res.userCpf.replace(/[^0-9]/g, "").replace(/^([\d]{3})([\d]{3})?([\d]{3})?([\d]{2})?/, "$1.$2.$3-$4");
+        this.isLoading = false;
       })
     });
   }
@@ -97,7 +98,6 @@ export class Tab2Page implements OnInit {
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos) => {
       this.agendamentos = agendamentos;
-      this.isLoading = false;
       const allscheduling = [];
 
       this.agendamentos.forEach((resp) => {
@@ -112,13 +112,16 @@ export class Tab2Page implements OnInit {
       })
 
       this.eventSource = allscheduling;
+      this.isLoading = false;
     })
   }
 
   getAgendamentosDay() {
+    this.isLoading = true;
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
       this.schedulingDay = data.agendamentoDay;
+      this.isLoading = false;
     });
   }
 

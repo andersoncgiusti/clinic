@@ -20,6 +20,8 @@ export class Tab3Page implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.cashService.getCashs();
     this.cashsSub = this.cashService.getCashUpdated()
     .subscribe((cashs) => {
@@ -44,6 +46,7 @@ export class Tab3Page implements OnInit {
       })
 
       this.eventSource = allcashs;
+      this.isLoading = false;
     })
   }
 }

@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="light" (click)="navigateChart();">Cancelar</ion-button>
@@ -12,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <div>
     <!-- <ion-avatar>
       <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>

@@ -1,4 +1,6 @@
-<ion-header>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">
       Prontuário
@@ -6,31 +8,15 @@
   </ion-toolbar>
 </ion-header>
 
-<div class="noUser" *ngIf="this.eventSource.length <= 0">
-  <ion-label>Nenhum comentário adicionado</ion-label>
-  <ion-img src="../../../assets/icon/progress.png"></ion-img>
+<div *ngIf="!isLoading">
+  <div class="noUser" *ngIf="this.eventSource.length <= 0">
+    <ion-label>Nenhum comentário adicionado</ion-label>
+    <ion-img src="../../../assets/icon/progress.png"></ion-img>
+  </div>
+
+  <ion-content *ngIf="this.eventSource.length > 0">
+    <ion-card *ngFor="let item of eventSource">
+      <ion-card-content>{{ item.treatment }}</ion-card-content>
+    </ion-card>
+  </ion-content>
 </div>
-
-<ion-content *ngIf="this.eventSource.length > 0">
-
-  <ion-card *ngFor="let item of eventSource">
-    <!-- <div>
-      <ion-list>
-          <ion-item>
-
-            <ion-avatar slot="start">
-              <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
-            </ion-avatar>
-
-            <ion-label>
-              <h2>Luiz</h2>
-              <p>Fisioterapeuta</p>
-            </ion-label>
-
-          </ion-item>
-      </ion-list>
-    </div> -->
-
-    <ion-card-content>{{ item.treatment }}</ion-card-content>
-  </ion-card>
-</ion-content>

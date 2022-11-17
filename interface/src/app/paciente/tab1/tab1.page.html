@@ -1,4 +1,7 @@
-<ion-header *ngIf="!showAddEvent">
+
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-title class="agendar">
       Agenda
@@ -6,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <ion-segment [(ngModel)]="calendar.mode">
     <ion-segment-button value="month">
       <ion-label>Mês</ion-label>

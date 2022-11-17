@@ -72,45 +72,45 @@ export class Tab1Page implements OnInit {
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
-      this.isLoading = false;
       this.users = users;
+      this.isLoading = false;
     })
 
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
-      this.isLoading = false;
       this.agendamentos = agendamentos;
+      this.isLoading = false;
     })
 
     this.chartService.getCharts();
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios: Chart[]) => {
-      this.isLoading = false;
       this.prontuarios = prontuarios;
+      this.isLoading = false;
     })
 
     this.userService.getPermission()
     .subscribe((data) => {
-      this.isLoading = false;
       this.pacient = data.pacient;
       this.administrator = data.administrator;
       this.physiotherapist = data.physiotherapist;
+      this.isLoading = false;
     });
 
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
-      this.isLoading = false;
       this.schedulingDay = data.agendamentoDay;
       this.schedulingMonth = data.agendamentoMonth;
+      this.isLoading = false;
     });
 
     this.cashService.getModule()
     .subscribe((data) => {
-      this.isLoading = false;
       this.credit = data.credit;
       this.debt = data.debt;
       this.money = data.money;
+      this.isLoading = false;
     });
 
   }

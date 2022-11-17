@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ModalController, NavController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Chart } from 'src/app/models/chart.model';
 import { userChart } from 'src/app/models/user-chart.model';
@@ -53,9 +53,11 @@ export class ChartIdPage implements OnInit {
     public chartService: ChartService,
     private navCtrl: NavController,
     public modalController: ModalController,
+    private loadingCtrl: LoadingController,
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
 
     this.getChartParams();
     this.getUsersCharts();
@@ -65,6 +67,7 @@ export class ChartIdPage implements OnInit {
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios: Chart[]) => {
       this.prontuarios = prontuarios;
+      this.isLoading = false;
     })
 
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
@@ -79,6 +82,7 @@ export class ChartIdPage implements OnInit {
         this.userChart.forEach(element => {
           this.date = element.created;
           this.dateFormated = this.date.slice(0, 10);
+          this.isLoading = false;
         });
       });
     })
@@ -86,6 +90,7 @@ export class ChartIdPage implements OnInit {
 
 
   getChartParams() {
+    this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userPacientId');
       this.user = this.userService.getChartId(this.id);
@@ -99,15 +104,18 @@ export class ChartIdPage implements OnInit {
         //   this.date = element.created;
         //   this.dateFormated = this.date.slice(0, 10);
         // });
+        this.isLoading = false;
       });
     })
   }
 
   chartsId() {
+    this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userPacientId');
       this.user = this.userService.getChartId(this.id);
       this.idUser = this.user.id;
+      this.isLoading = false;
     })
   }
 
@@ -130,13 +138,17 @@ export class ChartIdPage implements OnInit {
       this.modalController.dismiss();
       this.events.treatment = ''
     }, 1000);
+
+    this.showLoading();
   }
 
   getUsersCharts() {
+    this.isLoading = true;
     this.userService.getUsersPacient();
     this.usersSubPacient = this.userService.getUsersPacientUpdated()
     .subscribe((usersPacient: User[]) => {
       this.usersPacient = usersPacient;
+      this.isLoading = false;
     });
   }
 
@@ -150,5 +162,14 @@ export class ChartIdPage implements OnInit {
     setTimeout(() => {
       this.getChartParams();
     }, 1000);
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
   }
 }

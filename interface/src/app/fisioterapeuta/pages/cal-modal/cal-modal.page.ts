@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ModalController, NavController, NavParams } from '@ionic/angular';
+import { LoadingController, ModalController, NavController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
@@ -46,6 +46,7 @@ export class CalModalPage implements OnInit {
     private navCtrl: NavController,
     public totalService: TotalService,
     public sessionService: SessionService,
+    private loadingCtrl: LoadingController,
   ) {
 
     this.id = navParams.get('id');
@@ -97,11 +98,14 @@ export class CalModalPage implements OnInit {
       this.modalController.dismiss();
       this.events.treatment = ''
     }, 1000);
+
+    this.showLoading();
   }
 
 
 
   ngOnInit() {
+    this.isLoading = true;
     this.getAgendamentos();
     // this.refreshScheduling();
     // this.initAgendamentos();
@@ -130,8 +134,10 @@ export class CalModalPage implements OnInit {
   // }
 
   getAgendamentos() {
+    this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.agendamento = this.schedulingService.getAgendamentosId(this.id);
+      this.isLoading = false;
     })
   }
 
@@ -140,11 +146,22 @@ export class CalModalPage implements OnInit {
   }
 
   refreshScheduling() {
+    this.isLoading = true;
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
       this.agendamentos = agendamentos;
+      this.isLoading = false;
     })
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
   }
 }
 

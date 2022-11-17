@@ -46,6 +46,8 @@ export class Tab1Page implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
@@ -66,13 +68,17 @@ export class Tab1Page implements OnInit {
       })
 
       this.eventSource = allscheduling;
+      this.isLoading = false;
     })
   }
 
   getAgendamentosDay() {
+    this.isLoading = true;
+
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
       this.schedulingDay = data.agendamentoDay;
+      this.isLoading = false;
     });
   }
 
@@ -186,6 +192,7 @@ export class Tab1Page implements OnInit {
     )
 
     this.eventSource = events;
+    this.showLoading();
   }
 
   clear() {
@@ -199,15 +206,14 @@ export class Tab1Page implements OnInit {
     }, 1000)
   }
 
-  // async showLoading() {
-  //   const loading = await this.loadingCtrl.create({
-  //     duration: 3000,
-  //     cssClass: 'custom-loading',
-  //   });
-  //   loading.present();
-  // }
-
-
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Salvando...',
+      duration: 2000,
+      cssClass: 'custom-loading',
+    });
+    loading.present();
+  }
 }
 
 

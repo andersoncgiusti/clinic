@@ -1,4 +1,6 @@
-<ion-content>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+<ion-content *ngIf="!isLoading">
     <form #frm="ngForm" (ngSubmit)="ngSubmit(frm);">
       <ion-toolbar>
         <ion-buttons slot="start">

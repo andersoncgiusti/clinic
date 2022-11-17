@@ -12,6 +12,7 @@ export class Tab4Page implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // this.isLoading = true;
   }
 
 }

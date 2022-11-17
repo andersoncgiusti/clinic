@@ -26,24 +26,31 @@ export class Tab2Page implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.getUsersCharts();
     this.getUsers();
   }
 
   getUsersCharts() {
+    this.isLoading = true;
+
     this.chartService.getCharts();
     this.prontuariosSub = this.chartService.getChartUpdated()
     .subscribe((prontuarios) => {
       this.prontuarios = prontuarios;
+      this.isLoading = false;
     })
   }
 
   getUsers() {
+    this.isLoading = true;
+
     this.userService.getUsersPacient();
     this.usersSubPacient = this.userService.getUsersPacientUpdated()
     .subscribe((usersPacient) => {
       this.usersPacient = usersPacient;
+      this.isLoading = false;
     });
   }
-
 }
