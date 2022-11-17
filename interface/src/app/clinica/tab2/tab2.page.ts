@@ -8,6 +8,8 @@ import { SchedulingService } from 'src/app/services/scheduling.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
+import { CashService } from 'src/app/services/cash.service';
+import { Cash } from 'src/app/models/cash.model';
 
 @Component({
   selector: 'app-tab2',
@@ -29,6 +31,9 @@ export class Tab2Page implements OnInit {
   users: User[] = [];
   public cpf = '';
   isLoading = false;
+
+  cashs: Cash[] = [];
+  private cashsSub: Subscription;
 
   calendar = {
     mode: 'month',
@@ -53,10 +58,19 @@ export class Tab2Page implements OnInit {
     private loadingCtrl: LoadingController,
     public schedulingService: SchedulingService,
     public userService: UserService,
+    public cashService: CashService,
   ) {}
 
   ngOnInit() {
     this.isLoading = true;
+
+    this.cashService.getCashs();
+    this.cashsSub = this.cashService.getCashUpdated()
+    .subscribe((cashs: Cash[]) => {
+      console.log(cashs);
+      this.cashs = cashs;
+      this.isLoading = false;
+    })
 
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();

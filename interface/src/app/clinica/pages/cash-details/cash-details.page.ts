@@ -46,6 +46,7 @@ export class CashDetailsPage implements OnInit {
   }
 
   getCashs() {
+    this.isLoading = true;
     this.cashService.getModule()
     .subscribe((data) => {
       this.saleDay = data.saleDay;

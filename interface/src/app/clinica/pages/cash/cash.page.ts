@@ -54,5 +54,4 @@ export class CashPage implements OnInit {
       this.isLoading = false;
     });
   }
-
 }

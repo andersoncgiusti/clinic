@@ -68,14 +68,12 @@ export class ChartIdPage implements OnInit {
     .subscribe((prontuarios: Chart[]) => {
       this.prontuarios = prontuarios;
       this.isLoading = false;
-
     })
 
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userPacientId');
       this.user = this.userService.getChartId(this.id);
       this.idUser = this.user.id;
-      //// ajustar idade
       this.userService.getChartsUser(this.idUser);
       this.usersSubChart = this.userService.getChartUsersPacientUpdated()
       .subscribe((usersChart: userChart[]) => {
@@ -83,6 +81,7 @@ export class ChartIdPage implements OnInit {
         this.userChart.forEach(element => {
           this.date = element.created;
           this.dateFormated = this.date.slice(0, 10);
+          this.isLoading = false;
         });
       });
     })
@@ -90,11 +89,11 @@ export class ChartIdPage implements OnInit {
 
 
   getChartParams() {
+    this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userPacientId');
       this.user = this.userService.getChartId(this.id);
       this.idUser = this.user.id;
-      //// ajustar idade
       this.userService.getChartsUser(this.idUser);
       this.usersSubChart = this.userService.getChartUsersPacientUpdated()
       .subscribe((usersChart: userChart[]) => {
@@ -103,15 +102,18 @@ export class ChartIdPage implements OnInit {
         //   this.date = element.created;
         //   this.dateFormated = this.date.slice(0, 10);
         // });
+        this.isLoading = false;
       });
     })
   }
 
   chartsId() {
+    this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userPacientId');
       this.user = this.userService.getChartId(this.id);
       this.idUser = this.user.id;
+      this.isLoading = false;
     })
   }
 
@@ -138,10 +140,12 @@ export class ChartIdPage implements OnInit {
   }
 
   getUsersCharts() {
+    this.isLoading = true;
     this.userService.getUsersPacient();
     this.usersSubPacient = this.userService.getUsersPacientUpdated()
     .subscribe((usersPacient: User[]) => {
       this.usersPacient = usersPacient;
+      this.isLoading = false;
     });
   }
 
