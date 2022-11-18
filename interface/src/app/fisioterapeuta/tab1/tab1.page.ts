@@ -73,12 +73,12 @@ export class Tab1Page implements OnInit {
   }
 
   getAgendamentosDay() {
-    this.isLoading = true;
+    // this.isLoading = true;
 
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
       this.schedulingDay = data.agendamentoDay;
-      this.isLoading = false;
+      // this.isLoading = false;
     });
   }
 
@@ -97,7 +97,6 @@ export class Tab1Page implements OnInit {
   async onEventSelected(ev) {
     this.getAgendamentosDay();
     this.newEvent = ev;
-    // console.log(ev);
 
     const start = ev.startTime.toISOString().slice(0, 10);
     const startFormated = start.slice(start.length - 2);

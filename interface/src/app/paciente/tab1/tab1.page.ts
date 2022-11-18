@@ -150,11 +150,11 @@ export class Tab1Page implements OnInit {
   }
 
   getAgendamentosDay() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
       this.schedulingDay = data.agendamentoDay;
-      this.isLoading = false;
+      // this.isLoading = false;
     });
   }
 

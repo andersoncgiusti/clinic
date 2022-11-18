@@ -40,9 +40,8 @@ module.exports = {
         try {          
             const session = await Session.find().populate(['user']);  
 
-            const delete_zero = await Session.deleteMany({sessionPatient: {$eq: '0'}}).populate(['user']);  
-            console.log(delete_zero);
-
+            // const delete_zero = await Session.deleteMany({sessionPatient: {$eq: '0'}}).populate(['user']);  
+            // console.log(delete_zero);
 
             res.status(201).json({
                 message: 'Consulting session patient with successfully!',
@@ -66,13 +65,20 @@ module.exports = {
         }  
         next();
     },
-    sessionPut: async (req, res, next) => {
-        const session = ({
-            sessionPatient: req.body.sessionPatient
-        });
+    sessionPut: async (req, res, next) => {     
 
         try {
-            await Total.updateOne({ _id: req.params.id }, session)
+            const user = await User.findOne({_id: req.body.user});        
+            const session = await Session.findOne(ObjectId(user._id)).populate('user');
+            const qte = req.body.sessionPatient;               
+            const finalized = eval(session.sessionPatient + '+' + qte.toString());                
+              
+            const total = ({                
+                user: req.body.user,
+                sessionPatient: finalized
+            })    
+        
+            await Session.updateOne({ user: req.body.user }, total)
             .then(updateUser => {
                 res.status(200).json({ 
                     message: 'Session finalized with successfully!',
@@ -84,18 +90,18 @@ module.exports = {
         }  
         next();
     },
-    totalPut: async (req, res) => {  
+    totalPut: async (req, res, next) => {  
         try {     
-            const user = await User.findOne({_id: req.body.user}).populate('sessions');            
-            const session = await Session.findOne(ObjectId(user._id)).populate('user');  
-            const qte = parseInt(req.body.sessionPatient);                 
-            const finalized = session.sessionPatient - qte;                
-
-            const total = ({  
+            const user = await User.findOne({_id: req.body.user});        
+            const session = await Session.findOne(ObjectId(user._id)).populate('user');
+            const qte = req.body.sessionPatient;               
+            const finalized = session.sessionPatient - qte.toString();                
+              
+            const total = ({                
                 user: req.body.user,
                 sessionPatient: finalized
             })    
-         
+        
             await Session.updateOne({ user: req.body.user }, total)
             .then(result => {
                 res.status(200).json({ 
@@ -105,9 +111,9 @@ module.exports = {
             }); 
 
             const dados = {
-                name: user.user.userName
+                name: user.userName
             }
-            
+        
             const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/finish.handlebars"), "utf-8");
             const template = handlebars.compile(emailTemplate);
 
@@ -117,7 +123,7 @@ module.exports = {
 
             const msg = {
                 to: [
-                  '' + `${user.user.userEmail}` + ''
+                  '' + `${session.user.userEmail}` + ''
                 ], 
                 from: '<'+`${process.env.FROM}`+'>',
                 subject: 'Sessão finalizada - Life Calendar',
@@ -136,7 +142,8 @@ module.exports = {
                 });  
            
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            // res.status(400).json({ message: error.message });
         }
+        next();
     },
 }

@@ -377,11 +377,11 @@ Content-Type: application/json
 }
 ###
 ###
-PUT http://localhost:3000/api/total/637115fb4f22422ecd8c328d
+PUT http://localhost:3000/api/session_total
 Content-Type: application/json
 
 {
-    "user": "6334ab53981b14a6d5babab3",
+    "user"          : "6356ea69ab8e3e2745ca8ef3",
     "sessionPatient": "1"
 }
 ###
@@ -424,6 +424,14 @@ Content-Type: application/json
 {
     "userName": "ANA PAULAQQ", 
     "user": "6356ea69ab8e3e2745ca8ef3",
+    "sessionPatient": "1"
+}
+###
+PUT http://localhost:3000/api/session
+Content-Type: application/json
+
+{
+    "user"          : "6356ea69ab8e3e2745ca8ef3",
     "sessionPatient": "1"
 }
 ###

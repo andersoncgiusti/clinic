@@ -65,17 +65,24 @@ export class SessionService {
   }
 
   addSessionStart(
+    // id: String,
+    sessionPatient: String,
     user: String,
+    // userName: String,
   ) {
 
     const session = {
+      // id: null,
+      sessionPatient: sessionPatient,
       user: user,
+      // userName: userName,
     }
 
-    this.http.post<{ message: string }>(environment.apiUrl + '/api/session_post', session)
+    this.http.put<{ message: string }>(environment.apiUrl + '/api/session', session)
     .subscribe(() => {
-      this.sessions.push(session);
-      this.sessionsUpdated.next([...this.sessions]);
+      const updatedTotal = this.session.filter(total => total.id !== user);
+      this.session = updatedTotal;
+      this.sessionUpdated.next([...this.session]);
     });
   }
 
@@ -90,14 +97,15 @@ export class SessionService {
 
   totalUpSession(
     sessionPatient: Number,
+    // sessionId: String,
     user: String,
   ) {
 
     const session = {
       sessionPatient: sessionPatient,
+      // sessionId: sessionId,
       user: user,
     }
-    console.log(session);
 
     this.http.put<{ message: string }>(environment.apiUrl + '/api/session_total', session)
     .subscribe(() => {

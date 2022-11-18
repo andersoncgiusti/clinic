@@ -47,7 +47,7 @@ export class AuthService {
     const auth = { userEmail: userEmail, password: password };
     this.http.post<{ token: string, expiresIn: number, userPermission: string, userId: string }>(environment.apiUrl + '/api/user_authenticate', auth)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
 
       localStorage.setItem('user', response.userId);
 

@@ -135,7 +135,7 @@ export class Tab2Page implements OnInit {
   }
 
   updatedScheduling() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos) => {
@@ -154,16 +154,16 @@ export class Tab2Page implements OnInit {
       })
 
       this.eventSource = allscheduling;
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 
   getAgendamentosDay() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {
       this.schedulingDay = data.agendamentoDay;
-      this.isLoading = false;
+      // this.isLoading = false;
     });
   }
 

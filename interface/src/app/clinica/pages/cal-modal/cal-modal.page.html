@@ -45,7 +45,7 @@
       <ion-label position="stacked">Dia</ion-label>
       <ion-list>
         <ion-item>
-          <ion-select interface="popover" placeholder="Dia" value="{{ startTime }}" name="startTimeEdt" [(ngModel)]="startTime">
+          <ion-select interface="popover" placeholder="Dia" value="{{ startTime }}" name="startTimeEdt" [(ngModel)]="startTime" [disabled]="titleEdtFormat === '- CONCLUÍDO'">
             <ion-select-option value="01">01</ion-select-option>
             <ion-select-option value="02">02</ion-select-option>
             <ion-select-option value="03">03</ion-select-option>
@@ -85,7 +85,7 @@
       <ion-label position="stacked">Mês</ion-label>
       <ion-list>
         <ion-item>
-          <ion-select interface="popover" placeholder="Mês" value="{{ month }}" name="monthEdt" [(ngModel)]="month">
+          <ion-select interface="popover" placeholder="Mês" value="{{ month }}" name="monthEdt" [(ngModel)]="month" [disabled]="titleEdtFormat === '- CONCLUÍDO'">
             <ion-select-option value="01">Janeiro</ion-select-option>
             <ion-select-option value="02">Fevereiro</ion-select-option>
             <ion-select-option value="03">Março</ion-select-option>
@@ -106,7 +106,7 @@
       <ion-label position="stacked">Horário</ion-label>
       <ion-list>
         <ion-item>
-          <ion-select interface="popover"  placeholder="Horário" value="{{ hours }}" name="hoursEdt" [(ngModel)]="hours">
+          <ion-select interface="popover"  placeholder="Horário" value="{{ hours }}" name="hoursEdt" [(ngModel)]="hours" [disabled]="titleEdtFormat === '- CONCLUÍDO'">
             <ion-select-option value="07">07:00</ion-select-option>
             <ion-select-option value="08">08:00</ion-select-option>
             <ion-select-option value="09">09:00</ion-select-option>
@@ -128,7 +128,7 @@
       <ion-label position="stacked">Sessões</ion-label>
       <ion-list>
         <ion-item>
-          <ion-select interface="popover" placeholder="Sessões" value="{{ endTime }}" name="endTimeEdt" [(ngModel)]="endTime">
+          <ion-select interface="popover" placeholder="Sessões" value="{{ endTime }}" name="endTimeEdt" [(ngModel)]="endTime" [disabled]="titleEdtFormat === '- CONCLUÍDO'">
             <ion-select-option value="1">1</ion-select-option>
             <ion-select-option value="2">2</ion-select-option>
           </ion-select>

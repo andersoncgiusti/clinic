@@ -404,7 +404,7 @@ module.exports = {
           });
         } 
         fetchedUser = user
-        console.log(await bcrypt.hash(req.body.password, 10), user.password);
+        // console.log(await bcrypt.hash(req.body.password, 10), user.password);
         return bcrypt.compare(req.body.password, user.password)
       })
       .then(result => {

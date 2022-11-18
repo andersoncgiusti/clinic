@@ -36,6 +36,8 @@ export class CalModalPage implements OnInit {
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
   isLoading = false;
+  sessions = [];
+  private sessionsSub: Subscription;
 
   constructor(
     public modalController: ModalController,
@@ -68,11 +70,10 @@ export class CalModalPage implements OnInit {
     if (frm.invalid) {
       return;
     }
-    console.log(frm.value);
 
     this.schedulingService.updateAgendamentoFinish(
       frm.value.allDay = false,
-      frm.value.titleEdt + ' - ATENDIDO',
+      frm.value.titleEdt + ' - CONCLUÍDO',
       frm.value.idEdt,
       frm.value.userEdt,
     );
@@ -93,7 +94,8 @@ export class CalModalPage implements OnInit {
     )
 
     setTimeout(()=> {
-      // this.refreshScheduling();
+      this.refreshScheduling();
+      this.sessionRefresh();
       this.modalController.dismiss();
       this.events.treatment = ''
     }, 1000);
@@ -106,39 +108,40 @@ export class CalModalPage implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoading = true;
-    this.getAgendamentos();
+    // this.isLoading = true;
     // this.refreshScheduling();
-    // this.initAgendamentos();
+    this.getAgendamentos();
+    this.initAgendamentos();
   }
 
-  // initAgendamentos() {
-  //   this.schedulingService.getAgendamentos();
-  //   this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
-  //   .subscribe((agendamentos: Scheduling[]) => {
-  //     this.agendamentos = agendamentos;
+  initAgendamentos() {
+    this.schedulingService.getAgendamentos();
+    this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
+    .subscribe((agendamentos: Scheduling[]) => {
+      this.agendamentos = agendamentos;
 
-  //     const allscheduling = [];
+      const allscheduling = [];
 
-  //     this.agendamentos.forEach((resp) => {
-  //       allscheduling.push({
-  //         id: resp.id,
-  //         title: resp.title,
-  //         startTime: new Date(""+ `${resp.startTime}`+""),
-  //         endTime: new Date(""+ `${resp.endTime}`+""),
-  //         allDay: resp.allDay,
-  //       })
-  //     })
+      this.agendamentos.forEach((resp) => {
+        allscheduling.push({
+          id: resp.id,
+          title: resp.title,
+          startTime: new Date(""+ `${resp.startTime}`+""),
+          endTime: new Date(""+ `${resp.endTime}`+""),
+          allDay: resp.allDay,
+        })
+      })
 
-  //     this.eventSource = allscheduling;
-  //   })
-  // }
+      this.eventSource = allscheduling;
+      // this.isLoading = false;
+    })
+  }
 
   getAgendamentos() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.agendamento = this.schedulingService.getAgendamentosId(this.id);
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 
@@ -147,12 +150,12 @@ export class CalModalPage implements OnInit {
   }
 
   refreshScheduling() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
       this.agendamentos = agendamentos;
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 
@@ -163,6 +166,14 @@ export class CalModalPage implements OnInit {
       cssClass: 'custom-loading',
     });
     loading.present();
+  }
+
+  sessionRefresh() {
+    this.sessionService.getSession();
+    this.sessionsSub = this.sessionService.getSessionUpdated()
+    .subscribe((sessions) => {
+      this.sessions = sessions;
+    })
   }
 }
 

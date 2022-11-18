@@ -7,6 +7,7 @@ import { SchedulingService } from 'src/app/services/scheduling.service';
 import { UserService } from 'src/app/services/user.service';
 import { AlertController } from '@ionic/angular';
 import { TotalService } from 'src/app/services/total.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-cal-modal',
@@ -44,6 +45,9 @@ export class CalModalPage implements OnInit {
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
 
+  sessions = [];
+  private sessionsSub: Subscription;
+
   public string_id: String;
   isLoading = false;
 
@@ -57,6 +61,7 @@ export class CalModalPage implements OnInit {
     private alertController: AlertController,
     public totalService: TotalService,
     private loadingCtrl: LoadingController,
+    public sessionService: SessionService,
   ) {
 
     this.id = navParams.get('id');
@@ -116,7 +121,6 @@ export class CalModalPage implements OnInit {
     if (form.invalid) {
       return;
     }
-    console.log(form.value);
 
     this.schedulingService.updateAgendamentoFinish(
       form.value.allDay = false,
@@ -125,16 +129,18 @@ export class CalModalPage implements OnInit {
       form.value.userEdt,
     );
 
-    this.totalService.totalUps(
-      form.value.userEdt,
+    this.sessionService.totalUpSession(
       form.value.endTime,
+      // form.value.idEdt,
+      form.value.userEdt,
     )
 
-    this.initAgendamentos();
+    // this.initAgendamentos();
 
     setTimeout(() => {
       this.initAgendamentos();
       this.refreshScheduling();
+      this.sessionRefresh();
       this.modalController.dismiss();
     }, 1000);
   }
@@ -148,9 +154,9 @@ export class CalModalPage implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoading = true;
+    // this.isLoading = true;
+    // this.initAgendamentos();
     this.getAgendamentos();
-    this.initAgendamentos();
     this.refreshScheduling();
   }
 
@@ -159,7 +165,7 @@ export class CalModalPage implements OnInit {
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
       this.agendamentos = agendamentos;
-      this.isLoading = false;
+      // this.isLoading = false;
       const allscheduling = [];
 
       this.agendamentos.forEach((resp) => {
@@ -179,7 +185,7 @@ export class CalModalPage implements OnInit {
   getAgendamentos() {
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.agendamento = this.schedulingService.getAgendamentosId(this.id);
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 
@@ -191,7 +197,7 @@ export class CalModalPage implements OnInit {
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
-      this.isLoading = false;
+      // this.isLoading = false;
       this.agendamentos = agendamentos;
     })
   }
@@ -205,4 +211,11 @@ export class CalModalPage implements OnInit {
     loading.present();
   }
 
+  sessionRefresh() {
+    this.sessionService.getSession();
+    this.sessionsSub = this.sessionService.getSessionUpdated()
+    .subscribe((sessions) => {
+      this.sessions = sessions;
+    })
+  }
 }

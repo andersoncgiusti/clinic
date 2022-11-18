@@ -72,12 +72,11 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
-
-    this.isLoading = true;
 
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
@@ -148,31 +147,4 @@ export class Tab1Page implements OnInit, OnDestroy {
   details(id) {
     this.detail = this.detail == id ? '':id;
   }
-
-  chartEvent = {
-    // id: '',
-    chartDescription: ''
-  };
-
-  // createChart() {
-  //   const prontuarios = [];
-
-  //   prontuarios.push({
-  //     chartDescription: this.chartEvent.chartDescription
-  //   });
-
-  //   this.chartService.addChart(
-  //     this.chartEvent.chartDescription
-  //   )
-
-  //   this.eventSource = prontuarios;
-  //   console.log(this.eventSource);
-
-  // }
-
-  // clearChart() {
-  //   setTimeout(()=> {
-  //     this.chartEvent.chartDescription = ''
-  //   }, 1000);
-  // }
 }

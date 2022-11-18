@@ -34,9 +34,9 @@
   <ion-list>
     <ion-item>
       <ion-label position="stacked">Paciente*</ion-label>
-      <ion-select interface="action-sheet" placeholder="Paciente" [(ngModel)]="package.user" [(ngModel)]="packageQte.user" [(ngModel)]="packageTotal.user" [(ngModel)]="packageStart.user">
-        <div *ngFor="let user of users">
-          <ion-select-option value="{{ user.id }}">{{ user.userName }}</ion-select-option>
+      <ion-select interface="action-sheet" placeholder="Paciente" [(ngModel)]="package.user" [(ngModel)]="packageQte.user" [(ngModel)]="packageTotal.user">
+        <div *ngFor="let user of eventSourcess">
+          <ion-select-option value="{{ user.user.id }}">{{ user.user.userName }}</ion-select-option>
         </div>
       </ion-select>
     </ion-item>
@@ -80,8 +80,8 @@
   <ion-item class="venda">
     <ion-label class="total">Total da venda</ion-label>
     <ion-input style="display: none;" slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>{{ this.valueTotal }}</ion-input>
-    <ion-input *ngIf="this.valueTotalFormated <= '1'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} real</ion-input>
-    <ion-input *ngIf="this.valueTotalFormated >= '2'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} reais</ion-input>
+    <!-- <ion-input *ngIf="this.valueTotalFormated <= '1'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} real</ion-input>
+    <ion-input *ngIf="this.valueTotalFormated >= '2'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} reais</ion-input> -->
   </ion-item>
 
   <ion-button expand="block" type="submit" (click)="sales(); clearCash(); session(); start();"

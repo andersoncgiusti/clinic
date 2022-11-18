@@ -10,7 +10,7 @@ const cashRouter = require('./routes/cash.router');
 const totalRouter = require('./routes/total.router');
 const sessionsRouter = require('./routes/sessions.router');
 const authRouter = require('./routes/auth.router');
-const projectRouter = require('./routes/project.router');
+// const projectRouter = require('./routes/project.router');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); 
@@ -36,6 +36,6 @@ app.use(totalRouter);
 app.use(authRouter);
 app.use(sessionsRouter);
 app.use(statusRouter);
-app.use(projectRouter);
+// app.use(projectRouter);
 
 module.exports = app;

@@ -82,7 +82,7 @@ export class CalModalPage implements OnInit {
   // }
 
   ngOnInit() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.getAgendamentos();
     this.initAgendamentos();
     this.refreshScheduling();
@@ -107,15 +107,15 @@ export class CalModalPage implements OnInit {
       })
 
       this.eventSource = allscheduling;
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 
   getAgendamentos() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.agendamento = this.schedulingService.getAgendamentosId(this.id);
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 
@@ -124,12 +124,12 @@ export class CalModalPage implements OnInit {
   }
 
   refreshScheduling() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
       this.agendamentos = agendamentos;
-      this.isLoading = false;
+      // this.isLoading = false;
     })
   }
 }

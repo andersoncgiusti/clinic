@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 export class Tab4Page implements OnInit {
   eventSource = [];
   eventSources = [];
+  eventSourcess = [];
   valueTotal: String;
   valueTotalFormated: String;
   isLoading = false;
@@ -47,16 +48,19 @@ export class Tab4Page implements OnInit {
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
       this.users = users;
+
+      const allPatient = [];
+
+      this.users.filter((resp) => {
+        if (resp.userPermission === 'paciente') {
+          allPatient.push({
+            user: resp
+          })
+        }
+      })
+      this.eventSourcess = allPatient;
       this.isLoading = false;
     });
-
-    this.sessionService.getSession();
-    this.sessionsSub = this.sessionService.getSessionUpdated()
-    .subscribe((sessions) => {
-      // console.log(sessions);
-      this.sessions = sessions;
-      this.isLoading = false;
-    })
 
     // this.cashService.getCashs();
     // this.cashsSub = this.cashService.getCashUpdated()
@@ -100,7 +104,7 @@ export class Tab4Page implements OnInit {
 
   sales() {
     const events = [];
-
+    const total = [];
     const session = (this.package.sessions).toString();
     const val = (this.package.value).toString();
 
@@ -122,8 +126,23 @@ export class Tab4Page implements OnInit {
       this.package.user,
     )
 
+    total.push({
+      sessions: this.package.sessions,
+      user:     this.package.user,
+    })
+
+    this.sessionService.addSessionStart(
+      this.package.sessions.toString(),
+      this.package.user,
+    )
+
     this.eventSource = events;
+    this.eventSourcess = total;
     this.showLoading();
+
+    setTimeout(() => {
+      this.sessionRefresh();
+    }, 1000);
   }
 
   calcSale() {
@@ -152,53 +171,60 @@ export class Tab4Page implements OnInit {
   }
 
   session() {
-    this.isLoading = true;
-    const events = [];
+    // this.isLoading = true;
+    // const events = [];
 
-    this.userService.getUsers();
-    this.usersSub = this.userService.getUsersUpdated()
-    .subscribe((users: User[]) => {
-      this.users = users;
+    // this.userService.getUsers();
+    // this.usersSub = this.userService.getUsersUpdated()
+    // .subscribe((users: User[]) => {
+    //   this.users = users;
 
-      this.users.filter((resp) => {
-        if (resp.id === this.packageQte.user) {
-          events.push({
-            sessionsPatient: this.packageQte.sessionPatient.toString(),
-            user: this.packageQte.user,
-            userName: resp.userName,
-          })
+    //   this.users.filter((resp) => {
+    //     if (resp.id === this.packageQte.user) {
+    //       events.push({
+    //         sessionsPatient: this.packageQte.sessionPatient.toString(),
+    //         user: this.packageQte.user,
+    //         userName: resp.userName,
+    //       })
 
-          this.sessionService.addSession(
-            this.packageQte.sessionPatient.toString(),
-            this.packageQte.user,
-            this.packageQte.userName + resp.userName,
-          )
-        }
-      })
-      this.eventSource = events;
-      this.isLoading = false;
-    });
+    //       this.sessionService.addSession(
+    //         this.packageQte.sessionPatient.toString(),
+    //         this.packageQte.user,
+    //         this.packageQte.userName + resp.userName,
+    //       )
+    //     }
+    //     this.eventSource = events[0];
+    //     console.log(this.eventSource);
+
+        // this.isLoading = false;
+    //   })
+    // });
   }
 
   packageTotal = {
+    // userName: '',
     sessionPatient: Number,
     user: '',
   }
 
   total() {
-    const events = [];
+    // const events = [];
 
-    events.push({
-      user: this.packageTotal.user,
-      sessionsPatient: this.packageTotal.sessionPatient.toString()
-    })
+    // events.push({
+    //   sessionsPatient: this.packageTotal.sessionPatient.toString(),
+    //   user           : this.packageTotal.user,
+    //   // userName       : this.packageTotal.userName,
+    // })
 
-    this.totalService.addTotal(
-      this.packageTotal.sessionPatient.toString(),
-      this.packageTotal.user,
-    )
+    // this.sessionService.addSessionStart(
+    //   this.packageTotal.sessionPatient.toString(),
+    //   this.packageTotal.user,
+    //   // this.packageTotal.userName,
+    // )
 
-    this.eventSource = events;
+    // this.eventSource = events;
+    // console.log(this.eventSource);
+
   }
 
   packageStart = {
@@ -206,25 +232,25 @@ export class Tab4Page implements OnInit {
   }
 
   start() {
-    setTimeout(() => {
+    // setTimeout(() => {
 
-      const events = [];
+    //   const events = [];
 
-      events.push({
-        user: this.packageStart.user
-      })
+    //   events.push({
+    //     user: this.packageStart.user
+    //   })
 
-      this.sessionService.addSessionStart(
-        this.packageStart.user
-      )
+    //   // this.sessionService.addSessionStart(
+    //   //   this.packageStart.user
+    //   // )
 
-      this.totalService.addTotalized(
-        this.packageStart.user
-      )
+    //   // this.totalService.addTotalized(
+    //   //   this.packageStart.user
+    //   // )
 
-      this.eventSource = events;
+    //   this.eventSource = events;
 
-    }, 1000)
+    // }, 1000)
   }
 
   async showLoading() {
@@ -234,5 +260,13 @@ export class Tab4Page implements OnInit {
       cssClass: 'custom-loading',
     });
     loading.present();
+  }
+
+  sessionRefresh() {
+    this.sessionService.getSession();
+    this.sessionsSub = this.sessionService.getSessionUpdated()
+    .subscribe((sessions) => {
+      this.sessions = sessions;
+    })
   }
 }
