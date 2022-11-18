@@ -88,11 +88,11 @@ const userSchema = new mongoose.Schema({
         ref: 'Agendamento',
         require: true
     }],
-    sessions: [{
+    sessions: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Session',
         require: true
-    }],
+    },
     totals: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Total',

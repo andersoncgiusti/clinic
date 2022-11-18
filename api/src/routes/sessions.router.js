@@ -6,7 +6,7 @@ const sessionsController = require('../controllers/sessions.controller');
 router.post('/api/session' , sessionsController.sessionPost);
 router.post('/api/session_post' , sessionsController.sessionPostTotal);
 router.get('/api/session', sessionsController.sessionGet);
-router.delete('/api/session/:id', sessionsController.sessionDelete);
+router.put('/api/session_totals/:id', sessionsController.sessionDelete);
 
 router.put('/api/session', sessionsController.sessionPut);
 

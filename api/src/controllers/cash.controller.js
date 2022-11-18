@@ -6,6 +6,8 @@ const handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
 const { subDays } = require("date-fns");
+const User = require('../models/user.model');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -275,7 +277,7 @@ module.exports = {
     cashDeleteId: async (req, res, next) => {
 
         const cashBody = await Cash.findById({ _id: req.params.id }).populate(['user']);
-        const date = cashBody.created.toISOString().slice(0, 10);
+        const date = cashBody.created.toISOString().slice(0, 10);     
          
         const dados = {
             name: cashBody.user.userName,
@@ -319,7 +321,22 @@ module.exports = {
             });  
 
         try {
-            const cash = await Cash.deleteOne({ _id: req.params.id });
+            const cash = await Cash.findById({ _id: req.params.id }).populate('user');
+
+            setTimeout(async () => {
+                const userId = cash.user._id;
+                const session = await Session.findOne({ user: {$eq: ObjectId(userId)} }); 
+                const sum = eval(session.sessionPatient + '-' +  session.sessionPatient);
+
+                const total = ({
+                    sessionPatient: sum
+                })        
+
+                await Session.updateOne({ user: userId }, total);
+
+            }, 1000);
+            
+            
             if (cash !== null) {
                 return res.status(200).json({ message: 'Cash was deleted' });
             } else {

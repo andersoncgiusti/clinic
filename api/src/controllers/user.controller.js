@@ -109,7 +109,20 @@ module.exports = {
             })      
              
             const userScheduling = await User.create(user_scheduling);
-       
+
+           setTimeout(async () => {
+              const user = await User.findOne({ userEmail: {$eq: userEmail} });
+
+              const total = ({ 
+                userName: user.userName,               
+                user: user._id,
+                sessionPatient: 0
+              })  
+            
+              await Session.create(total);
+
+            }, 3000)
+            
             const dados = {
                 name: req.body.userName,
                 password: req.body.password

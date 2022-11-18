@@ -59,11 +59,8 @@ export class CashDetailsPage implements OnInit {
 
   onDelete(cashtId: String) {
     this.cashService.deleteCash(cashtId);
-    setTimeout(() => {
-      this.sessionService.deleteSession(cashtId);
-      this.getCashs();
-      this.showLoading();
-    }, 1000);
+    this.showLoading();
+    this.getCashs();
   }
 
   // onDelet(cashtId: String) {
@@ -75,7 +72,7 @@ export class CashDetailsPage implements OnInit {
   async showLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Salvando...',
-      duration: 2000,
+      duration: 3000,
       cssClass: 'custom-loading',
     });
     loading.present();

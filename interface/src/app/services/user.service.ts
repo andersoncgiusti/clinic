@@ -111,8 +111,6 @@ export class UserService {
       password: password
     };
 
-    console.log(user);
-
     this.http.post<{ message: string, userId: string }>(environment.apiUrl + '/api/user', user)
     .subscribe((responseData) => {
       // console.log(responseData.message);

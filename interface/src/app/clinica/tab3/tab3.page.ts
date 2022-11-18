@@ -201,17 +201,17 @@ export class Tab3Page implements OnInit {
     });
 
     this.userService.addUser(
-      this.pacienteEvent.userName,
-      this.pacienteEvent.userLastName,
+      this.pacienteEvent.userName.toUpperCase(),
+      this.pacienteEvent.userLastName.toUpperCase(),
       this.pacienteEvent.userBirth,
       this.pacienteEvent.userPhone,
       this.pacienteEvent.userEmail,
       this.pacienteEvent.userCpf,
-      this.pacienteEvent.userAddress,
-      this.pacienteEvent.userNumber,
-      this.pacienteEvent.userComplement,
-      this.pacienteEvent.userCity,
-      this.pacienteEvent.userState,
+      this.pacienteEvent.userAddress.toUpperCase(),
+      this.pacienteEvent.userNumber.toUpperCase(),
+      this.pacienteEvent.userComplement.toUpperCase(),
+      this.pacienteEvent.userCity.toUpperCase(),
+      this.pacienteEvent.userState.toUpperCase(),
       this.pacienteEvent.userPermission,
       this.pacienteEvent.password = this.userPassword
     );
@@ -240,6 +240,10 @@ export class Tab3Page implements OnInit {
   createAdmin() {
     const admins = [];
 
+    const aleatory = (Math.random() * 10).toFixed(5);
+    const key_aleatory = aleatory.replace(/\D/g, '');
+    this.userPassword = key_aleatory;
+
     admins.push({
       userName: this.adminEvent.userName,
       userLastName: this.adminEvent.userLastName,
@@ -257,19 +261,19 @@ export class Tab3Page implements OnInit {
     });
 
     this.userService.addUser(
-      this.adminEvent.userName,
-      this.adminEvent.userLastName,
+      this.adminEvent.userName.toUpperCase(),
+      this.adminEvent.userLastName.toUpperCase(),
       this.adminEvent.userBirth,
       this.adminEvent.userPhone,
       this.adminEvent.userEmail,
       this.adminEvent.userCpf,
-      this.adminEvent.userAddress,
-      this.adminEvent.userNumber,
-      this.adminEvent.userComplement,
-      this.adminEvent.userCity,
-      this.adminEvent.userState,
+      this.adminEvent.userAddress.toUpperCase(),
+      this.adminEvent.userNumber.toUpperCase(),
+      this.adminEvent.userComplement.toUpperCase(),
+      this.adminEvent.userCity.toUpperCase(),
+      this.adminEvent.userState.toUpperCase(),
       this.adminEvent.userPermission,
-      this.adminEvent.password
+      this.adminEvent.password = this.userPassword
     );
 
     this.eventSource = admins;
@@ -296,6 +300,10 @@ export class Tab3Page implements OnInit {
   createFisio() {
     const fisios = [];
 
+    const aleatory = (Math.random() * 10).toFixed(5);
+    const key_aleatory = aleatory.replace(/\D/g, '');
+    this.userPassword = key_aleatory;
+
     fisios.push({
       userName: this.fisioEvent.userName,
       userLastName: this.fisioEvent.userLastName,
@@ -313,19 +321,19 @@ export class Tab3Page implements OnInit {
     });
 
     this.userService.addUser(
-      this.fisioEvent.userName,
-      this.fisioEvent.userLastName,
+      this.fisioEvent.userName.toUpperCase(),
+      this.fisioEvent.userLastName.toUpperCase(),
       this.fisioEvent.userBirth,
       this.fisioEvent.userPhone,
       this.fisioEvent.userEmail,
       this.fisioEvent.userCpf,
-      this.fisioEvent.userAddress,
-      this.fisioEvent.userNumber,
-      this.fisioEvent.userComplement,
-      this.fisioEvent.userCity,
-      this.fisioEvent.userState,
+      this.fisioEvent.userAddress.toUpperCase(),
+      this.fisioEvent.userNumber.toUpperCase(),
+      this.fisioEvent.userComplement.toUpperCase(),
+      this.fisioEvent.userCity.toUpperCase(),
+      this.fisioEvent.userState.toUpperCase(),
       this.fisioEvent.userPermission,
-      this.fisioEvent.password
+      this.fisioEvent.password = this.userPassword
     );
 
     this.eventSource = fisios;
@@ -344,17 +352,17 @@ export class Tab3Page implements OnInit {
 
     this.userService.updateUser(
       frm.value.id,
-      frm.value.userName,
-      frm.value.userLastName,
+      frm.value.userName.toUpperCase(),
+      frm.value.userLastName.toUpperCase(),
       frm.value.userBirth,
       frm.value.userPhone,
       frm.value.userEmail,
       frm.value.userCpf,
-      frm.value.userAddress ,
-      frm.value.userNumber,
-      frm.value.userComplement,
-      frm.value.userCity,
-      frm.value.userState,
+      frm.value.userAddress.toUpperCase(),
+      frm.value.userNumber.toUpperCase(),
+      frm.value.userComplement.toUpperCase(),
+      frm.value.userCity.toUpperCase(),
+      frm.value.userState.toUpperCase(),
       frm.value.userPermission,
       frm.value.password
     )

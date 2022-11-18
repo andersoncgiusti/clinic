@@ -4,6 +4,13 @@ const Total = require('../models/total.model');
 const User = require('../models/user.model');
 const ObjectId = require('mongoose').Types.ObjectId;
 
+const sgMail = require('@sendgrid/mail');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 module.exports = {
     sessionPost: async (req, res) => {
         try {          
@@ -14,7 +21,7 @@ module.exports = {
                 session: session
             });             
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            return res.status(400).json({ message: error.message });
         }
     },
     sessionPostTotal: async (req, res) => {
@@ -33,7 +40,7 @@ module.exports = {
             });             
             
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            return res.status(400).json({ message: error.message });
         }
     },
     sessionGet: async (req, res) => {
@@ -48,87 +55,102 @@ module.exports = {
                 session: session
             });             
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            return res.status(400).json({ message: error.message });
         }
     },
     sessionDelete: async (req, res, next) => {
         try {
-            const session = await Session.deleteOne({ _id: req.params.id });
-            
-            if (session !== null) {
-                return res.status(200).json({ message: 'Session was deleted' });
-            } else {
-                return res.status(404).json({ message: 'Session ID does not exist to be deleted' });
-            }
+            const session = await Session.findById({ _id: req.params.id }).populate('user');
+            const userId = session.user._id;
+            const sum = eval(session.sessionPatient + '-' +  session.sessionPatient);
+
+            const total = ({
+                sessionPatient: sum
+            })
+
+            await Session.updateOne({ user: userId }, total)
+            .then(() => {
+                res.status(200).json({ 
+                    message: 'Session count with successfully!'
+                })  
+            }); 
+
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            return res.status(500).json({ message: error.message });
         }  
         next();
     },
     sessionPut: async (req, res, next) => {     
 
         try {
-            const user = await User.findOne({_id: req.body.user});        
-            const session = await Session.findOne(ObjectId(user._id)).populate('user');
+            const userId = req.body.user;            
+            const user = await User.findById({ _id: userId });
+            // const session = await Session.find({ user: {$eq: user._id} }).populate('user');
+            const session = await Session.findOne({ user: {$eq: ObjectId(user._id)} }); 
+
             const qte = req.body.sessionPatient;               
-            const finalized = eval(session.sessionPatient + '+' + qte.toString());                
+            const finalized = eval(session.sessionPatient + '+' +  qte);                
               
             const total = ({                
                 user: req.body.user,
                 sessionPatient: finalized
-            })    
-        
+            }) 
+         
             await Session.updateOne({ user: req.body.user }, total)
-            .then(updateUser => {
+            .then(() => {
                 res.status(200).json({ 
-                    message: 'Session finalized with successfully!',
-                    userId: updateUser._id 
+                    message: 'Session count with successfully!'
                 })  
-            });  
+            }); 
+            
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            return res.status(500).json({ message: error.message });
         }  
         next();
     },
     totalPut: async (req, res, next) => {  
         try {     
-            const user = await User.findOne({_id: req.body.user});        
-            const session = await Session.findOne(ObjectId(user._id)).populate('user');
+            const userId = req.body.user;            
+            const user = await User.findById({ _id: userId });
+            // const session = await Session.find({ user: {$eq: user._id} }).populate('user');
+            const session = await Session.findOne({ user: {$eq: ObjectId(user._id)} }); 
+
             const qte = req.body.sessionPatient;               
-            const finalized = session.sessionPatient - qte.toString();                
+            const finalized = eval(session.sessionPatient + '-' +  qte);                
               
             const total = ({                
                 user: req.body.user,
                 sessionPatient: finalized
-            })    
-        
+            }) 
+            
             await Session.updateOne({ user: req.body.user }, total)
-            .then(result => {
+            .then(() => {
                 res.status(200).json({ 
-                    message: 'Total session contabilized with successfully!',
-                    result: result 
+                    message: 'Total session contabilized with successfully!'
                 })
             }); 
 
-            const dados = {
-                name: user.userName
-            }
-        
-            const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/finish.handlebars"), "utf-8");
-            const template = handlebars.compile(emailTemplate);
+            setTimeout(() => {   
 
-            const messageBody = (template({
-                name: `${ dados.name }`        
-            }))
+                const dados = {
+                    name: user.userName
+                }
+    
+                const emailTemplate = fs.readFileSync(path.join(__dirname, "../views/finish.handlebars"), "utf-8");
+                const template = handlebars.compile(emailTemplate);
 
-            const msg = {
-                to: [
-                  '' + `${session.user.userEmail}` + ''
-                ], 
-                from: '<'+`${process.env.FROM}`+'>',
-                subject: 'Sessão finalizada - Life Calendar',
-                html: messageBody 
-              };
+                const messageBody = (template({
+                    name: `${ dados.name }`        
+                }))
+
+                const msg = {
+                    to: [
+                    '' + `${user.userEmail}` + ''
+                    ], 
+                    from: '<'+`${process.env.FROM}`+'>',
+                    subject: 'Sessão finalizada - Life Calendar',
+                    html: messageBody 
+                };
             
               sgMail
                 .send(msg)
@@ -140,9 +162,10 @@ module.exports = {
                     console.error(error.response.body);
                   }
                 });  
-           
+            }, 2000);
+
         } catch (error) {
-            // res.status(400).json({ message: error.message });
+            return res.status(500).json({ message: error.message });
         }
         next();
     },

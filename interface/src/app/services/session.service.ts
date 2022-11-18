@@ -86,14 +86,14 @@ export class SessionService {
     });
   }
 
-  deleteSession(cashtId: String) {
-    this.http.delete(environment.apiUrl + '/api/session/' + cashtId)
-    .subscribe(() => {
-      const updatedSession = this.session.filter(p => p.id !== cashtId);
-      this.session = updatedSession;
-      this.sessionUpdated.next([...this.session]);
-    });
-  }
+  // deleteSession(cashtId: String) {
+  //   this.http.put<{ message: string }>(environment.apiUrl + '/api/session_totals/' + cashtId)
+  //   .subscribe(() => {
+  //     const updatedTotal = this.session.filter(total => total.id !== cashtId);
+  //     this.session = updatedTotal;
+  //     this.sessionUpdated.next([...this.session]);
+  //   });
+  // }
 
   totalUpSession(
     sessionPatient: Number,
