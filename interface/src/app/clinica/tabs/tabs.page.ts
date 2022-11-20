@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 
 
@@ -13,10 +14,17 @@ export class TabsPage implements OnInit {
 
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   schedulingDay;
   isLoading = false;
 
-  constructor(public schedulingService: SchedulingService) {}
+  constructor(
+    public schedulingService: SchedulingService,
+    public authService: AuthService
+    ) {}
 
   ngOnInit() {
     // this.schedulingService.getAgendamentos()
@@ -24,6 +32,11 @@ export class TabsPage implements OnInit {
     // .subscribe((agendamentos: Scheduling[]) => {
     //   this.agendamentos = agendamentos;
     // })
+
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
     this.schedulingService.getAgendamentosDay()
     .subscribe((data) => {

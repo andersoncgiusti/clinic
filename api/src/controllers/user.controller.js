@@ -284,11 +284,14 @@ module.exports = {
     userDeleteId: async (req, res, next) => {
         try {
             const user = await User.deleteOne({ _id: req.params.id });
-            const prontuario = await Prontuario.deleteMany({ user: user._id });
-            const cash = await Cash.deleteMany({ user: user._id });
-            const agendamento = await Agendamento.deleteMany({ user: user._id });
-            const session = await Session.deleteMany({ user: user._id });
-            const total = await Total.deleteMany({ user: user._id });
+
+            setTimeout(async () => {              
+              await Prontuario.deleteMany({ user: {$eq: ObjectId(user._id)} }); 
+              await Cash.deleteMany({ user: {$eq: ObjectId(user._id)} }); 
+              await Agendamento({ user: {$eq: ObjectId(user._id)} }); 
+              await Session.deleteMany({ user: {$eq: ObjectId(user._id)} }); 
+              await Total.deleteMany({ user: {$eq: ObjectId(user._id)} }); 
+            }, 2000);
 
             if (user !== null) {
                 return res.status(200).json({ message: 'User was deleted' });

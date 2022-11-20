@@ -13,23 +13,11 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
-
-    const permission = this.authService.getPermission();
-
-    console.log(permission);
-
-    // if (permission === 'Comum') {
-    //   if (state.url.includes('/usuarios')) {
-    //     // this.router.navigate(['/endpointsComplete']);
-    //     return false;
-    //   } else if (state.url.includes('/signup')) {
-    //     // this.router.navigate(['/endpointsComplete']);
-    //     return false;
-    //   }
-    // }
-
     const isAuth = this.authService.getIsAuth();
+    console.log(isAuth);
+
     if (!isAuth) {
+      console.log(isAuth);
       this.router.navigate(['/login']);
     }
     return isAuth;

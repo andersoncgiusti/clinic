@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+// const authMiddleware = require('../middlewares/check-auth');
+
+// router.use(authMiddleware);
 
 const sessionsController = require('../controllers/sessions.controller');
 

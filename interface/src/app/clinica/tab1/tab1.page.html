@@ -1,12 +1,12 @@
-<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
 <!-- <div *ngIf="userIsAuthenticated"></div> -->
-<ion-header *ngIf="!isLoading">
+<ion-progress-bar type="indeterminate" *ngIf="isLoading && userIsAuthenticated"></ion-progress-bar>
+<ion-header *ngIf="!isLoading && userIsAuthenticated">
   <ion-toolbar>
     <ion-title class="agendar">Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!isLoading">
+<ion-content *ngIf="!isLoading && userIsAuthenticated">
     <ion-card>
       <ion-item>
         <ion-icon name="albums-outline" slot="start"></ion-icon>
