@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     // console.log('req.userData', req.userData);
     next();
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(401).json({ message: "You are not authenticated!" });
   }
 }

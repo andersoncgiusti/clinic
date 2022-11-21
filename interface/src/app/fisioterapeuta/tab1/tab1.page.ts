@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
 import { LoadingController } from '@ionic/angular';
@@ -6,21 +6,30 @@ import { Scheduling } from 'src/app/models/scheduling.model';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 import { Subscription } from 'rxjs';
 import { CalModalPage } from 'src/app/fisioterapeuta/pages/cal-modal/cal-modal.page';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
+
   eventSource = [];
+
   viewTitle: string;
   showAddEvent: boolean;
   count: number;
+
   schedulingDay;
+
   isLoading = false;
+
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
 
   calendar = {
     mode: 'month',
@@ -42,10 +51,16 @@ export class Tab1Page implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    public schedulingService: SchedulingService
+    public schedulingService: SchedulingService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.isLoading = true;
 
     this.getAgendamentosDay();
@@ -70,6 +85,10 @@ export class Tab1Page implements OnInit {
       this.eventSource = allscheduling;
       this.isLoading = false;
     })
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   getAgendamentosDay() {

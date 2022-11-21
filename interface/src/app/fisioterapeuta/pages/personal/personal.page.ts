@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './personal.page.html',
   styleUrls: ['./personal.page.scss'],
 })
-export class PersonalPage implements OnInit {
+export class PersonalPage implements OnInit, OnDestroy {
   users: User[] = [];
   usersId;
   user;
@@ -54,14 +55,23 @@ export class PersonalPage implements OnInit {
   private phone: any;
   private birth: any;
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     public userService: UserService,
     private navCtrl: NavController,
     public router: ActivatedRoute,
     private loadingCtrl: LoadingController,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
@@ -102,6 +112,11 @@ export class PersonalPage implements OnInit {
       })
     });
   }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
+
 
   ngSubmit(frm: any) {
     if (frm.invalid) {

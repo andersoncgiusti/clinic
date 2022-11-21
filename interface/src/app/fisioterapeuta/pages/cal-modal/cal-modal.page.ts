@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LoadingController, ModalController, NavController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { SchedulingService } from 'src/app/services/scheduling.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TotalService } from 'src/app/services/total.service';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './cal-modal.page.html',
   styleUrls: ['./cal-modal.page.scss'],
 })
-export class CalModalPage implements OnInit {
+export class CalModalPage implements OnInit, OnDestroy {
   id: string;
   title: string;
   startTime: string;
@@ -25,6 +26,7 @@ export class CalModalPage implements OnInit {
   userIdscheduling: string;
   user: string;
   agendamento;
+
   public idEdt = '';
   public titleEdt = '';
   public monthEdt = '';
@@ -32,12 +34,18 @@ export class CalModalPage implements OnInit {
   public hoursEdt = '';
   public endTimeEdt = '';
   public titleEdtFormat = '';
+
   eventSource = [];
+
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
   isLoading = false;
+
   sessions = [];
   private sessionsSub: Subscription;
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
 
   constructor(
     public modalController: ModalController,
@@ -49,6 +57,7 @@ export class CalModalPage implements OnInit {
     public totalService: TotalService,
     public sessionService: SessionService,
     private loadingCtrl: LoadingController,
+    private authService: AuthService
   ) {
 
     this.id = navParams.get('id');
@@ -108,10 +117,19 @@ export class CalModalPage implements OnInit {
   }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     // this.isLoading = true;
     // this.refreshScheduling();
     this.getAgendamentos();
     this.initAgendamentos();
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   initAgendamentos() {
