@@ -4,9 +4,9 @@ const checkAuth = require('../middlewares/check-auth');
 
 const totalController = require('../controllers/total.controller');
 
-router.get('/api/total', totalController.totalGet);
-router.put('/api/total', totalController.totalPost);
-router.put('/api/totals', totalController.totalPut);
+router.get('/api/total', checkAuth, totalController.totalGet);
+router.put('/api/total', checkAuth, totalController.totalPost);
+router.put('/api/totals', checkAuth, totalController.totalPut);
 // router.put('/api/totals' , totalController.totalForPut);
 
 module.exports = router;

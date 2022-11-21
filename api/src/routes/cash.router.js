@@ -4,10 +4,10 @@ const checkAuth = require('../middlewares/check-auth');
 
 const cashController = require('../controllers/cash.controller');
 
-router.get('/api/cash', cashController.cashGet);
-router.get('/api/cash/:id', cashController.cashGetId);
-router.post('/api/cash', cashController.cashPost);
-router.put('/api/cash/:id', cashController.cashPatchId);
-router.delete('/api/cash/:id', cashController.cashDeleteId);
+router.get('/api/cash', checkAuth, cashController.cashGet);
+router.get('/api/cash/:id', checkAuth, cashController.cashGetId);
+router.post('/api/cash', checkAuth, cashController.cashPost);
+router.put('/api/cash/:id', checkAuth, cashController.cashPatchId);
+router.delete('/api/cash/:id', checkAuth, cashController.cashDeleteId);
 
 module.exports = router;

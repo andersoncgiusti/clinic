@@ -5,15 +5,15 @@ const checkAuth = require('../middlewares/check-auth');
 const userController = require('../controllers/user.controller');
 
 
-router.get('/api/userPacient', userController.userGetPacient);
-router.get('/api/user', userController.userGet);
-router.get('/api/user/:id', userController.userGetId);
-router.post('/api/user', userController.userPost);
-router.put('/api/user/:id', userController.userUpdateId);
-router.put('/api/userChart/:id', userController.chartUpdateId);
-router.delete('/api/user/:id', userController.userDeleteId);
-router.post('/api/user_password', userController.userPassword);
-router.put('/api/user_password', userController.userPasswordId);
+router.get('/api/userPacient', checkAuth, userController.userGetPacient);
+router.get('/api/user', checkAuth, userController.userGet);
+router.get('/api/user/:id', checkAuth, userController.userGetId);
+router.post('/api/user', checkAuth, userController.userPost);
+router.put('/api/user/:id', checkAuth, userController.userUpdateId);
+router.put('/api/userChart/:id', checkAuth, userController.chartUpdateId);
+router.delete('/api/user/:id', checkAuth, userController.userDeleteId);
+router.post('/api/user_password', checkAuth, userController.userPassword);
+router.put('/api/user_password', checkAuth, userController.userPasswordId);
 /////////////////////////////////////
 router.post('/api/user_authenticate', userController.authenticate);
 router.post('/api/user_reset_password', userController.reset);

@@ -8,9 +8,10 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, authConfig.secret);
     console.log('decodedToken', decodedToken);
     req.userData = { userEmail: decodedToken.userEmail, userId: decodedToken.userId, userPermission: decodedToken.userPermission };
-    console.log('req.userData', req.userData);
+    // console.log('req.userData', req.userData);
     next();
   } catch (error) {
+    console.log(error);
     res.status(401).json({ message: "You are not authenticated!" });
   }
 }

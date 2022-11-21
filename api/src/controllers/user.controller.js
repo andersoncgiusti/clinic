@@ -428,7 +428,7 @@ module.exports = {
           return res.status(401).json({ message: "Auth failed" })
         }
         const token = jwt.sign(
-          { userEmail: fetchedUser.userEmail, userId: fetchedUser.id, userPermission: fetchedUser.userPermission }, process.env.SECRET_STRING,
+          { userEmail: fetchedUser.userEmail, userId: fetchedUser.id, userPermission: fetchedUser.userPermission }, authConfig.secret,
           { expiresIn: "1h" }
         )
         // console.log({token: token, expiresIn: 3600, userId: fetchedUser.id, userPermission: fetchedUser.userPermission});
