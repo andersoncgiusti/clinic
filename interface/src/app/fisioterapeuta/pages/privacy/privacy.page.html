@@ -1,3 +1,9 @@
+<div *ngIf="!userIsAuthenticated">
+  <div class="img">
+    <ion-img width="50" height="50" src="../../../assets/icon/denied.png"></ion-img>
+  </div>
+</div>
+
 <ion-header *ngIf="userIsAuthenticated">
   <ion-toolbar>
     <ion-title class="agendar">Privacidade</ion-title>
