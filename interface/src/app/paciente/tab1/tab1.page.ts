@@ -105,7 +105,7 @@ export class Tab1Page implements OnInit, OnDestroy {
     //     }
     //   })
     // });
-    this.isLoading = true;
+    // this.isLoading = true;
 
     this.getAgendamentosDay();
     this.schedulingService.getAgendamentos();

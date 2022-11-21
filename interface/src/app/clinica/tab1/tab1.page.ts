@@ -77,7 +77,7 @@ export class Tab1Page implements OnInit, OnDestroy {
       this.userIsAuthenticated = isAuthenticated;
     });
 
-    this.isLoading = true;
+    // this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {

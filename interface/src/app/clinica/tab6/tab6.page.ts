@@ -22,12 +22,10 @@ export class Tab6Page implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1000);
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
+      // this.isLoading = false;
     });
   }
 

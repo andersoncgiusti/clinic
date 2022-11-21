@@ -84,7 +84,9 @@ export class UserIdPage implements OnInit, OnDestroy {
       }
     });
 
-    this.getAllUsers();
+    setTimeout(() => {
+      this.getAllUsers();
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -99,7 +101,10 @@ export class UserIdPage implements OnInit, OnDestroy {
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userId');
       this.user = this.userService.getUsersId(this.id);
-      // console.log(this.id);
+      if (this.id === '') {
+        this.navCtrl.navigateRoot('users');
+      }
+      // console.log(this.id );
     })
   }
 
