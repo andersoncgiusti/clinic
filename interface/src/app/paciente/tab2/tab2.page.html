@@ -1,6 +1,6 @@
-<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading && userIsAuthenticated"></ion-progress-bar>
 
-<ion-header *ngIf="!isLoading">
+<ion-header *ngIf="!isLoading && userIsAuthenticated">
   <ion-toolbar>
     <ion-title class="agendar">
       Prontuário
@@ -9,12 +9,12 @@
 </ion-header>
 
 
-<div class="noUser" *ngIf="this.eventSource.length <= 0">
+<div class="noUser" *ngIf="this.eventSource.length <= 0 && !isLoading && userIsAuthenticated">
   <ion-label>Nenhum comentário adicionado</ion-label>
   <ion-img src="../../../assets/icon/progress.png"></ion-img>
 </div>
 
-<ion-content *ngIf="this.eventSource.length > 0">
+<ion-content *ngIf="this.eventSource.length > 0 && !isLoading && userIsAuthenticated">
   <ion-card *ngFor="let item of eventSource">
     <ion-card-content>{{ item.treatment }}</ion-card-content>
   </ion-card>

@@ -1,6 +1,6 @@
-<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading && userIsAuthenticated"></ion-progress-bar>
 
-<ion-content *ngIf="!isLoading">
+<ion-content *ngIf="!isLoading && userIsAuthenticated">
   <!-- <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)"> -->
     <ion-toolbar color="primary">
       <ion-buttons slot="start">

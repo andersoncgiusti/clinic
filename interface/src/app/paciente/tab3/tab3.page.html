@@ -1,7 +1,7 @@
 
-<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading && userIsAuthenticated"></ion-progress-bar>
 
-<ion-header>
+<ion-header *ngIf="!isLoading && userIsAuthenticated">
   <ion-toolbar>
     <ion-title class="agendar">
       Suas Compras
@@ -10,12 +10,12 @@
 </ion-header>
 
 
-<div class="noUser" *ngIf="this.eventSource.length <= 0">
+<div class="noUser" *ngIf="this.eventSource.length <= 0 && !isLoading && userIsAuthenticated">
   <ion-label>Nenhuma compra de pacote de sessões feita</ion-label>
   <ion-img src="../../../assets/icon/sales.png"></ion-img>
 </div>
 
-<ion-content *ngIf="this.eventSource.length > 0">
+<ion-content *ngIf="this.eventSource.length > 0 && !isLoading && userIsAuthenticated">
   <ion-card *ngFor="let item of eventSource">
     <div>
       <ion-list>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
 import { LoadingController } from '@ionic/angular';
@@ -9,18 +9,21 @@ import { CalModalPage } from 'src/app/paciente/pages/cal-modal/cal-modal.page';
 import { CashService } from 'src/app/services/cash.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TotalService } from 'src/app/services/total.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
   eventSource = [];
   SourceEvent = [];
+
   viewTitle: string;
   showAddEvent: boolean;
   count: number;
+
   schedulingDay;
   sessionId;
   idSession;
@@ -40,6 +43,9 @@ export class Tab1Page implements OnInit {
 
   total = [];
   private totalSub: Subscription;
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
 
   isLoading = false;
 
@@ -67,9 +73,15 @@ export class Tab1Page implements OnInit {
     public cashService: CashService,
     public sessionService: SessionService,
     public totalService: TotalService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     // this.totalService.getTotal();
     // this.totalSub = this.totalService.getTotalUpdated()
     // .subscribe((total) => {
@@ -147,6 +159,10 @@ export class Tab1Page implements OnInit {
       }
       this.isLoading = false;
     })
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   getAgendamentosDay() {
