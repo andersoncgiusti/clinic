@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LoadingController, ModalController, NavController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -8,13 +8,14 @@ import { UserService } from 'src/app/services/user.service';
 import { AlertController } from '@ionic/angular';
 import { TotalService } from 'src/app/services/total.service';
 import { SessionService } from 'src/app/services/session.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cal-modal',
   templateUrl: './cal-modal.page.html',
   styleUrls: ['./cal-modal.page.scss'],
 })
-export class CalModalPage implements OnInit {
+export class CalModalPage implements OnInit, OnDestroy {
   id: string;
   title: string;
   titleUp: string;
@@ -51,6 +52,9 @@ export class CalModalPage implements OnInit {
   public string_id: String;
   isLoading = false;
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     public modalController: ModalController,
     public navParams: NavParams,
@@ -62,6 +66,7 @@ export class CalModalPage implements OnInit {
     public totalService: TotalService,
     private loadingCtrl: LoadingController,
     public sessionService: SessionService,
+    private authService: AuthService
   ) {
 
     this.id = navParams.get('id');
@@ -154,10 +159,19 @@ export class CalModalPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.isLoading = true;
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
+    this.isLoading = true;
     // this.initAgendamentos();
     this.getAgendamentos();
     this.refreshScheduling();
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   initAgendamentos() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewChild, OnDestroy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
@@ -12,6 +12,7 @@ import { CashService } from 'src/app/services/cash.service';
 import { Cash } from 'src/app/models/cash.model';
 import { Session } from 'src/app/models/session.model';
 import { SessionService } from 'src/app/services/session.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab2',
@@ -19,7 +20,7 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['tab2.page.scss']
 })
 
-export class Tab2Page implements OnInit {
+export class Tab2Page implements OnInit, OnDestroy {
   eventSource = [];
   eventSources = [];
   viewTitle: string;
@@ -40,6 +41,9 @@ export class Tab2Page implements OnInit {
 
   sessions = [];
   private sessionsSub: Subscription;
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
 
   session: Session[] = [];
 
@@ -68,11 +72,16 @@ export class Tab2Page implements OnInit {
     public userService: UserService,
     public cashService: CashService,
     public sessionService: SessionService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.isLoading = true;
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
+    this.isLoading = true;
     // this.cashService.getCashs();
     // this.cashsSub = this.cashService.getCashUpdated()
     // .subscribe((cashs: Cash[]) => {
@@ -132,6 +141,10 @@ export class Tab2Page implements OnInit {
         this.isLoading = false;
       })
     });
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   updatedScheduling() {

@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-// const authMiddleware = require('../middlewares/check-auth');
-
-// router.use(authMiddleware);
+const checkAuth = require('../middlewares/check-auth');
 
 const cashController = require('../controllers/cash.controller');
 
-router.get('/api/cash' , cashController.cashGet);
+router.get('/api/cash', cashController.cashGet);
 router.get('/api/cash/:id', cashController.cashGetId);
 router.post('/api/cash', cashController.cashPost);
 router.put('/api/cash/:id', cashController.cashPatchId);

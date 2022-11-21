@@ -14,10 +14,10 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
     const isAuth = this.authService.getIsAuth();
-    console.log(isAuth);
+    console.log('isAuth fora', isAuth);
 
     if (!isAuth) {
-      console.log(isAuth);
+      console.log('isAuth dentro', isAuth);
       this.router.navigate(['/login']);
     }
     return isAuth;

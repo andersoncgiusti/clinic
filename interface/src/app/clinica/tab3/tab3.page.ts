@@ -1,17 +1,18 @@
 import { UserService } from '../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AnimationController, LoadingController, NavController } from '@ionic/angular';
 import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { TotalService } from 'src/app/services/total.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page implements OnInit {
+export class Tab3Page implements OnInit, OnDestroy {
 
   paciente = false;
   admin = false;
@@ -42,6 +43,9 @@ export class Tab3Page implements OnInit {
   public password = '';
   public userPassword = '';
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     private animationCtrl: AnimationController,
     public userService: UserService,
@@ -49,11 +53,16 @@ export class Tab3Page implements OnInit {
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     public totalService: TotalService,
+    private authService: AuthService
     ) {}
 
   ngOnInit() {
-    this.isLoading = true;
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
+    this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
@@ -73,6 +82,9 @@ export class Tab3Page implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.usersSub.unsubscribe();
+  }
   routerUser() {
     this.getUsers();
   }
@@ -94,10 +106,6 @@ export class Tab3Page implements OnInit {
 
   onDelete(userId: String) {
     this.userService.deleteUser(userId);
-  }
-
-  ngOnDestroy() {
-    this.usersSub.unsubscribe();
   }
 
   cliente() {

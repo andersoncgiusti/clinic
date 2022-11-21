@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Cash } from 'src/app/models/cash.model';
 import { Session } from 'src/app/models/session.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CashService } from 'src/app/services/cash.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -11,7 +12,7 @@ import { SessionService } from 'src/app/services/session.service';
   templateUrl: './cash-details.page.html',
   styleUrls: ['./cash-details.page.scss'],
 })
-export class CashDetailsPage implements OnInit {
+export class CashDetailsPage implements OnInit, OnDestroy {
   cashs: Cash[] = [];
   private cashsSub: Subscription;
 
@@ -26,15 +27,23 @@ export class CashDetailsPage implements OnInit {
   saleDayLength;
   saleMonthLength;
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     public cashService: CashService,
     public sessionService: SessionService,
     private loadingCtrl: LoadingController,
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
-    this.isLoading = true;
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
+    this.isLoading = true;
     // this.cashService.getCashs();
     // this.cashsSub = this.cashService.getCashUpdated()
     // .subscribe((cashs: Cash[]) => {
@@ -43,6 +52,10 @@ export class CashDetailsPage implements OnInit {
     // })
 
     this.getCashs();
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   getCashs() {

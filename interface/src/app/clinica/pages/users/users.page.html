@@ -1,6 +1,6 @@
-<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading && userIsAuthenticated"></ion-progress-bar>
 
-<ion-header *ngIf="!isLoading">
+<ion-header *ngIf="!isLoading && userIsAuthenticated">
   <ion-toolbar>
     <ion-title class="agendar">Usuários</ion-title>
     <ion-buttons slot="end">
@@ -12,7 +12,7 @@
 <!-- <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner> -->
 <!-- <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar> -->
 
-<ion-content *ngIf="!isLoading" (mouseenter)="refresh();">
+<ion-content *ngIf="!isLoading && userIsAuthenticated" (mouseenter)="refresh();">
   <ion-searchbar placeholder="Pesquise" [(ngModel)]="filter"></ion-searchbar><br>
 
   <div *ngIf="this.users.length <= 0">

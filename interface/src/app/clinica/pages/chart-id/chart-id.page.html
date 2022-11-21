@@ -1,7 +1,7 @@
 
-<ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+<ion-progress-bar type="indeterminate" *ngIf="isLoading && userIsAuthenticated"></ion-progress-bar>
 
-<ion-header *ngIf="!isLoading">
+<ion-header *ngIf="!isLoading && userIsAuthenticated">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="light" (click)="navigateChart();">Cancelar</ion-button>
@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!isLoading">
+<ion-content *ngIf="!isLoading && userIsAuthenticated">
   <div>
     <!-- <ion-avatar>
       <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>

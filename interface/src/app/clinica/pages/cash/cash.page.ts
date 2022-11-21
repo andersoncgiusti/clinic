@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CashService } from 'src/app/services/cash.service';
 import { Cash } from 'src/app/models/cash.model';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cash',
   templateUrl: './cash.page.html',
   styleUrls: ['./cash.page.scss'],
 })
-export class CashPage implements OnInit {
+export class CashPage implements OnInit, OnDestroy {
   cashs: Cash[] = [];
   private cashsSub: Subscription;
   isLoading = false;
@@ -29,9 +30,20 @@ export class CashPage implements OnInit {
   debtTotalMonth;
   moneyTotalMonth;
 
-  constructor(public cashService: CashService) { }
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
+  constructor(
+    public cashService: CashService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.isLoading = true;
     this.cashService.getModule()
     .subscribe((data) => {
@@ -53,5 +65,9 @@ export class CashPage implements OnInit {
       this.totalMonthValue = this.creditTotalMonth + this.debtTotalMonth + this.moneyTotalMonth;
       this.isLoading = false;
     });
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }

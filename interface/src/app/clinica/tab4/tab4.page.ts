@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Cash } from 'src/app/models/cash.model';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CashService } from 'src/app/services/cash.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TotalService } from 'src/app/services/total.service';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './tab4.page.html',
   styleUrls: ['./tab4.page.scss'],
 })
-export class Tab4Page implements OnInit {
+export class Tab4Page implements OnInit, OnDestroy {
   eventSource = [];
   eventSources = [];
   eventSourcess = [];
@@ -33,17 +34,25 @@ export class Tab4Page implements OnInit {
   sessionss = [];
   private sessionsSub: Subscription;
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     public cashService: CashService,
     public userService: UserService,
     public sessionService: SessionService,
     public totalService: TotalService,
     private loadingCtrl: LoadingController,
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
-    this.isLoading = true;
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
+    this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
@@ -92,6 +101,10 @@ export class Tab4Page implements OnInit {
     //   console.log(this.eventSources);
     //   this.isLoading = false;
     // })
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   package = {

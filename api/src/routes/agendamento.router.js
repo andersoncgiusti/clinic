@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const authMiddleware = require('../middlewares/check-auth');
-
-// router.use(authMiddleware);
+const checkAuth = require('../middlewares/check-auth');
 
 const agendamentoController = require('../controllers/agendamento.controller');
 

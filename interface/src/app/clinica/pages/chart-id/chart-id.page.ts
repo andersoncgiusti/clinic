@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
@@ -8,13 +8,14 @@ import { ChartService } from 'src/app/services/chart.service';
 import { Chart } from 'src/app/models/chart.model';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { userChart } from 'src/app/models/user-chart.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-chart-id',
   templateUrl: './chart-id.page.html',
   styleUrls: ['./chart-id.page.scss'],
 })
-export class ChartIdPage implements OnInit {
+export class ChartIdPage implements OnInit, OnDestroy {
 
   usersPacient: User[] = [];
   eventSource = [];
@@ -47,6 +48,9 @@ export class ChartIdPage implements OnInit {
   public treatment = '';
   public created = '';
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     public userService: UserService,
     public router: ActivatedRoute,
@@ -54,9 +58,15 @@ export class ChartIdPage implements OnInit {
     private navCtrl: NavController,
     public modalController: ModalController,
     private loadingCtrl: LoadingController,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.isLoading = true;
 
     this.getChartParams();
@@ -87,6 +97,9 @@ export class ChartIdPage implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
 
   getChartParams() {
     this.isLoading = true;

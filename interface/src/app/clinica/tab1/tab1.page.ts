@@ -72,12 +72,12 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isLoading = true;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
 
+    this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {

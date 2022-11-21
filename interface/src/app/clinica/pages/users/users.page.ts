@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
 })
-export class UsersPage implements OnInit {
+export class UsersPage implements OnInit, OnDestroy {
 
   users: User[] = [];
   eventSource = [];
@@ -34,14 +35,23 @@ export class UsersPage implements OnInit {
   private mode = '';
   private userId: String;
 
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   constructor(
     public userService: UserService,
     private navCtrl: NavController,
     public router: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.isLoading = true;
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
@@ -49,6 +59,10 @@ export class UsersPage implements OnInit {
       this.isLoading = false;
       this.users = users;
     });
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   refresh() {

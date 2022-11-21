@@ -307,11 +307,11 @@ Content-Type: application/json
 
 {    
     "userEmail": "anderson.giusti12@gmail.com",
-    "password" : "37593539830"
+    "password" : "123456"
 }
    
 ###
-GET  http://localhost:3000/api/project 
+GET  http://localhost:3000/api/status 
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzRhYjUzOTgxYjE0YTZkNWJhYmFiMyIsImlhdCI6MTY2ODAyODQ3MCwiZXhwIjoxNjY4MTE0ODcwfQ.G8anbLiK8BAeQdw0AjFBlw8NQWp6sciIobx-Aeu14Xs
 
 ###
@@ -438,3 +438,17 @@ Content-Type: application/json
 ###
 ###
 PUT  http://localhost:3000/api/session_totals/6377ce50e7d94943c75e2e3c
+###
+POST http://localhost:3000/api/user_authenticate
+Content-Type: application/json
+
+{    
+    "userEmail": "anderson.giusti12@gmail.com",
+    "password" : "123456"
+}
+   
+###
+GET  http://localhost:3000/api/status 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhbmRlcnNvbi5naXVzdGkxMkBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MzczOWM5ZjNmMmQ4MDE1YjhkMzEyOTciLCJ1c2VyUGVybWlzc2lvbiI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NjkwNDE3NzksImV4cCI6MTY2OTA0NTM3OX0.CHZ4_Em6RBlFJINON8TcbVCjtMj-_AG7zAaDnHEnCZ4
+
+###

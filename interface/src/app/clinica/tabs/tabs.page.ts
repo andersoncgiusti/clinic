@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Scheduling } from 'src/app/models/scheduling.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,7 +10,7 @@ import { SchedulingService } from 'src/app/services/scheduling.service';
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
-export class TabsPage implements OnInit {
+export class TabsPage implements OnInit, OnDestroy {
 
   agendamentos: Scheduling[] = [];
   private agendamentosSub: Subscription;
@@ -49,5 +49,9 @@ export class TabsPage implements OnInit {
         this.schedulingDay = data.agendamentoDay;
       })
     }, 60000);
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }
