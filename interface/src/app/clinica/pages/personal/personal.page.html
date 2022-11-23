@@ -16,9 +16,8 @@
 </ion-header>
 
 <ion-content *ngIf="!isLoading && userIsAuthenticated">
-  <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
 
-  <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)" *ngIf="!isLoading">
+  <form #frm="ngForm" (ngSubmit)="ngSubmit(frm)">
 
     <!-- <ion-avatar slot="start" class="avatarId">
       <ion-img src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>

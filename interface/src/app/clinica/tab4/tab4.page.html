@@ -86,8 +86,8 @@
   <ion-item class="venda">
     <ion-label class="total">Total da venda</ion-label>
     <ion-input style="display: none;" slot="end" type="number" min="0" [(ngModel)]="package.total" readonly>{{ this.valueTotal }}</ion-input>
-    <!-- <ion-input *ngIf="this.valueTotalFormated <= '1'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} real</ion-input>
-    <ion-input *ngIf="this.valueTotalFormated >= '2'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} reais</ion-input> -->
+    <ion-input *ngIf="this.valueTotalFormated <= '1'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} real</ion-input>
+    <ion-input *ngIf="this.valueTotalFormated >= '2'" slot="end" type="number" min="0" readonly>R$ {{ this.valueTotalFormated }} reais</ion-input>
   </ion-item>
 
   <ion-button expand="block" type="submit" (click)="sales(); clearCash(); session(); start();"

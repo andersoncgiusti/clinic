@@ -10,7 +10,7 @@ const prontuarioRouter = require('./routes/prontuarios.router');
 const cashRouter = require('./routes/cash.router');
 const totalRouter = require('./routes/total.router');
 const sessionsRouter = require('./routes/sessions.router');
-
+   
 // const projectRouter = require('./routes/project.router');
 
 app.use(express.urlencoded({ extended: false }));
@@ -27,7 +27,11 @@ app.use((req, res, next) => {
       "GET, POST, PATCH, PUT, DELETE, OPTIONS"
     );
     next();
-});
+});  
+
+app.get('/', (req, res) => {
+  res.json({ success: true })
+})
 
 app.use(authRouter);
 app.use(userRouter);

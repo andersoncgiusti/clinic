@@ -163,8 +163,6 @@ export class CalModalPage implements OnInit, OnDestroy {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
-
-    this.isLoading = true;
     // this.initAgendamentos();
     this.getAgendamentos();
     this.refreshScheduling();
@@ -175,11 +173,12 @@ export class CalModalPage implements OnInit, OnDestroy {
   }
 
   initAgendamentos() {
+    // this.isLoading = true;
     this.schedulingService.getAgendamentos();
     this.agendamentosSub = this.schedulingService.getAgendamentosUpdated()
     .subscribe((agendamentos: Scheduling[]) => {
       this.agendamentos = agendamentos;
-      // this.isLoading = false;
+      this.isLoading = false;
       const allscheduling = [];
 
       this.agendamentos.forEach((resp) => {

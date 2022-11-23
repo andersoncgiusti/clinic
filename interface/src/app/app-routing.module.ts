@@ -27,7 +27,8 @@ const routes: Routes = [
   //>>>>>>>>>>>>>>>>>>>> PACIENTE
   {
     path: '',
-    loadChildren: () => import('./paciente/tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./paciente/tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'tab4',

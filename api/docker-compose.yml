@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  my-app: 
+    image: .
+    ports: 
+      - 3000:3000
+    environment:
+      - DATABASE_STRING="mongodb+srv://anderson-giusti:dfpk2OITruTEU2cY@cluster0.0iqosq4.mongodb.net/?retryWrites=true&w=majority"

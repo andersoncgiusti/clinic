@@ -46,6 +46,6 @@ export class LoginPage implements OnInit {
     setTimeout(() => {
       this.message = true;
       this.isLoading = false;
-    }, 9000)
+    }, 20000)
   }
 }

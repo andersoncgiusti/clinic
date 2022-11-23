@@ -82,9 +82,6 @@ export class ChartIdPage implements OnInit, OnDestroy {
 
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userPacientId');
-      if (this.id === '') {
-        this.navCtrl.navigateRoot('chart');
-      }
       this.user = this.userService.getChartId(this.id);
       this.idUser = this.user.id;
       this.userService.getChartsUser(this.idUser);

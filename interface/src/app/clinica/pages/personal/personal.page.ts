@@ -121,7 +121,6 @@ export class PersonalPage implements OnInit, OnDestroy {
     if (frm.invalid) {
       return;
     }
-    console.log(frm.value);
 
     this.userService.updateUser(
       frm.value.id,

@@ -3,7 +3,7 @@ const http = require('http');
 const app = require('./src/app');
 const mongoose = require('mongoose');
 
-const port = 3000;
+const port = 3001;
 const server = http.createServer(app);
 
 //conection with database MongoDb

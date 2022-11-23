@@ -12,11 +12,19 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-id.page.scss'],
 })
 export class UserIdPage implements OnInit, OnDestroy {
+
+  userIsAuthenticated = false;
+  private authStatusSub!: Subscription;
+
   eventSource = [];
-  users: User[] = [];
-  user;
+
   isLoading = false;
+
+  user;
+
+  users: User[] = [];
   private usersSub: Subscription;
+
   public id = '';
   public userName = '';
   public userLastName = '';
@@ -35,9 +43,6 @@ export class UserIdPage implements OnInit, OnDestroy {
   public phone = '';
   public birth = '';
   private mode = '';
-
-  userIsAuthenticated = false;
-  private authStatusSub!: Subscription;
 
   constructor(
     public userService: UserService,
@@ -64,7 +69,10 @@ export class UserIdPage implements OnInit, OnDestroy {
       this.userIsAuthenticated = isAuthenticated;
     });
 
+    this.getAllUsers();
+
     this.isLoading = true;
+
     this.userService.getUsers();
     this.usersSub = this.userService.getUsersUpdated()
     .subscribe((users: User[]) => {
@@ -83,10 +91,6 @@ export class UserIdPage implements OnInit, OnDestroy {
         return this.phone = phone.replace(/[^0-9]/g, "").replace(/^([\d]{2})([\d]{4})?([\d]{4})?/, "($1) $2-$3");
       }
     });
-
-    setTimeout(() => {
-      this.getAllUsers();
-    }, 1000);
   }
 
   ngOnDestroy() {
@@ -95,22 +99,32 @@ export class UserIdPage implements OnInit, OnDestroy {
 
   redirectUser() {
     this.navCtrl.navigateRoot('users');
+    setTimeout(() => {
+      // this.isLoading = true;
+    }, 10000);
   }
 
   getAllUsers() {
+    this.isLoading = false;
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get('userId');
       this.user = this.userService.getUsersId(this.id);
-      if (this.id === '') {
-        this.navCtrl.navigateRoot('users');
-      }
-      // console.log(this.id );
     })
+  }
+
+  getAll() {
+    this.userService.getUsers();
+    this.usersSub = this.userService.getUsersUpdated()
+    .subscribe((users: User[]) => {
+      this.users = users;
+    });
   }
 
   onDelete(userId: String) {
     this.userService.deleteUser(userId);
-    this.getAllUsers();
+    // setTimeout(() => {
+    //   this.getAll();
+    // }, 1000);
     this.showLoading();
   }
 
@@ -135,21 +149,11 @@ export class UserIdPage implements OnInit, OnDestroy {
       frm.value.userPermission,
       frm.value.userPassword
     )
-    // this.getAllUsers();
-    // setTimeout(() => {
-    //   this.navCtrl.navigateRoot('users');
-    // }, 1000);
+    setTimeout(() => {
+      this.getAll();
+    }, 1000);
     this.showLoading();
   }
-
-  // navigate() {
-  //   setTimeout(() => {
-  //     console.log('ok');
-
-  //     this.navCtrl.navigateRoot('users');
-  //     this.getAllUsers();
-  //   }, 1000);
-  // }
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({

@@ -20,8 +20,10 @@ export class InitPage implements OnInit {
       this.isLoading = true;
       setTimeout(() => {
         this.navCtrl.navigateRoot('login');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
       }, 3000)
     }, 5000)
   }
-
 }
