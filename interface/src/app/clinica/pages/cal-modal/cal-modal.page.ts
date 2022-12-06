@@ -98,7 +98,7 @@ export class CalModalPage implements OnInit, OnDestroy {
       frm.value.idEdt,
       frm.value.monthEdt,
       frm.value.startTimeEdt,
-      frm.value.titleEdt + ' - REMARCADO',
+      frm.value.titleEdt + ' - RE',
       frm.value.userEdt
     );
 
